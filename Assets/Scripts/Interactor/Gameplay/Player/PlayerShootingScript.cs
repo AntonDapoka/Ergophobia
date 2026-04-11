@@ -1,41 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerShootingScript : MonoBehaviour
 {
-
     [SerializeField] private GameObject prefabBulletBasic;
     [SerializeField] private GameObject prefabBulletMighty;
     [SerializeField] private GameObject prefabBulletRandom;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private Transform aimTarget; // цель, в которую стреляем
-    [SerializeField] private float shootInterval = 0.2f; 
-
-
-    private bool isShooting = false;
-
-    /*private void Update()
-    {
-        if (isShooting == false && Input.GetMouseButtonDown(0))
-        {
-            isShooting = true;
-            StartCoroutine(ShootingLoop());
-        }
-        else if (isShooting == true && Input.GetMouseButtonDown(0))
-        {
-            isShooting = false;
-        }
-    }
-
-    private IEnumerator ShootingLoop()
-    {
-        while (isShooting)
-        {
-            ShootBullet();
-            yield return new WaitForSeconds(shootInterval);
-        }
-    }*/
+    [SerializeField] private Transform aimTarget;
 
     public void ShootBullet(BlockType blockType)
     {
@@ -49,7 +20,7 @@ public class PlayerShootingScript : MonoBehaviour
                 break;
             case BlockType.BulletRandom:
                 if (Random.Range(0, 2) == 0)
-                    prefabToSpawn = prefabBulletMighty;  // как BulletFire
+                    prefabToSpawn = prefabBulletMighty;  // пїЅпїЅпїЅ BulletFire
                 else
                     prefabToSpawn = prefabBulletBasic;
                 break;
@@ -63,7 +34,7 @@ public class PlayerShootingScript : MonoBehaviour
 
         if (prefabToSpawn == null)
         {
-            //Debug.LogError($"Prefab for blockType {blockType} is not assigned!");
+            Debug.LogError($"Prefab for blockType {blockType} is not assigned!");
             return;
         }
 

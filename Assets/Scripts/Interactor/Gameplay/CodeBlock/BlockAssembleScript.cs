@@ -1,9 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static Unity.Collections.AllocatorManager;
 using TMPro;
 
 public class BlockAssembleScript : MonoBehaviour
@@ -52,7 +49,7 @@ public class BlockAssembleScript : MonoBehaviour
             {
                 for (int i = minIndex; i < maxIndex; i++)
                 {
-                    // Сначала сбрасываем цвет всех слотов в нормальный
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     for (int j = 0; j < assemblerSlots.Length; j++)
                     {
                         Image img = assemblerSlots[j].GetComponent<Image>();
@@ -62,7 +59,7 @@ public class BlockAssembleScript : MonoBehaviour
 
                     AssemblerSlotScript slot = assemblerSlots[i];
 
-                    // Затемняем текущий слот
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                     var currentImage = slot.GetComponent<Image>();
                     if (currentImage != null)
                         currentImage.color = Color.white * 0.7f;
