@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ad5509627f65d96e6b8e51828b8acc23
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 201602
+  packageName: Blocks Engine 2
+  packageVersion: 2.13.4
+  assetPath: Assets/BlocksEngine2/Saves/TestSave2.BE2
+  uploadId: 765548
