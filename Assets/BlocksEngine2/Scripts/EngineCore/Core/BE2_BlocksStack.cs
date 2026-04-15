@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +20,7 @@ namespace MG_BlocksEngine2.Core
 
         public I_BE2_TargetObject TargetObject { get; set; }
         public I_BE2_Instruction TriggerInstruction { get; set; }
+        
         public bool IsActive
         {
             get => _isActive;

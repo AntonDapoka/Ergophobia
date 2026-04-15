@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace MG_BlocksEngine2.Core
                 if (_instance == null)
                 {
                     // v2.11 - custom InputManagers derived only from the I_BE2_InputManager interface (not from the BE2_InputManager class) can be used 
-                    foreach (GameObject go in FindObjectsOfType<GameObject>())
+                    foreach (GameObject go in FindObjectsByType<GameObject>())
                     {
                         _instance = go.GetComponent<I_BE2_InputManager>();
                         if (_instance != null)

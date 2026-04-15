@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MG_BlocksEngine2.Environment
@@ -38,6 +37,7 @@ namespace MG_BlocksEngine2.Environment
             newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
             StartCoroutine(C_DestroyTime(newBullet));
         }
+        
         IEnumerator C_DestroyTime(GameObject go)
         {
             yield return new WaitForSeconds(1f);

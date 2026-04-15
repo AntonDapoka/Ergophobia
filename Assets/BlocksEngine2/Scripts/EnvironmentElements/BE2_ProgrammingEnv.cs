@@ -12,7 +12,6 @@ namespace MG_BlocksEngine2.Environment
     public class BE2_ProgrammingEnv : MonoBehaviour, I_BE2_ProgrammingEnv
     {
         Transform _transform;
-        RectTransform _rectTransform;
         public Transform Transform => _transform ? _transform : transform;
         public List<I_BE2_Block> BlocksList { get; set; }
         public BE2_TargetObject targetObject;
@@ -65,7 +64,6 @@ namespace MG_BlocksEngine2.Environment
             }
 
             _transform = transform;
-            _rectTransform = GetComponent<RectTransform>();
             UpdateBlocksList();
 
             _parentCanvasGroup = GetComponentInParent<CanvasGroup>();
