@@ -48,16 +48,19 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void HandleInput()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Vertical");
+        float vertical = Input.GetAxisRaw("Horizontal");
+        //Has been modified according to the direction of scene.
 
-        Vector3 inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        Vector3 inputDirection = new Vector3(-horizontal, 0f, vertical).normalized;
 
         if (inputDirection != Vector3.zero)
         {
             // ������� �� 45 �������� ������ Y
-            Quaternion rotation = Quaternion.Euler(0f, -135f, 0f);
-            moveDirection = rotation * inputDirection;
+            //Quaternion rotation = Quaternion.Euler(0f, -135f, 0f);
+            // No longer needed in our new game , since it's scene does not tilt along the Y axis.
+            //moveDirection = rotation * inputDirection;
+            moveDirection = inputDirection;
         }
         else
         {

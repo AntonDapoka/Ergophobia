@@ -17,22 +17,22 @@ public class BulletBehaivourScript : MonoBehaviour
 
     private void Update()
     {
-        // Двигаем пулю только в плоскости XZ
+        // Двигае?пулю только ?плоскост?XZ
         Vector3 move = direction * speed * Time.deltaTime;
         transform.position += move;
-        transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Проверка наличия маркеров на столкнувшемся объекте
+        // Проверка наличия маркеров на столкнувшемся объект?
         if (collision.gameObject.GetComponent<WallMarker>() != null ||
             collision.gameObject.GetComponent<EnemyMarker>() != null ||
             collision.gameObject.GetComponent<PlayerMarker>() != null)
         {
-            // Отражение направления относительно нормали
+            // Отражени?направления относительно нормал?
             Vector3 normal = collision.contacts[0].normal;
-            normal.y = 0f; // исключаем вертикальный отскок
+            normal.y = 0f; // исключае?вертикальный отскок
             direction = Vector3.Reflect(direction, normal).normalized;
         }
     }

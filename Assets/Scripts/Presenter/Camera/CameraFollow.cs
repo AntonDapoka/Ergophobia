@@ -6,9 +6,15 @@ public class CameraFollow : MonoBehaviour
 {
     public bool isTurnOn = true;
 
-    [SerializeField] private Transform targetFollow;  // Объект, за которым двигается камера
-    [SerializeField] private Transform targetLook;    // Объект, на который камера смотрит
+    [Header("Target Settings")]
+    [SerializeField] private Transform targetFollow;
+    [SerializeField] private Transform targetLook;
     [SerializeField] private float followSpeed = 5f;
+
+    [Header("Z-Axis Limits")]
+   
+    public float minZLimit = -100f;
+    public float maxZLimit = 100f;
 
     private void Start()
     {
@@ -16,8 +22,6 @@ public class CameraFollow : MonoBehaviour
         {
             transform.position = targetFollow.position;
         }
-
-        UpdateRotation();
     }
 
     private void LateUpdate()
@@ -26,22 +30,19 @@ public class CameraFollow : MonoBehaviour
 
         if (targetFollow != null)
         {
-            transform.position = Vector3.Lerp(
+            //get
+            Vector3 smoothPosition = Vector3.Lerp(
                 transform.position,
                 targetFollow.position,
                 followSpeed * Time.deltaTime
             );
-        }
 
-        UpdateRotation();
-    }
+            // Limit the Z position
+            // Mathf.Clamp 
+            float clampedZ = Mathf.Clamp(smoothPosition.z, minZLimit, maxZLimit);
 
-    private void UpdateRotation()
-    {
-        if (targetLook != null)
-        {
-            Vector3 direction = targetLook.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(direction);
+            //apply
+            transform.position = new Vector3(transform.position.x, transform.position.y, clampedZ);
         }
     }
 }
