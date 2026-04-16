@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DragDropManagerScript : MonoBehaviour //Change from Singleton to smthg else
 {
-    /*
-    private BE2_UI_ContextMenuManager _contextMenuManager;
+    //private BE2_UI_ContextMenuManager _contextMenuManager; !!!!!!!!!!!!!!!!!!!!!!!!!
 
     // v2.6 - BE2_DragDropManager using instance as property to guarantee return
     private static DragDropManagerScript _instance;
@@ -77,33 +76,33 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
 
     private void Start()
     {
-        _contextMenuManager = BE2_UI_ContextMenuManager.instance;
+        //_contextMenuManager = BE2_UI_ContextMenuManager.instance; !!!!!!!!!!!!!!!
     }
 
     private void OnEnable()
     {
         Instance = this;
 
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyDown, OnPointerDown);
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnSecondaryKeyDown, OnRightPointerDownOrHold);
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyHold, OnRightPointerDownOrHold);
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnDrag, OnDrag);
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyUp, OnPointerUp);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnPrimaryKeyDown, OnPointerDown);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnSecondaryKeyDown, OnRightPointerDownOrHold);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnPrimaryKeyHold, OnRightPointerDownOrHold);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnDrag, OnDrag);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnPrimaryKeyUp, OnPointerUp);
 
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnAuxKeyDown, DisableGroupDrag);
-        BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnAuxKeyUp, EnableGroupDrag);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnAuxKeyDown, DisableGroupDrag);
+        MainEventsManagerScript.Instance.StartListening(EventTypes.OnAuxKeyUp, EnableGroupDrag);
     }
 
     private void OnDisable()
     {
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyDown, OnPointerDown);
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnSecondaryKeyDown, OnRightPointerDownOrHold);
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyHold, OnRightPointerDownOrHold);
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnDrag, OnDrag);
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyUp, OnPointerUp);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnPrimaryKeyDown, OnPointerDown);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnSecondaryKeyDown, OnRightPointerDownOrHold);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnPrimaryKeyHold, OnRightPointerDownOrHold);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnDrag, OnDrag);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnPrimaryKeyUp, OnPointerUp);
 
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnAuxKeyDown, DisableGroupDrag);
-        BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnAuxKeyUp, EnableGroupDrag);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnAuxKeyDown, DisableGroupDrag);
+        MainEventsManagerScript.Instance.StopListening(EventTypes.OnAuxKeyUp, EnableGroupDrag);
     }
 
     // v2.13 - BE2_DragDropManager.OnPointerDown made coroutine again to fix issues on using the device simulator
@@ -112,7 +111,7 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
     {
         yield return new WaitForEndOfFrame();
 
-        IDrag drag = Raycaster.GetDragAtPosition(BE2_InputManager.Instance.ScreenPointerPosition);
+        IDrag drag = Raycaster.GetDragAtPosition(CodeBlockInputManagerScript.Instance.ScreenPointerPosition);
         if (drag != null)
         {
             CurrentDrag = drag;
@@ -130,7 +129,7 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
 
     private void OnRightPointerDownOrHold()
     {
-        IDrag drag = Raycaster.GetDragAtPosition(BE2_InputManager.Instance.ScreenPointerPosition);
+        IDrag drag = Raycaster.GetDragAtPosition(CodeBlockInputManagerScript.Instance.ScreenPointerPosition);
         if (drag != null)
         {
             drag.OnRightPointerDownOrHold();
@@ -146,7 +145,7 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
             {
                 // v2.13 - invoke the OnDragStart event 
                 CurrentDrag.OnDragStart();
-                BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnDragStart);
+                MainEventsManagerScript.Instance.TriggerEvent(EventTypes.OnDragStart);
 
                 StartCoroutine(C_HandleDragEvents(CurrentDrag.Block));
             }
@@ -168,11 +167,11 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
 
         CurrentDrag = null;
         // CurrentSpot = null;
-        ConnectionPoint = new BE2_Raycaster.ConnectionPoint();
+        ConnectionPoint = new RaycasterScript.ConnectionPoint();
         GhostBlockTransform.SetParent(null);
         isDragging = false;
 
-        BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnPrimaryKeyUpEnd);
+        MainEventsManagerScript.Instance.TriggerEvent(EventTypes.OnPrimaryKeyUpEnd);
     }
 
     // v2.12 - bugfix: drop events not being called correctly, events handler refactored 
@@ -180,71 +179,74 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
     {
         yield return new WaitForEndOfFrame();
 
-        BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDrop, block as Object ? block : null);
-        BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnBlockDrop);
+        MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDrop, block as Object ? block : null);
+        MainEventsManagerScript.Instance.TriggerEvent(EventTypes.OnBlockDrop);
 
         if (block as Object != null)
         {
-            block.Instruction.InstructionBase.BlocksStack = block.Transform.GetComponentInParent<I_BE2_BlocksStack>();
-            block.ParentSection = block.Transform.GetComponentInParent<I_BE2_BlockSection>();
+            //block.Instruction.InstructionBase.BlocksStack = block.Transform.GetComponentInParent<I_BE2_BlocksStack>();
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            block.ParentSection = block.Transform.GetComponentInParent<IBlockSection>();
 
             if (block.ParentSection == null)
             {
-                BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDropAtProgrammingEnv, block);
+                MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDropAtProgrammingEnv, block);
             }
             else
             {
-                if (block.Transform.parent.GetComponent<I_BE2_BlockSectionHeader>() != null)
+                /*if (block.Transform.parent.GetComponent<I_BE2_BlockSectionHeader>() != null)
                 {
-                    BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDropAtInputSpot, block);
+                    MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDropAtInputSpot, block);
                 }
                 else
                 {
-                    BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDropAtStack, block);
-                }
+                    MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDropAtStack, block);
+                }*/
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             }
         }
         else
         {
-            BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDropDestroy, null);
+            MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDropDestroy, null);
         }
     }
 
     private IEnumerator C_HandleDragEvents(ICodeBlock block)
     {
-        I_BE2_BlockSectionHeader parentHeader = null;
+        MainEventsManagerScript parentHeader = null;
         if (block as Object != null)
         {
-            block.Instruction.InstructionBase.BlocksStack = block.Transform.GetComponentInParent<I_BE2_BlocksStack>();
-            block.ParentSection = block.Transform.GetComponentInParent<IBlockSection>();
-            parentHeader = block.Transform.parent.GetComponent<I_BE2_BlockSectionHeader>();
+            //block.Instruction.InstructionBase.BlocksStack = block.Transform.GetComponentInParent<I_BE2_BlocksStack>();
+            //.ParentSection = block.Transform.GetComponentInParent<IBlockSection>();
+            //parentHeader = block.Transform.parent.GetComponent<I_BE2_BlockSectionHeader>();
+            //!!!!!!!!!!!!!!!!!!!!!!!
         }
 
         yield return new WaitForEndOfFrame();
 
-        BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDragOut, block as Object ? block : null);
+        MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDragOut, block as Object ? block : null);
 
         if (block as Object != null)
         {
             if (parentHeader != null)
             {
-                BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDragFromInputSpot, block);
+                MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDragFromInputSpot, block);
             }
             else
             {
                 if (block.ParentSection == null)
                 {
-                    BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDragFromProgrammingEnv, block);
+                    MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDragFromProgrammingEnv, block);
                 }
                 else
                 {
-                    BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDragFromStack, block);
+                    MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDragFromStack, block);
                 }
             }
         }
         else
         {
-            BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnDragFromOutside, null);
+            MainEventsManagerScript.Instance.TriggerEvent(EventTypesBlock.OnDragFromOutside, null);
         }
     }
 
@@ -258,5 +260,5 @@ public class DragDropManagerScript : MonoBehaviour //Change from Singleton to sm
     {
         if (SpotsList.Contains(spot))
             SpotsList.Remove(spot);
-    }*/
+    }
 }

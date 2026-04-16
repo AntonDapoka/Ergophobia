@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using MG_BlocksEngine2.Core;
+﻿using MG_BlocksEngine2.Core;
 using MG_BlocksEngine2.Environment;
 
 namespace MG_BlocksEngine2.Block.Instruction

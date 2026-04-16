@@ -326,7 +326,7 @@ namespace MG_BlocksEngine2.EditorScript
 #if UNITY_EDITOR
             if (!EditorApplication.isPlaying)
             {
-                UnityEditor.AssetDatabase.Refresh();
+                AssetDatabase.Refresh();
             }
 #endif
 

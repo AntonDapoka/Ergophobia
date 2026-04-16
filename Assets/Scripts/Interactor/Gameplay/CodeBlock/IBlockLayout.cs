@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IBlockLayout
+public interface IBlockLayout
 {
     public RectTransform RectTransform { get; set; }
     public IBlockSection[] SectionsArray { get; }

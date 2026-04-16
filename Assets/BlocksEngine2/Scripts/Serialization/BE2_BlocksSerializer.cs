@@ -450,18 +450,18 @@ namespace MG_BlocksEngine2.Serializer
 
                             if (item is BE2_BlockSectionHeader_Label)
                             {
-                                GameObject label = MonoBehaviour.Instantiate(BE2_Inspector.Instance.LabelTextTemplate, Vector3.zero, Quaternion.identity,
+                                GameObject label = Object.Instantiate(BE2_Inspector.Instance.LabelTextTemplate, Vector3.zero, Quaternion.identity,
                                                                 block.Layout.SectionsArray[0].Header.RectTransform);
                                 label.GetComponent<TMP_Text>().text = item.Transform.GetComponent<TMP_Text>().text;
                             }
                             else if (item is BE2_BlockSectionHeader_LocalVariable)
                             {
-                                GameObject input = MonoBehaviour.Instantiate(BE2_Inspector.Instance.InputFieldTemplate, Vector3.zero, Quaternion.identity,
+                                GameObject input = Object.Instantiate(BE2_Inspector.Instance.InputFieldTemplate, Vector3.zero, Quaternion.identity,
                                                                 block.Layout.SectionsArray[0].Header.RectTransform);
                             }
                             else if (item is BE2_BlockSectionHeader_Custom)
                             {
-                                GameObject input = MonoBehaviour.Instantiate(BE2_FunctionBlocksManager.Instance.templateDefineCustomHeaderItem, Vector3.zero, Quaternion.identity,
+                                GameObject input = Object.Instantiate(BE2_FunctionBlocksManager.Instance.templateDefineCustomHeaderItem, Vector3.zero, Quaternion.identity,
                                                                 block.Layout.SectionsArray[0].Header.RectTransform);
                                 input.GetComponentInChildren<BE2_BlockSectionHeader_Custom>().serializableValue = item.Transform.GetComponentInChildren<BE2_BlockSectionHeader_Custom>().serializableValue;
                             }
@@ -481,7 +481,7 @@ namespace MG_BlocksEngine2.Serializer
                         System.Type varManagerType = System.Type.GetType(serializableBlock.varManagerName);
                         if (varManagerType != null)
                         {
-                            I_BE2_VariablesManager varManager = MonoBehaviour.FindAnyObjectByType(varManagerType) as I_BE2_VariablesManager;
+                            I_BE2_VariablesManager varManager = Object.FindAnyObjectByType(varManagerType) as I_BE2_VariablesManager;
                             varManager.CreateAndAddVarToPanel(serializableBlock.varName);
                         }
                         else

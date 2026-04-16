@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace MG_BlocksEngine2.Block.Instruction
+﻿namespace MG_BlocksEngine2.Block.Instruction
 {
     public interface I_BE2_Instruction
     {

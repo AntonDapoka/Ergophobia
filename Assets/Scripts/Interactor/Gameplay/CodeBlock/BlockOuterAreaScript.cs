@@ -4,9 +4,9 @@ public abstract class BlockOuterAreaScript
 {
     public BlockOuterAreaScript(Transform transform)
     {
-        this.Transform = transform;
+        Transform = transform;
         _rectTransform = transform as RectTransform;
-        //spotOuterArea = transform.GetComponent<BE2_SpotOuterArea>();
+        //spotOuterArea = transform.GetComponent<BE2_SpotOuterArea>(); !!!!!!!!!!!!!!!!!!!!
 
         childBlocksArray = new ICodeBlock[0];
 
@@ -15,15 +15,15 @@ public abstract class BlockOuterAreaScript
 
     public Transform Transform;
     public RectTransform _rectTransform;
-    //public I_BE2_Spot spotOuterArea;
+    public ISpot spotOuterArea;
     public int childBlocksCount;
     public ICodeBlock[] childBlocksArray;
 
     protected virtual void InitializeLayoutGroup() {}
-/*
+
     public virtual Vector2 GetTopDropPosition(ICodeBlock foundBlock)
     {
-        return foundBlock.Transform.localPosition + new Vector3(0, (BE2_DragDropManager.Instance.GhostBlockTransform as RectTransform).sizeDelta.y - 10, 0);
+        return foundBlock.Transform.localPosition + new Vector3(0, (DragDropManagerScript.Instance.GhostBlockTransform as RectTransform).sizeDelta.y - 10, 0);
     }
 
     public void UpdateChildBlocksList()
@@ -35,7 +35,7 @@ public abstract class BlockOuterAreaScript
             ICodeBlock childBlock = Transform.GetChild(i).GetComponent<ICodeBlock>();
             if (childBlock != null)
             {
-                childBlocksArray = BE2_ArrayUtils.AddReturn(childBlocksArray, childBlock);
+                childBlocksArray = ArrayUtilitiesScript.AddReturn(childBlocksArray, childBlock);
             }
         }
         childBlocksCount = childBlocksArray.Length;
@@ -43,8 +43,8 @@ public abstract class BlockOuterAreaScript
 
     public void UpdateLayout()
     {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform); !!!!!!!!!!!!!
         UpdateChildBlocksList();
-    }*/
+    }
 }
 
