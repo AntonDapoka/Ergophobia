@@ -102,7 +102,7 @@ public class BlockAssembleScript : MonoBehaviour
 
     private void ActivateBlock(DraggableBlockScript block, int index)
     {
-        BlockType type = block.block.typeBlock;
+        /*BlockType type = block.block.typeBlock;
 
         if (type == BlockType.Write)// && disabled[index] != true)
         {
@@ -129,7 +129,7 @@ public class BlockAssembleScript : MonoBehaviour
         if (type == BlockType.IfEvenOdd)// && disabled[index] != true)
         {
             
-        }
+        }*/
     }
 
     private IEnumerator WaitAndTurnOff(GameObject gameObject, float duration)

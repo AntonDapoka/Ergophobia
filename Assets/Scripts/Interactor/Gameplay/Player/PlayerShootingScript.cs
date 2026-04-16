@@ -4,10 +4,9 @@ public class PlayerShootingScript : MonoBehaviour
 {
     [SerializeField] private GameObject prefabBulletBasic;
     [SerializeField] private GameObject prefabBulletMighty;
-    [SerializeField] private GameObject prefabBulletRandom;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform aimTarget;
-
+/*
     public void ShootBullet(BlockType blockType)
     {
 
@@ -50,5 +49,5 @@ public class PlayerShootingScript : MonoBehaviour
         {
             Debug.Log("Problemssss");
         }
-    }
+    }*/
 }

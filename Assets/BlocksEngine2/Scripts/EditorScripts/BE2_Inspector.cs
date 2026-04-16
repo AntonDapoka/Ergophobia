@@ -20,9 +20,7 @@ namespace MG_BlocksEngine2.EditorScript
             get
             {
                 if (!_instance)
-                {
-                    _instance = GameObject.FindObjectOfType<BE2_Inspector>();
-                }
+                    _instance = FindObjectOfType<BE2_Inspector>();
                 return _instance;
             }
             set => _instance = value;

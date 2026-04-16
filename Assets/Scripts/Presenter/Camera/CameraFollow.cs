@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public bool isTurnOn = true;
 
-    [SerializeField] private Transform targetFollow;  // Объект, за которым двигается камера
-    [SerializeField] private Transform targetLook;    // Объект, на который камера смотрит
+    [SerializeField] private Transform targetFollow;
+    [SerializeField] private Transform targetLook;
+
     [SerializeField] private float followSpeed = 5f;
+
+    [SerializeField] private float horizontalOffset = 0f;
 
     private void Start()
     {
@@ -40,8 +41,10 @@ public class CameraFollow : MonoBehaviour
     {
         if (targetLook != null)
         {
-            Vector3 direction = targetLook.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(direction);
+            Vector3 offset = transform.right * horizontalOffset;
+            Vector3 finalLookPoint = targetLook.position + offset;
+
+            transform.rotation = Quaternion.LookRotation(finalLookPoint - transform.position);
         }
     }
 }

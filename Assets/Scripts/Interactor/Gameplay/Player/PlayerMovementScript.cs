@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
@@ -17,7 +16,6 @@ public class PlayerMovementScript : MonoBehaviour
     [SerializeField] private float dashingCooldown = 1f;
     [SerializeField] private KeyCode dashingKeyCode = KeyCode.LeftShift;
     [SerializeField] private AnimationCurve dashingCurve;
-
 
     private Vector3 moveDirection;
 
@@ -55,7 +53,6 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (inputDirection != Vector3.zero)
         {
-            // ������� �� 45 �������� ������ Y
             Quaternion rotation = Quaternion.Euler(0f, -135f, 0f);
             moveDirection = rotation * inputDirection;
         }
@@ -98,8 +95,6 @@ public class PlayerMovementScript : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
-
 
         rb.linearVelocity = Vector3.zero;
         trail.emitting = false;

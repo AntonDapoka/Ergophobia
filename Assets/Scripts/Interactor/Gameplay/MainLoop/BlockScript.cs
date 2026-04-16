@@ -16,7 +16,7 @@ public class BlockScript : ScriptableObject
     public GameObject prefab;
 
 }
-
+/*
 public enum BlockType
 {
     Start,
@@ -46,7 +46,7 @@ public enum BlockType
 
     Break
 
-}
+}*/
 
 public enum ActionType
 {

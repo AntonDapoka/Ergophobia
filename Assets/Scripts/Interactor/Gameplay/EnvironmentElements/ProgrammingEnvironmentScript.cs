@@ -14,7 +14,7 @@ public class ProgrammingEnvironmentScript  : MonoBehaviour, IProgrammingEnvironm
     public PlayerBehaviourInteractorScript targetObject;
 
     public Transform Transform => _transform ? _transform : transform;
-    public List<I_BE2_Block> BlocksList { get; set; }
+    public List<ICodeBlock> BlocksList { get; set; }
     public IBehaviourInteractor TargetObject => targetObject;
 
     public bool Visible 
@@ -59,17 +59,17 @@ public class ProgrammingEnvironmentScript  : MonoBehaviour, IProgrammingEnvironm
 
     private void Start()
     {
-        BE2_DragDropManager.Instance.Raycaster.AddRaycaster(_parentGraphicRaycaster);
+        //BE2_DragDropManager.Instance.Raycaster.AddRaycaster(_parentGraphicRaycaster);
     }
 
     public void UpdateBlocksList()
     {
-        BlocksList = new List<I_BE2_Block>();
+        BlocksList = new List<ICodeBlock>();
         foreach (Transform child in Transform)
         {
             if (child.gameObject.activeSelf)
             {
-                I_BE2_Block childBlock = child.GetComponent<I_BE2_Block>();
+                ICodeBlock childBlock = child.GetComponent<ICodeBlock>();
                 if (childBlock != null)
                     BlocksList.Add(childBlock);
             }
@@ -78,17 +78,17 @@ public class ProgrammingEnvironmentScript  : MonoBehaviour, IProgrammingEnvironm
 
     public void OpenContextMenu()
     {
-        BE2_UI_ContextMenuManager.instance.OpenContextMenu(1, this);
+        //BE2_UI_ContextMenuManager.instance.OpenContextMenu(1, this);
     }
 
     public void ClearBlocks()
     {
-        BlocksList = new List<I_BE2_Block>();
+        BlocksList = new List<ICodeBlock>();
         foreach (Transform child in Transform)
         {
             if (child.gameObject.activeSelf)
             {
-                I_BE2_Block childBlock = child.GetComponent<I_BE2_Block>();
+                ICodeBlock childBlock = child.GetComponent<ICodeBlock>();
                 if (childBlock != null)
                     Destroy(childBlock.Transform.gameObject);
             }

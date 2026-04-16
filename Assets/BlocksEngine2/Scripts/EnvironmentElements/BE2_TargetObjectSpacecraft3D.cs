@@ -20,16 +20,6 @@ namespace MG_BlocksEngine2.Environment
 
         }
 
-        //void Start()
-        //{
-        //
-        //}
-
-        //void Update()
-        //{
-        //
-        //}
-
         public void Shoot()
         {
             GameObject newBullet = Instantiate(_bullet, _bullet.transform.position, Quaternion.identity);
