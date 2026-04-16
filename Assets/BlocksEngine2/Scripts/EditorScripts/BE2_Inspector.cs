@@ -20,7 +20,7 @@ namespace MG_BlocksEngine2.EditorScript
             get
             {
                 if (!_instance)
-                    _instance = FindObjectOfType<BE2_Inspector>();
+                    _instance = FindAnyObjectByType<BE2_Inspector>();
                 return _instance;
             }
             set => _instance = value;
@@ -80,7 +80,7 @@ namespace MG_BlocksEngine2.EditorScript
             get => _canvasRenderMode;
             set
             {
-                BE2_Canvas[] be2CanvasArray = FindObjectsOfType<BE2_Canvas>();
+                BE2_Canvas[] be2CanvasArray = FindObjectsByType<BE2_Canvas>();
                 foreach (BE2_Canvas be2Canvas in be2CanvasArray)
                 {
                     be2Canvas.Canvas.renderMode = value;
@@ -138,7 +138,7 @@ namespace MG_BlocksEngine2.EditorScript
             yield return new WaitForEndOfFrame();
             // yield return null;
 
-            BE2_UI_BlocksSelectionViewer blocksSelectionViewer = FindObjectOfType<BE2_UI_BlocksSelectionViewer>();
+            BE2_UI_BlocksSelectionViewer blocksSelectionViewer = FindAnyObjectByType<BE2_UI_BlocksSelectionViewer>();
             blocksSelectionViewer.UpdateSelectionPanels();
             blocksSelectionViewer.AddBlockToPanel(blockTransform, blocksSelectionViewer.selectionPanelsList[blocksSelectionViewer.selectionPanelsList.Count - 1]);
         }
@@ -148,19 +148,19 @@ namespace MG_BlocksEngine2.EditorScript
             GameObject newBlockGO;
             if (blockType == BlockTypeEnum.simple)
             {
-                newBlockGO = Instantiate(SimpleTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindObjectOfType<BE2_ProgrammingEnv>().transform);
+                newBlockGO = Instantiate(SimpleTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindAnyObjectByType<BE2_ProgrammingEnv>().transform);
             }
             else if (blockType == BlockTypeEnum.trigger)
             {
-                newBlockGO = Instantiate(TriggerTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindObjectOfType<BE2_ProgrammingEnv>().transform);
+                newBlockGO = Instantiate(TriggerTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindAnyObjectByType<BE2_ProgrammingEnv>().transform);
             }
             else if (blockType == BlockTypeEnum.operation)
             {
-                newBlockGO = Instantiate(OperationTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindObjectOfType<BE2_ProgrammingEnv>().transform);
+                newBlockGO = Instantiate(OperationTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindAnyObjectByType<BE2_ProgrammingEnv>().transform);
             }
             else
             {
-                newBlockGO = Instantiate(BlockTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindObjectOfType<BE2_ProgrammingEnv>().transform);
+                newBlockGO = Instantiate(BlockTemplate, new Vector3(219, -219, 0), Quaternion.identity, FindAnyObjectByType<BE2_ProgrammingEnv>().transform);
             }
             newBlockGO.name = "Block Cst " + instructionName;
             newBlockGO.transform.localPosition = new Vector3(219, -219, 0);

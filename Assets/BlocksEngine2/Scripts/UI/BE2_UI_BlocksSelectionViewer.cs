@@ -21,7 +21,7 @@ namespace MG_BlocksEngine2.UI
             {
                 if (!_instance)
                 {
-                    _instance = GameObject.FindObjectOfType<BE2_UI_BlocksSelectionViewer>();
+                    _instance = FindAnyObjectByType<BE2_UI_BlocksSelectionViewer>();
                 }
                 return _instance;
             }

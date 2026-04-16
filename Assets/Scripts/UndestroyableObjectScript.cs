@@ -7,7 +7,7 @@ public class UndestroyableObjectScript : MonoBehaviour
 {
     private void Awake()
     {
-        UndestroyableObjectScript[] objects = FindObjectsOfType<UndestroyableObjectScript>();
+        UndestroyableObjectScript[] objects = FindObjectsByType<UndestroyableObjectScript>();
 
         if (objects.Length > 2)
         {

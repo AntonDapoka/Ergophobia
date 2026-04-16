@@ -481,7 +481,7 @@ namespace MG_BlocksEngine2.Serializer
                         System.Type varManagerType = System.Type.GetType(serializableBlock.varManagerName);
                         if (varManagerType != null)
                         {
-                            I_BE2_VariablesManager varManager = MonoBehaviour.FindObjectOfType(varManagerType) as I_BE2_VariablesManager;
+                            I_BE2_VariablesManager varManager = MonoBehaviour.FindAnyObjectByType(varManagerType) as I_BE2_VariablesManager;
                             varManager.CreateAndAddVarToPanel(serializableBlock.varName);
                         }
                         else

@@ -23,7 +23,7 @@ namespace MG_BlocksEngine2.Environment
 
             GetComponent<Button>().onClick.AddListener(HideBlocksSelection);
 
-            foreach (BE2_UI_SelectionButton button in FindObjectsOfType<BE2_UI_SelectionButton>())
+            foreach (BE2_UI_SelectionButton button in FindObjectsByType<BE2_UI_SelectionButton>())
             {
                 button.GetComponent<Button>().onClick.AddListener(ShowBlocksSelection);
             }

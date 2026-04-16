@@ -20,7 +20,7 @@ namespace MG_BlocksEngine2.DragDrop
             {
                 if (!_instance)
                 {
-                    _instance = GameObject.FindObjectOfType<BE2_Pointer>();
+                    _instance = FindAnyObjectByType<BE2_Pointer>();
                 }
                 return _instance;
             }

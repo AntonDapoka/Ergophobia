@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// namespace MG_BlocksEngine2.Environment
-
 public class ProgrammingEnvironmentScript  : MonoBehaviour, IProgrammingEnvironment
 {
     private Transform _transform;
@@ -59,7 +57,7 @@ public class ProgrammingEnvironmentScript  : MonoBehaviour, IProgrammingEnvironm
 
     private void Start()
     {
-        //BE2_DragDropManager.Instance.Raycaster.AddRaycaster(_parentGraphicRaycaster);
+        //DragDropManagerScript.Instance.Raycaster.AddRaycaster(_parentGraphicRaycaster);
     }
 
     public void UpdateBlocksList()
@@ -69,17 +67,16 @@ public class ProgrammingEnvironmentScript  : MonoBehaviour, IProgrammingEnvironm
         {
             if (child.gameObject.activeSelf)
             {
-                ICodeBlock childBlock = child.GetComponent<ICodeBlock>();
-                if (childBlock != null)
+                if (child.TryGetComponent<ICodeBlock>(out var childBlock))
                     BlocksList.Add(childBlock);
             }
         }
     }
 
-    public void OpenContextMenu()
+    /*public void OpenContextMenu() //I did comment it
     {
-        //BE2_UI_ContextMenuManager.instance.OpenContextMenu(1, this);
-    }
+        BE2_UI_ContextMenuManager.instance.OpenContextMenu(1, this);
+    }*/
 
     public void ClearBlocks()
     {

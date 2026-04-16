@@ -15,7 +15,7 @@ namespace MG_BlocksEngine2.Environment
             {
                 if (_instance == null)
                 {
-                    _instance = GameObject.FindObjectOfType<BE2_FunctionBlocksManager>();
+                    _instance = FindAnyObjectByType<BE2_FunctionBlocksManager>();
                 }
                 return _instance;
             }
@@ -29,7 +29,7 @@ namespace MG_BlocksEngine2.Environment
         public Transform functionBlocksPanel;
         public Vector2 positionToInstantiate = new Vector2(300, -100);
 
-        public virtual void CreateFunctionBlock(List<MG_BlocksEngine2.Serializer.DefineItem> items) { }
-        public virtual void CreateSelectionFunction(List<MG_BlocksEngine2.Serializer.DefineItem> items, BE2_Ins_DefineFunction defineBlockIns) { }
+        public virtual void CreateFunctionBlock(List<Serializer.DefineItem> items) { }
+        public virtual void CreateSelectionFunction(List<Serializer.DefineItem> items, BE2_Ins_DefineFunction defineBlockIns) { }
     }
 }

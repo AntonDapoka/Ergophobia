@@ -20,7 +20,7 @@ namespace MG_BlocksEngine2.UI
             {
                 if (_instance == null)
                 {
-                    _instance = GameObject.FindObjectOfType<BE2_UI_ContextMenuManager>();
+                    _instance = FindAnyObjectByType<BE2_UI_ContextMenuManager>();
                 }
                 return _instance;
             }

@@ -6,17 +6,13 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private Transform targetFollow;
     [SerializeField] private Transform targetLook;
-
     [SerializeField] private float followSpeed = 5f;
-
     [SerializeField] private float horizontalOffset = 0f;
 
     private void Start()
     {
         if (targetFollow != null)
-        {
             transform.position = targetFollow.position;
-        }
 
         UpdateRotation();
     }
@@ -26,13 +22,7 @@ public class CameraFollow : MonoBehaviour
         if (!isTurnOn) return;
 
         if (targetFollow != null)
-        {
-            transform.position = Vector3.Lerp(
-                transform.position,
-                targetFollow.position,
-                followSpeed * Time.deltaTime
-            );
-        }
+            transform.position = Vector3.Lerp(transform.position, targetFollow.position, followSpeed * Time.deltaTime);
 
         UpdateRotation();
     }

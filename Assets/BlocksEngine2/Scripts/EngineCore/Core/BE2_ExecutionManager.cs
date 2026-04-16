@@ -28,7 +28,7 @@ namespace MG_BlocksEngine2.Core
             {
                 if (_instance == null)
                 {
-                    _instance = GameObject.FindObjectOfType<BE2_ExecutionManager>();
+                    _instance = FindAnyObjectByType<BE2_ExecutionManager>();
                 }
                 return _instance;
             }
@@ -196,7 +196,7 @@ namespace MG_BlocksEngine2.Core
         {
             _targetObjectsList = new List<I_BE2_TargetObject>();
 
-            GameObject[] gos = FindObjectsOfType<GameObject>();
+            GameObject[] gos = FindObjectsByType<GameObject>();
             int gosCount = gos.Length;
             for (int i = 0; i < gosCount; i++)
             {
@@ -211,7 +211,7 @@ namespace MG_BlocksEngine2.Core
         {
             _programmingEnvsList = new List<I_BE2_ProgrammingEnv>();
 
-            GameObject[] gos = FindObjectsOfType<GameObject>();
+            GameObject[] gos = FindObjectsByType<GameObject>();
             int gosCount = gos.Length;
             for (int i = 0; i < gosCount; i++)
             {
