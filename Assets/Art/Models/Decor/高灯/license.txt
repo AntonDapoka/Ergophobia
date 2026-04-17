@@ -1,0 +1,8 @@
+Model Information:
+* title:	Ikea Lamp
+* source:	https://sketchfab.com/3d-models/ikea-lamp-4f30f422f4c24e6ca50301e7ff4fbff5
+* author:	Graham Rust (https://sketchfab.com/GRXR.ca)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
