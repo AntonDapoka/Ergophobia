@@ -1,0 +1,592 @@
+{
+  "assetCategories": {
+    "surface": {
+      "historical": {
+        "medieval": {}
+      },
+      "wood": {
+        "other": {}
+      }
+    }
+  },
+  "averageColor": "#000000",
+  "categories": [
+    "surface",
+    "wood",
+    "other"
+  ],
+  "comp_version": 1,
+  "description": "",
+  "displacementBias": 0.522293,
+  "displacementCalibrationAccuracy": 0.983855,
+  "displacementScale": 5.342167,
+  "environment": {
+    "biome": "undefined",
+    "region": "Europe"
+  },
+  "highest_available_res": 8192,
+  "id": "ufsnadydy",
+  "json": {
+    "contentLength": 12596,
+    "uri": "ufsnadydy.json"
+  },
+  "maps": [
+    {
+      "averageColor": "#EFEFEF",
+      "bitDepth": 32,
+      "colorSpace": "sRGB",
+      "contentLength": 109154275,
+      "maxIntensity": 255,
+      "mimeType": "image/x-exr",
+      "minIntensity": 186,
+      "name": "AO",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "ao",
+      "uri": "ufsnadydy_8K_AO.exr"
+    },
+    {
+      "averageColor": "#EFEFEF",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 15522263,
+      "maxIntensity": 255,
+      "mimeType": "image/jpeg",
+      "minIntensity": 186,
+      "name": "AO",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "ao",
+      "uri": "ufsnadydy_8K_AO.jpg"
+    },
+    {
+      "averageColor": "#5E4731",
+      "bitDepth": 16,
+      "colorSpace": "sRGB",
+      "contentLength": 127426821,
+      "maxIntensity": 139,
+      "mimeType": "image/x-exr",
+      "minIntensity": 15,
+      "name": "Basecolor",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "basecolor",
+      "uri": "ufsnadydy_8K_Basecolor.exr"
+    },
+    {
+      "averageColor": "#5E4731",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 23629203,
+      "maxIntensity": 139,
+      "mimeType": "image/jpeg",
+      "minIntensity": 15,
+      "name": "Basecolor",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "basecolor",
+      "uri": "ufsnadydy_8K_Basecolor.jpg"
+    },
+    {
+      "averageColor": "#808080",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 101368885,
+      "maxIntensity": 255,
+      "mimeType": "image/x-exr",
+      "minIntensity": 0,
+      "name": "Bump",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "bump",
+      "uri": "ufsnadydy_8K_Bump.exr"
+    },
+    {
+      "averageColor": "#808080",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 7172138,
+      "maxIntensity": 255,
+      "mimeType": "image/jpeg",
+      "minIntensity": 0,
+      "name": "Bump",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "bump",
+      "uri": "ufsnadydy_8K_Bump.jpg"
+    },
+    {
+      "averageColor": "#FFFFFF",
+      "bitDepth": 32,
+      "colorSpace": "sRGB",
+      "contentLength": 113892364,
+      "maxIntensity": 255,
+      "mimeType": "image/x-exr",
+      "minIntensity": 255,
+      "name": "Cavity",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "cavity",
+      "uri": "ufsnadydy_8K_Cavity.exr"
+    },
+    {
+      "averageColor": "#FFFFFF",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 25719047,
+      "maxIntensity": 255,
+      "mimeType": "image/jpeg",
+      "minIntensity": 255,
+      "name": "Cavity",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "cavity",
+      "uri": "ufsnadydy_8K_Cavity.jpg"
+    },
+    {
+      "averageColor": "#838383",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 129950217,
+      "maxIntensity": 175,
+      "mimeType": "image/x-exr",
+      "minIntensity": 93,
+      "name": "Displacement",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "displacement",
+      "uri": "ufsnadydy_8K_Displacement.exr"
+    },
+    {
+      "averageColor": "#838383",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 2109003,
+      "maxIntensity": 175,
+      "mimeType": "image/jpeg",
+      "minIntensity": 93,
+      "name": "Displacement",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "displacement",
+      "uri": "ufsnadydy_8K_Displacement.jpg"
+    },
+    {
+      "averageColor": "#404040",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 87112046,
+      "maxIntensity": 182,
+      "mimeType": "image/x-exr",
+      "minIntensity": 20,
+      "name": "Gloss",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "gloss",
+      "uri": "ufsnadydy_8K_Gloss.exr"
+    },
+    {
+      "averageColor": "#404040",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 10506745,
+      "maxIntensity": 182,
+      "mimeType": "image/jpeg",
+      "minIntensity": 20,
+      "name": "Gloss",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "gloss",
+      "uri": "ufsnadydy_8K_Gloss.jpg"
+    },
+    {
+      "averageColor": "#8281F7",
+      "bitDepth": 16,
+      "colorSpace": "Linear",
+      "contentLength": 108174619,
+      "maxIntensity": 169,
+      "mimeType": "image/x-exr",
+      "minIntensity": 111,
+      "name": "Normal",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "normal",
+      "uri": "ufsnadydy_8K_Normal.exr"
+    },
+    {
+      "averageColor": "#8281F7",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 46189761,
+      "maxIntensity": 169,
+      "mimeType": "image/jpeg",
+      "minIntensity": 111,
+      "name": "Normal",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "normal",
+      "uri": "ufsnadydy_8K_Normal.jpg"
+    },
+    {
+      "averageColor": "#BFBFBF",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 81799250,
+      "maxIntensity": 235,
+      "mimeType": "image/x-exr",
+      "minIntensity": 73,
+      "name": "Roughness",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "roughness",
+      "uri": "ufsnadydy_8K_Roughness.exr"
+    },
+    {
+      "averageColor": "#BFBFBF",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 10234809,
+      "maxIntensity": 235,
+      "mimeType": "image/jpeg",
+      "minIntensity": 73,
+      "name": "Roughness",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "roughness",
+      "uri": "ufsnadydy_8K_Roughness.jpg"
+    },
+    {
+      "averageColor": "#383838",
+      "bitDepth": 16,
+      "colorSpace": "sRGB",
+      "contentLength": 125629144,
+      "maxIntensity": 56,
+      "mimeType": "image/x-exr",
+      "minIntensity": 56,
+      "name": "Specular",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "specular",
+      "uri": "ufsnadydy_8K_Specular.exr"
+    },
+    {
+      "averageColor": "#383838",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 16839914,
+      "maxIntensity": 56,
+      "mimeType": "image/jpeg",
+      "minIntensity": 56,
+      "name": "Specular",
+      "physicalSize": "1x2",
+      "resolution": "4096x8192",
+      "type": "specular",
+      "uri": "ufsnadydy_8K_Specular.jpg"
+    }
+  ],
+  "meta": [
+    {
+      "key": "scanArea",
+      "name": "Scan Area",
+      "value": "1x2 m"
+    },
+    {
+      "key": "height",
+      "name": "Height",
+      "value": "0.064 m"
+    },
+    {
+      "key": "tileable",
+      "name": "Tileable",
+      "value": true
+    },
+    {
+      "key": "texelDensity",
+      "name": "Texel Density",
+      "value": "4096 px/m"
+    },
+    {
+      "key": "calibration",
+      "name": "Calibration",
+      "value": "GretagMacbeth ColorChecker Color Rendition Chart"
+    },
+    {
+      "key": "scanner",
+      "name": "Scanner",
+      "value": "MKX"
+    }
+  ],
+  "models": [],
+  "name": "Framed Wallpaper",
+  "pack": {
+    "_id": "modular-interior",
+    "name": "X Modular Interior"
+  },
+  "physicalSize": null,
+  "points": 2,
+  "previews": {
+    "images": [
+      {
+        "contentLength": 278970,
+        "resolution": "360x360",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "ufsnadydy_Grid_360.png"
+      },
+      {
+        "contentLength": 376882,
+        "resolution": "420x420",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "ufsnadydy_Grid_420.png"
+      },
+      {
+        "contentLength": 1099840,
+        "resolution": "720x720",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "ufsnadydy_Grid_720.png"
+      },
+      {
+        "contentLength": 1495724,
+        "resolution": "840x840",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "ufsnadydy_Grid_840.png"
+      },
+      {
+        "contentLength": 2779673,
+        "resolution": "1440x768",
+        "tags": [
+          "preview",
+          "clay"
+        ],
+        "uri": "ufsnadydy_PopupClay_1440.png"
+      },
+      {
+        "contentLength": 5224903,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview",
+          "clay"
+        ],
+        "uri": "ufsnadydy_PopupClay_1920.png"
+      },
+      {
+        "contentLength": 11345232,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "clay",
+          "retina"
+        ],
+        "uri": "ufsnadydy_PopupClay_2880.png"
+      },
+      {
+        "contentLength": 21755937,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "clay",
+          "retina"
+        ],
+        "uri": "ufsnadydy_PopupClay_3840.png"
+      },
+      {
+        "contentLength": 3388726,
+        "resolution": "1440x768",
+        "tags": [
+          "preview",
+          "tiled"
+        ],
+        "uri": "ufsnadydy_PopupTiled_1440.png"
+      },
+      {
+        "contentLength": 6312423,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview",
+          "tiled"
+        ],
+        "uri": "ufsnadydy_PopupTiled_1920.png"
+      },
+      {
+        "contentLength": 13394206,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "tiled",
+          "retina"
+        ],
+        "uri": "ufsnadydy_PopupTiled_2880.png"
+      },
+      {
+        "contentLength": 25318203,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "tiled",
+          "retina"
+        ],
+        "uri": "ufsnadydy_PopupTiled_3840.png"
+      },
+      {
+        "contentLength": 3338560,
+        "resolution": "1440x768",
+        "tags": [
+          "preview"
+        ],
+        "uri": "ufsnadydy_Popup_1440.png"
+      },
+      {
+        "contentLength": 6225719,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview"
+        ],
+        "uri": "ufsnadydy_Popup_1920.png"
+      },
+      {
+        "contentLength": 13287013,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "ufsnadydy_Popup_2880.png"
+      },
+      {
+        "contentLength": 25260630,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "ufsnadydy_Popup_3840.png"
+      }
+    ],
+    "relativeSize": "1x1",
+    "scaleReferences": []
+  },
+  "process_date": "2024-04-17 03:56:25",
+  "properties": [],
+  "referencePreviews": {
+    "maps": [],
+    "models": []
+  },
+  "references": [],
+  "revised": false,
+  "revision": 0,
+  "semanticTags": {
+    "architectural_style": {},
+    "asset_type": "surface",
+    "city": "Bo\u017ck\u00f3w",
+    "contains": [
+      "Wallpaper",
+      "Wood",
+      "Fabric",
+      "Design"
+    ],
+    "country": "Poland",
+    "descriptive": [
+      "floral",
+      "Ornate",
+      "Decorative",
+      "Patterned",
+      " Old",
+      "Worn"
+    ],
+    "environment": [
+      "rural",
+      "medieval"
+    ],
+    "industry": [
+      "archviz",
+      "VFX",
+      "games"
+    ],
+    "interior_exterior": [
+      "interior"
+    ],
+    "locations": {
+      "Europe": {
+        "Poland": {
+          "Bo\u017ck\u00f3w": {}
+        }
+      }
+    },
+    "maxSize": 2,
+    "minSize": 1,
+    "name": "Framed Wallpaper",
+    "orientation": [
+      "wall"
+    ],
+    "region": "Europe",
+    "resolution": 8192,
+    "state": [
+      "old"
+    ],
+    "subject_matter": "manmade",
+    "theme": [
+      "Palaces",
+      "Bozkow",
+      "Library",
+      "Walls",
+      "Interiors",
+      "wallpapers",
+      "indoors"
+    ]
+  },
+  "tags": [
+    "old",
+    "worn",
+    "wood",
+    "fabric",
+    "design",
+    "palace",
+    "interior"
+  ],
+  "texelDensity": 4096,
+  "texture_type": "basic",
+  "ue_plugin_archives": [
+    {
+      "contentLength": 152845727,
+      "gltfVersion": "2.0",
+      "tier": 0,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_0/ufsnadydy_tier_0.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 46977589,
+      "gltfVersion": "2.0",
+      "tier": 1,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_1/ufsnadydy_tier_1.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 11952723,
+      "gltfVersion": "2.0",
+      "tier": 2,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_2/ufsnadydy_tier_2.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 983439,
+      "gltfVersion": "2.0",
+      "tier": 3,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_3/ufsnadydy_tier_3.zip",
+      "version": 1
+    }
+  ],
+  "version": 2
+}
