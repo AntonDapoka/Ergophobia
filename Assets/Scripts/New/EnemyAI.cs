@@ -1,4 +1,4 @@
-using GLTFast.Schema;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,32 +11,30 @@ public class EnemyAI : MonoBehaviour
     private Transform playerTransform; // Player's Transform
 
     [Header("Patrol")]
-    public Transform[] patrolPoints;
+    [SerializeField] private Transform[] patrolPoints;
+    [SerializeField] private GameObject player;
     private int currentPatrolIndex = 0;
 
     [Header("Behavior")]
-    public float detectionRadius = 10f;
-    public float chaseRange = 15f;
-    public float attackRange = 1.5f;
-    public float attackCooldown = 1f;
-    public float nextAttackTime = 2f;
-
+    [SerializeField] private float detectionRadius = 10f;
+    [SerializeField] private float chaseRange = 15f;
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackCooldown = 1f;
+    [SerializeField] private float nextAttackTime = 2f;
 
     [Header("Health")]
-    public int maxHealth = 3;       
-    public int currentHealth;       
-    public bool isDead = false;     
+    [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int currentHealth;
+    [SerializeField] private bool isDead = false;
 
-    void Start()
+
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
-      // Using Script Markers
-        PlayerMarker playerMarker = GameObject.FindAnyObjectByType<PlayerMarker>();
-
-        if (playerMarker != null)
+        if (player != null)
         {
-              playerTransform = playerMarker.transform;
+              playerTransform = player.transform;
         }
         else          
         {
@@ -52,8 +50,9 @@ public class EnemyAI : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    void Update()
+    private void Update()
     {
+
         if (playerTransform == null) return;
         // Is player in the range
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
@@ -96,13 +95,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void HandleChaseState(float distanceToPlayer)
+    private void HandleChaseState(float distanceToPlayer)
     {
         agent.isStopped = false; 
         agent.SetDestination(playerTransform.position);
     }
 
-    void HandleAttackState(float distanceToPlayer)
+    private void HandleAttackState(float distanceToPlayer)
     {
         agent.isStopped = true; 
 
@@ -145,6 +144,7 @@ void HandlePatrolState()
     }
 
     //Mark the patrol route
+
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -178,17 +178,15 @@ void HandlePatrolState()
          if (currentHealth <= 0)
          {
               Die();
-          }
+         }
      }
  
       void Die()
       {
-           isDead = true;   
+          isDead = true;   
           agent.isStopped = true;
           // Play the animation
           Destroy(gameObject);
-
-
       }
     #endregion
 }

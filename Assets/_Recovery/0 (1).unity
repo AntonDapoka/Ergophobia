@@ -3789,7 +3789,6 @@ GameObject:
   - component: {fileID: 497295642}
   - component: {fileID: 497295641}
   - component: {fileID: 497295640}
-  - component: {fileID: 497295646}
   - component: {fileID: 497295639}
   - component: {fileID: 497295645}
   m_Layer: 3
@@ -4054,27 +4053,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f5ed612a9a78047af15caaa72bd0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMarker
---- !u!114 &497295646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497295638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534da137747013f4d88ccf3af93d7f50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
-  healthMax: 0
-  healthCurrent: 0
-  isInvincible: 0
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &512940848
 GameObject:
   m_ObjectHideFlags: 0
@@ -6788,10 +6766,8 @@ GameObject:
   - component: {fileID: 762479055}
   - component: {fileID: 762479054}
   - component: {fileID: 762479053}
-  - component: {fileID: 762479052}
-  - component: {fileID: 762479060}
-  - component: {fileID: 762479059}
   - component: {fileID: 762479058}
+  - component: {fileID: 762479052}
   - component: {fileID: 762479057}
   m_Layer: 0
   m_Name: Enemy
@@ -6953,59 +6929,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 762479050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534da137747013f4d88ccf3af93d7f50, type: 3}
+  m_Script: {fileID: 11500000, guid: dd2141d00873fee43bbc65e8d0cc444f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
-  healthMax: 3
-  healthCurrent: 0
-  isInvincible: 0
-  OnHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &762479059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762479050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ee1d68a85ea8134b969e9cfa0866c73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PatrolSystem
-  healthComponent: {fileID: 0}
-  patrolComponent: {fileID: 0}
-  navMeshAgent: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  patrolPoints: []
   player: {fileID: 497295638}
-  patrolPoints:
-  - {fileID: 596306915}
-  - {fileID: 192872134}
-  - {fileID: 1667007586}
-  waitTimeAtPoint: 2
---- !u!114 &762479060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 762479050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7600bfe7f722f74195be15cc0b54782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NormalEnemy
-  healthComponent: {fileID: 0}
-  patrolComponent: {fileID: 0}
-  navMeshAgent: {fileID: 762479057}
-  player: {fileID: 497295638}
-  detectionRange: 10
-  attackRange: 2
-  attackCooldownDuration: 1.5
-  attackDamage: 1
+  detectionRadius: 10
+  chaseRange: 15
+  attackRange: 5
+  attackCooldown: 1
+  nextAttackTime: 2
+  maxHealth: 3
+  currentHealth: 0
+  isDead: 0
 --- !u!1001 &780287965
 PrefabInstance:
   m_ObjectHideFlags: 0
