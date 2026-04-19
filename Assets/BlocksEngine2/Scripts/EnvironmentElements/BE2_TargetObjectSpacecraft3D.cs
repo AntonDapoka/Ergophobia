@@ -5,7 +5,9 @@ namespace MG_BlocksEngine2.Environment
 {
     public class BE2_TargetObjectSpacecraft3D : BE2_TargetObject
     {
-        GameObject _bullet;
+        [SerializeField] private GameObject _bullet;
+        [SerializeField] private Transform firePoint;
+        [SerializeField] private Transform aimTarget;
 
         public new Transform Transform => transform;
 
@@ -22,10 +24,28 @@ namespace MG_BlocksEngine2.Environment
 
         public void Shoot()
         {
-            GameObject newBullet = Instantiate(_bullet, _bullet.transform.position, Quaternion.identity);
-            newBullet.SetActive(true);
-            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
-            StartCoroutine(C_DestroyTime(newBullet));
+            ShootBullet(_bullet);
+        }
+
+        public void ShootBullet(GameObject prefabToSpawn)
+        {
+
+            if (prefabToSpawn == null)
+            {
+                return;
+            }
+
+            Vector3 direction = (aimTarget.position - firePoint.position).normalized;
+            GameObject bullet = Instantiate(prefabToSpawn, firePoint.position, Quaternion.identity);
+
+            if (bullet.TryGetComponent<BulletBehaivourScript>(out var bulletScript))
+            {
+                bulletScript.SetDirection(direction);
+            }
+            else
+            {
+                Debug.Log("Problemssss");
+            }
         }
         
         IEnumerator C_DestroyTime(GameObject go)

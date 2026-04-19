@@ -6,34 +6,12 @@ public class PlayerShootingScript : MonoBehaviour
     [SerializeField] private GameObject prefabBulletMighty;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform aimTarget;
-/*
-    public void ShootBullet(BlockType blockType)
+
+    public void ShootBullet(GameObject prefabToSpawn)
     {
-
-        GameObject prefabToSpawn;
-
-        switch (blockType)
-        {
-            case BlockType.BulletFire:
-                prefabToSpawn = prefabBulletMighty;
-                break;
-            case BlockType.BulletRandom:
-                if (Random.Range(0, 2) == 0)
-                    prefabToSpawn = prefabBulletMighty;  // ��� BulletFire
-                else
-                    prefabToSpawn = prefabBulletBasic;
-                break;
-            case BlockType.BulletBasic:
-                prefabToSpawn = prefabBulletBasic;
-                break;
-            default:
-                prefabToSpawn = null ;
-                break;
-        }
 
         if (prefabToSpawn == null)
         {
-            Debug.LogError($"Prefab for blockType {blockType} is not assigned!");
             return;
         }
 
@@ -49,5 +27,5 @@ public class PlayerShootingScript : MonoBehaviour
         {
             Debug.Log("Problemssss");
         }
-    }*/
+    }
 }
