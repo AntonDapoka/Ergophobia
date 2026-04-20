@@ -53,7 +53,7 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (inputDirection != Vector3.zero)
         {
-            Quaternion rotation = Quaternion.Euler(0f, -135f, 0f);
+            Quaternion rotation = Quaternion.Euler(0f, -90f, 0f);
             moveDirection = rotation * inputDirection;
         }
         else

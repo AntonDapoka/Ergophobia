@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         if (targetFollow != null)
-            transform.position = targetFollow.position;
+            transform.position = targetFollow.position + Vector3.forward;
 
         UpdateRotation();
     }
@@ -22,19 +22,19 @@ public class CameraFollow : MonoBehaviour
         if (!isTurnOn) return;
 
         if (targetFollow != null)
-            transform.position = Vector3.Lerp(transform.position, targetFollow.position, followSpeed * Time.deltaTime);
+        {
+            Vector3 targetPos = targetFollow.position + Vector3.forward * horizontalOffset;
+            transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+        }
 
-        UpdateRotation();
+        //UpdateRotation();
     }
 
     private void UpdateRotation()
     {
         if (targetLook != null)
         {
-            Vector3 offset = transform.right * horizontalOffset;
-            Vector3 finalLookPoint = targetLook.position + offset;
-
-            transform.rotation = Quaternion.LookRotation(finalLookPoint - transform.position);
+            transform.rotation = Quaternion.LookRotation(targetLook.position - transform.position);
         }
     }
 }

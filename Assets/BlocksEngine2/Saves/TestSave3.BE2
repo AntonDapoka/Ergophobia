@@ -1,6 +1,34 @@
 <Block>
+  <blockName>Block Op BiggerThan</blockName>
+  <position>(-514.00, -65.25, 0.00)</position>
+  <varManagerName></varManagerName>
+  <varName />
+  <defineID />
+  <isLocalVar />
+  <defineItems />
+  <sections>
+    <Section>
+      <childBlocks />
+      <inputs>
+        <Input>
+          <isOperation>false</isOperation>
+          <value></value>
+        </Input>
+        <Input>
+          <isOperation>false</isOperation>
+          <value></value>
+        </Input>
+      </inputs>
+    </Section>
+  </sections>
+  <OuterArea>
+    <childBlocks />
+  </OuterArea>
+</Block>
+#
+<Block>
   <blockName>Block Ins WhenPlayClicked</blockName>
-  <position>(153.64, -299.74, 0.00)</position>
+  <position>(83.83, -131.18, 0.00)</position>
   <varManagerName></varManagerName>
   <varName />
   <defineID />
@@ -10,7 +38,7 @@
     <Section>
       <childBlocks>
         <Block>
-          <blockName>Block Ins If</blockName>
+          <blockName>Block Ins RepeatForever</blockName>
           <position>(0.00, 10.00, 0.00)</position>
           <varManagerName></varManagerName>
           <varName />
@@ -21,7 +49,7 @@
             <Section>
               <childBlocks>
                 <Block>
-                  <blockName>Block Ins IfElse</blockName>
+                  <blockName>Block Ins If</blockName>
                   <position>(20.00, 10.00, 0.00)</position>
                   <varManagerName></varManagerName>
                   <varName />
@@ -32,7 +60,7 @@
                     <Section>
                       <childBlocks>
                         <Block>
-                          <blockName>Block Ins Repeat</blockName>
+                          <blockName>Block Ins IfElse</blockName>
                           <position>(20.00, 10.00, 0.00)</position>
                           <varManagerName></varManagerName>
                           <varName />
@@ -40,6 +68,162 @@
                           <isLocalVar />
                           <defineItems />
                           <sections>
+                            <Section>
+                              <childBlocks>
+                                <Block>
+                                  <blockName>Block Ins Repeat</blockName>
+                                  <position>(20.00, 10.00, 0.00)</position>
+                                  <varManagerName></varManagerName>
+                                  <varName />
+                                  <defineID />
+                                  <isLocalVar />
+                                  <defineItems />
+                                  <sections>
+                                    <Section>
+                                      <childBlocks>
+                                        <Block>
+                                          <blockName>Block Ins SpacecraftShoot</blockName>
+                                          <position>(20.00, 10.00, 0.00)</position>
+                                          <varManagerName></varManagerName>
+                                          <varName />
+                                          <defineID />
+                                          <isLocalVar />
+                                          <defineItems />
+                                          <sections>
+                                            <Section>
+                                              <childBlocks />
+                                              <inputs />
+                                            </Section>
+                                          </sections>
+                                          <OuterArea>
+                                            <childBlocks />
+                                          </OuterArea>
+                                        </Block>
+                                        <Block>
+                                          <blockName>Block Ins Wait</blockName>
+                                          <position>(20.00, -60.00, 0.00)</position>
+                                          <varManagerName></varManagerName>
+                                          <varName />
+                                          <defineID />
+                                          <isLocalVar />
+                                          <defineItems />
+                                          <sections>
+                                            <Section>
+                                              <childBlocks />
+                                              <inputs>
+                                                <Input>
+                                                  <isOperation>false</isOperation>
+                                                  <value>0.1</value>
+                                                </Input>
+                                              </inputs>
+                                            </Section>
+                                          </sections>
+                                          <OuterArea>
+                                            <childBlocks />
+                                          </OuterArea>
+                                        </Block>
+                                        <Block>
+                                          <blockName>Block Ins PlaySound</blockName>
+                                          <position>(20.00, -130.00, 0.00)</position>
+                                          <varManagerName></varManagerName>
+                                          <varName />
+                                          <defineID />
+                                          <isLocalVar />
+                                          <defineItems />
+                                          <sections>
+                                            <Section>
+                                              <childBlocks />
+                                              <inputs>
+                                                <Input>
+                                                  <isOperation>false</isOperation>
+                                                  <value>explosionCrunch_000</value>
+                                                </Input>
+                                              </inputs>
+                                            </Section>
+                                          </sections>
+                                          <OuterArea>
+                                            <childBlocks />
+                                          </OuterArea>
+                                        </Block>
+                                      </childBlocks>
+                                      <inputs>
+                                        <Input>
+                                          <isOperation>false</isOperation>
+                                          <value>5</value>
+                                        </Input>
+                                      </inputs>
+                                    </Section>
+                                  </sections>
+                                  <OuterArea>
+                                    <childBlocks />
+                                  </OuterArea>
+                                </Block>
+                              </childBlocks>
+                              <inputs>
+                                <Input>
+                                  <isOperation>true</isOperation>
+                                  <value>1</value>
+                                  <operation>
+                                    <Block>
+                                      <blockName>Block Op BiggerThan</blockName>
+                                      <position>(-212.29, 35.00, 0.00)</position>
+                                      <varManagerName></varManagerName>
+                                      <varName />
+                                      <defineID />
+                                      <isLocalVar />
+                                      <defineItems />
+                                      <sections>
+                                        <Section>
+                                          <childBlocks />
+                                          <inputs>
+                                            <Input>
+                                              <isOperation>false</isOperation>
+                                              <value>5</value>
+                                            </Input>
+                                            <Input>
+                                              <isOperation>true</isOperation>
+                                              <value>8.416615</value>
+                                              <operation>
+                                                <Block>
+                                                  <blockName>Block Op Random</blockName>
+                                                  <position>(-108.38, 25.00, 0.00)</position>
+                                                  <varManagerName></varManagerName>
+                                                  <varName />
+                                                  <defineID />
+                                                  <isLocalVar />
+                                                  <defineItems />
+                                                  <sections>
+                                                    <Section>
+                                                      <childBlocks />
+                                                      <inputs>
+                                                        <Input>
+                                                          <isOperation>false</isOperation>
+                                                          <value>1</value>
+                                                        </Input>
+                                                        <Input>
+                                                          <isOperation>false</isOperation>
+                                                          <value>10</value>
+                                                        </Input>
+                                                      </inputs>
+                                                    </Section>
+                                                  </sections>
+                                                  <OuterArea>
+                                                    <childBlocks />
+                                                  </OuterArea>
+                                                </Block>
+                                              </operation>
+                                            </Input>
+                                          </inputs>
+                                        </Section>
+                                      </sections>
+                                      <OuterArea>
+                                        <childBlocks />
+                                      </OuterArea>
+                                    </Block>
+                                  </operation>
+                                </Input>
+                              </inputs>
+                            </Section>
                             <Section>
                               <childBlocks>
                                 <Block>
@@ -74,30 +258,7 @@
                                       <inputs>
                                         <Input>
                                           <isOperation>false</isOperation>
-                                          <value>0.1</value>
-                                        </Input>
-                                      </inputs>
-                                    </Section>
-                                  </sections>
-                                  <OuterArea>
-                                    <childBlocks />
-                                  </OuterArea>
-                                </Block>
-                                <Block>
-                                  <blockName>Block Ins PlaySound</blockName>
-                                  <position>(20.00, -130.00, 0.00)</position>
-                                  <varManagerName></varManagerName>
-                                  <varName />
-                                  <defineID />
-                                  <isLocalVar />
-                                  <defineItems />
-                                  <sections>
-                                    <Section>
-                                      <childBlocks />
-                                      <inputs>
-                                        <Input>
-                                          <isOperation>false</isOperation>
-                                          <value>explosionCrunch_000</value>
+                                          <value>1</value>
                                         </Input>
                                       </inputs>
                                     </Section>
@@ -107,89 +268,16 @@
                                   </OuterArea>
                                 </Block>
                               </childBlocks>
-                              <inputs>
-                                <Input>
-                                  <isOperation>false</isOperation>
-                                  <value>5</value>
-                                </Input>
-                              </inputs>
+                              <inputs />
                             </Section>
                           </sections>
                           <OuterArea>
                             <childBlocks />
                           </OuterArea>
                         </Block>
-                      </childBlocks>
-                      <inputs>
-                        <Input>
-                          <isOperation>true</isOperation>
-                          <value>0</value>
-                          <operation>
-                            <Block>
-                              <blockName>Block Op BiggerThan</blockName>
-                              <position>(-212.29, 35.00, 0.00)</position>
-                              <varManagerName></varManagerName>
-                              <varName />
-                              <defineID />
-                              <isLocalVar />
-                              <defineItems />
-                              <sections>
-                                <Section>
-                                  <childBlocks />
-                                  <inputs>
-                                    <Input>
-                                      <isOperation>false</isOperation>
-                                      <value>5</value>
-                                    </Input>
-                                    <Input>
-                                      <isOperation>true</isOperation>
-                                      <value>7.779532</value>
-                                      <operation>
-                                        <Block>
-                                          <blockName>Block Op Random</blockName>
-                                          <position>(-108.38, 25.00, 0.00)</position>
-                                          <varManagerName></varManagerName>
-                                          <varName />
-                                          <defineID />
-                                          <isLocalVar />
-                                          <defineItems />
-                                          <sections>
-                                            <Section>
-                                              <childBlocks />
-                                              <inputs>
-                                                <Input>
-                                                  <isOperation>false</isOperation>
-                                                  <value>1</value>
-                                                </Input>
-                                                <Input>
-                                                  <isOperation>false</isOperation>
-                                                  <value>10</value>
-                                                </Input>
-                                              </inputs>
-                                            </Section>
-                                          </sections>
-                                          <OuterArea>
-                                            <childBlocks />
-                                          </OuterArea>
-                                        </Block>
-                                      </operation>
-                                    </Input>
-                                  </inputs>
-                                </Section>
-                              </sections>
-                              <OuterArea>
-                                <childBlocks />
-                              </OuterArea>
-                            </Block>
-                          </operation>
-                        </Input>
-                      </inputs>
-                    </Section>
-                    <Section>
-                      <childBlocks>
                         <Block>
                           <blockName>Block Ins SpacecraftShoot</blockName>
-                          <position>(20.00, 10.00, 0.00)</position>
+                          <position>(20.00, -630.00, 0.00)</position>
                           <varManagerName></varManagerName>
                           <varName />
                           <defineID />
@@ -206,8 +294,8 @@
                           </OuterArea>
                         </Block>
                         <Block>
-                          <blockName>Block Ins Wait</blockName>
-                          <position>(20.00, -60.00, 0.00)</position>
+                          <blockName>Block Ins PlaySound</blockName>
+                          <position>(20.00, -700.00, 0.00)</position>
                           <varManagerName></varManagerName>
                           <varName />
                           <defineID />
@@ -219,7 +307,7 @@
                               <inputs>
                                 <Input>
                                   <isOperation>false</isOperation>
-                                  <value>1</value>
+                                  <value>explosionCrunch_000</value>
                                 </Input>
                               </inputs>
                             </Section>
@@ -229,7 +317,41 @@
                           </OuterArea>
                         </Block>
                       </childBlocks>
-                      <inputs />
+                      <inputs>
+                        <Input>
+                          <isOperation>true</isOperation>
+                          <value>1</value>
+                          <operation>
+                            <Block>
+                              <blockName>Block Op Equal</blockName>
+                              <position>(-81.65, 30.00, 0.00)</position>
+                              <varManagerName></varManagerName>
+                              <varName />
+                              <defineID />
+                              <isLocalVar />
+                              <defineItems />
+                              <sections>
+                                <Section>
+                                  <childBlocks />
+                                  <inputs>
+                                    <Input>
+                                      <isOperation>false</isOperation>
+                                      <value>2</value>
+                                    </Input>
+                                    <Input>
+                                      <isOperation>false</isOperation>
+                                      <value>2</value>
+                                    </Input>
+                                  </inputs>
+                                </Section>
+                              </sections>
+                              <OuterArea>
+                                <childBlocks />
+                              </OuterArea>
+                            </Block>
+                          </operation>
+                        </Input>
+                      </inputs>
                     </Section>
                   </sections>
                   <OuterArea>
@@ -237,26 +359,8 @@
                   </OuterArea>
                 </Block>
                 <Block>
-                  <blockName>Block Ins SpacecraftShoot</blockName>
-                  <position>(20.00, -630.00, 0.00)</position>
-                  <varManagerName></varManagerName>
-                  <varName />
-                  <defineID />
-                  <isLocalVar />
-                  <defineItems />
-                  <sections>
-                    <Section>
-                      <childBlocks />
-                      <inputs />
-                    </Section>
-                  </sections>
-                  <OuterArea>
-                    <childBlocks />
-                  </OuterArea>
-                </Block>
-                <Block>
-                  <blockName>Block Ins PlaySound</blockName>
-                  <position>(20.00, -700.00, 0.00)</position>
+                  <blockName>Block Ins Wait</blockName>
+                  <position>(20.00, -890.00, 0.00)</position>
                   <varManagerName></varManagerName>
                   <varName />
                   <defineID />
@@ -268,7 +372,7 @@
                       <inputs>
                         <Input>
                           <isOperation>false</isOperation>
-                          <value>explosionCrunch_000</value>
+                          <value>4</value>
                         </Input>
                       </inputs>
                     </Section>
@@ -278,41 +382,7 @@
                   </OuterArea>
                 </Block>
               </childBlocks>
-              <inputs>
-                <Input>
-                  <isOperation>true</isOperation>
-                  <value>1</value>
-                  <operation>
-                    <Block>
-                      <blockName>Block Op Equal</blockName>
-                      <position>(-81.65, 30.00, 0.00)</position>
-                      <varManagerName></varManagerName>
-                      <varName />
-                      <defineID />
-                      <isLocalVar />
-                      <defineItems />
-                      <sections>
-                        <Section>
-                          <childBlocks />
-                          <inputs>
-                            <Input>
-                              <isOperation>false</isOperation>
-                              <value>2</value>
-                            </Input>
-                            <Input>
-                              <isOperation>false</isOperation>
-                              <value>2</value>
-                            </Input>
-                          </inputs>
-                        </Section>
-                      </sections>
-                      <OuterArea>
-                        <childBlocks />
-                      </OuterArea>
-                    </Block>
-                  </operation>
-                </Input>
-              </inputs>
+              <inputs />
             </Section>
           </sections>
           <OuterArea>
@@ -320,53 +390,6 @@
           </OuterArea>
         </Block>
       </childBlocks>
-      <inputs />
-    </Section>
-  </sections>
-  <OuterArea>
-    <childBlocks />
-  </OuterArea>
-</Block>
-#
-<Block>
-  <blockName>Block Op BiggerThan</blockName>
-  <position>(-514.00, -65.25, 0.00)</position>
-  <varManagerName></varManagerName>
-  <varName />
-  <defineID />
-  <isLocalVar />
-  <defineItems />
-  <sections>
-    <Section>
-      <childBlocks />
-      <inputs>
-        <Input>
-          <isOperation>false</isOperation>
-          <value></value>
-        </Input>
-        <Input>
-          <isOperation>false</isOperation>
-          <value></value>
-        </Input>
-      </inputs>
-    </Section>
-  </sections>
-  <OuterArea>
-    <childBlocks />
-  </OuterArea>
-</Block>
-#
-<Block>
-  <blockName>Block Ins RepeatForever</blockName>
-  <position>(446.30, -146.02, 0.00)</position>
-  <varManagerName></varManagerName>
-  <varName />
-  <defineID />
-  <isLocalVar />
-  <defineItems />
-  <sections>
-    <Section>
-      <childBlocks />
       <inputs />
     </Section>
   </sections>
