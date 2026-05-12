@@ -100,10 +100,6 @@ namespace MG_BlocksEngine2.EditorScript
             }
             BE2_Paths.NewBlockPrefabPath = EditorGUILayout.TextField("New Block Prefab Path", BE2_Paths.NewBlockPrefabPath);
 
-            EditorGUILayout.LabelField("Saved/Load Codes", EditorStyles.miniBoldLabel);
-            inspector.usePersistentPathOnBuild = EditorGUILayout.Toggle("Use Persistent Data Path on Build", inspector.usePersistentPathOnBuild);
-            BE2_Paths.SavedCodesPath = EditorGUILayout.TextField("Saved Codes Path", BE2_Paths.SavedCodesPath);
-
             DrawSeparator();
 
             // v2.6 - added new inspection section "Scene Settings" containing the fields: Camera, Canvas Render Mode, Auto set Drag Drop Detection Distance, Drag Drop Detection Distance

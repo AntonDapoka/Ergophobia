@@ -62,8 +62,6 @@ namespace MG_BlocksEngine2.Core
         // v2.11 - events OnStackStart and OnStackEnd added to the BlocksStack to allow more control  
         public UnityEvent OnStackStart { get; set; } = new UnityEvent();
         public UnityEvent OnStackLastBlockExecuted { get; set; } = new UnityEvent();
-        // v2.12.1 - new event BE2_BlocksStack.OnFunctionStart 
-        public UnityEvent<I_BE2_Instruction> OnFunctionStart { get; set; } = new UnityEvent<I_BE2_Instruction>();
 
         void Awake()
         {
@@ -113,7 +111,6 @@ namespace MG_BlocksEngine2.Core
                 }
 
                 I_BE2_Instruction instruction = InstructionsArray[Pointer];
-                OnFunctionStart.Invoke(instruction);
                 instruction.Function();
                 OverflowGuard = 0;
             }
@@ -131,6 +128,8 @@ namespace MG_BlocksEngine2.Core
         // v2.9 - added StepPlay and Pause methods to the BlockStack to play this BlocksStack step-by-step or pause the current full execution
         bool _isStepPlay = false;
         public bool IsStepPlay => _isStepPlay;
+        public UnityEvent<I_BE2_Instruction> OnFunctionStart { get; set; } = new UnityEvent<I_BE2_Instruction>();
+
         public void StepPlay()
         {
             _isStepPlay = true;
@@ -163,7 +162,7 @@ namespace MG_BlocksEngine2.Core
 
             I_BE2_BlockSection[] tempSectionsArr = parentInstructionBase.Block.Layout.SectionsArray;
             parentInstructionBase.LocationsArray = new int[
-                BE2_ArrayUtils.FindAll(ref tempSectionsArr, (x => x.Body != null)).Length + 1];
+                BE2_ArrayUtils.FindAll(ref tempSectionsArr, x => x.Body != null).Length + 1];
 
             InstructionsArray = BE2_ArrayUtils.AddReturn(InstructionsArray, parentInstruction);
 
@@ -186,8 +185,7 @@ namespace MG_BlocksEngine2.Core
                         PopulateStackRecursive(childBlocks[j]);
                     }
 
-                    if (!(parentInstruction is BE2_Ins_FunctionBlock))
-                        InstructionsArray = BE2_ArrayUtils.AddReturn(InstructionsArray, parentInstruction);
+                    InstructionsArray = BE2_ArrayUtils.AddReturn(InstructionsArray, parentInstruction);
 
                 }
             }

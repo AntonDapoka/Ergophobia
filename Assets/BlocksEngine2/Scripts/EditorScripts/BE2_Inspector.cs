@@ -50,13 +50,6 @@ namespace MG_BlocksEngine2.EditorScript
         public string newInstructionPath = "[dataPath]/BlocksEngine2/Scripts/EngineCore/Instruction/BlockInstructions/Custom/";
         public string newBlockPrefabPath = "Assets/BlocksEngine2/Prefabs/Resources/Blocks/Custom/";
 
-        // v2.7 - saved codes path are now, by default, set to the "persistentDataPath" on Build. The setting "usePersistentPathOnBuild" can be set from the BE2 inspector 
-        public bool usePersistentPathOnBuild = true;
-        // v2.7 - savedCodesPath variable moved from context menu manager to inspector 
-        // v2.6.2 - bugfix: fixed changes on BE2 Inspector paths not perssiting 
-        // path variables made not static
-        public string savedCodesPath = "[dataPath]/BlocksEngine2/Saves/";
-
         // v2.6.1 - bugfix: fixed Camera and Canvas Render Mode resetting  
         // v2.6 - New settings variables added to the BE2_Inspector to be used in the new section, "Scene Settings"
         [SerializeField]

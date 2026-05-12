@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 using MG_BlocksEngine2.DragDrop;
@@ -61,12 +59,6 @@ namespace MG_BlocksEngine2.UI
         {
             _targetBlock = null;
             gameObject.SetActive(false);
-        }
-
-        public void Duplicate()
-        {
-            BE2_BlockUtils.DuplicateBlock(_targetBlock);
-            _contextMenuManager.CloseContextMenu();
         }
 
         public void Delete()

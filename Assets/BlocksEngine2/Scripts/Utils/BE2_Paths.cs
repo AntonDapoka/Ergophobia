@@ -13,14 +13,6 @@ namespace MG_BlocksEngine2.Utils
         {
             string fullPath = pathMarkup;
 
-            // v2.7 - saved codes path are now, by default, set to the "persistentDataPath" on Build. The setting "usePersistentPathOnBuild" can be set from the BE2 inspector
-            if (BE2_Inspector.Instance.usePersistentPathOnBuild && !Application.isEditor)
-            {
-                fullPath = fullPath.Replace("[dataPath]", Application.persistentDataPath);
-                fullPath = fullPath.Replace("[persistentDataPath]", Application.persistentDataPath);
-                return fullPath;
-            }
-
             fullPath = fullPath.Replace("[dataPath]", Application.dataPath);
             fullPath = fullPath.Replace("[persistentDataPath]", Application.persistentDataPath);
             return fullPath;
@@ -53,11 +45,6 @@ namespace MG_BlocksEngine2.Utils
         {
             get => BE2_Inspector.Instance.newBlockPrefabPath;
             set => BE2_Inspector.Instance.newBlockPrefabPath = value;
-        }
-        static public string SavedCodesPath
-        {
-            get => BE2_Inspector.Instance.savedCodesPath;
-            set => BE2_Inspector.Instance.savedCodesPath = value;
         }
     }
 }

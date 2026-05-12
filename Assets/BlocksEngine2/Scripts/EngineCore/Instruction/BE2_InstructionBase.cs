@@ -157,7 +157,7 @@ namespace MG_BlocksEngine2.Block.Instruction
                 else
                 {
                     // v2.12.1 - bugfix: Function Block being counted during the step by step play 
-                    if (Block.Type == BlockTypeEnum.trigger || Block.BlockIsFunction())
+                    if (Block.Type == BlockTypeEnum.trigger)
                     {
                         BlocksStack.OverflowGuard++;
                         ExecuteInstruction(nextInstruction);
@@ -205,7 +205,7 @@ namespace MG_BlocksEngine2.Block.Instruction
                 else
                 {
                     // v2.12.1 - bugfix: Function Block being counted during the step by step play
-                    if (Block.Type == BlockTypeEnum.condition || Block.Type == BlockTypeEnum.loop || Block.BlockIsFunction())
+                    if (Block.Type == BlockTypeEnum.condition || Block.Type == BlockTypeEnum.loop)
                     {
                         BlocksStack.OverflowGuard++;
                         ExecuteInstruction(nextInstruction);

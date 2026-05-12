@@ -35,7 +35,7 @@ namespace MG_BlocksEngine2.UI
             // v2.10 - bugfix: variable and list blocks not resizing on the selection panel
             // v2.12 - added check to not perform clean in Function Blocks
             I_BE2_Block block = prefabBlock.GetComponent<I_BE2_Block>();
-            if (!BE2_BlockUtils.BlockIsVariable(block) && !BE2_BlockUtils.BlockIsFunction(block))
+            if (!BE2_BlockUtils.BlockIsVariable(block))
                 PerformClean();
         }
 

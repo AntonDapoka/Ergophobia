@@ -9,7 +9,6 @@ using MG_BlocksEngine2.Block.Instruction;
 using MG_BlocksEngine2.Core;
 using MG_BlocksEngine2.UI;
 using MG_BlocksEngine2.Environment;
-using MG_BlocksEngine2.Serializer;
 
 namespace MG_BlocksEngine2.Utils
 {
@@ -55,20 +54,6 @@ namespace MG_BlocksEngine2.Utils
             GameObject blockGameObject = blockTransform.gameObject;
             blockGameObject.AddComponent<BE2_UI_SelectionBlock>();
             blockGameObject.AddComponent<BE2_DragSelectionBlock>();
-        }
-
-        public static void DuplicateBlock(I_BE2_Block block)
-        {
-            I_BE2_ProgrammingEnv programmingEnv = block.Transform.GetComponentInParent<I_BE2_ProgrammingEnv>();
-            I_BE2_Block newBlock = BE2_BlocksSerializer.SerializableToBlock(BE2_BlocksSerializer.BlockToSerializable(block), programmingEnv);
-
-            // v2.6 - bugfix: fixed block being instantiated at wrong position on "Duplicate"
-            newBlock.Transform.position = block.Transform.position + new Vector3(10, 10, 0);
-
-            if (newBlock.Type == BlockTypeEnum.trigger)
-            {
-                BE2_ExecutionManager.Instance.AddToBlocksStackArray(newBlock.Instruction.InstructionBase.BlocksStack, programmingEnv.TargetObject);
-            }
         }
 
         // v2.6 - new method added to Block Utils to get root parent block
@@ -134,8 +119,6 @@ namespace MG_BlocksEngine2.Utils
             GameObject loadedPrefab = Resources.Load<GameObject>("Blocks/" + prefabName);
             if (!loadedPrefab)
                 loadedPrefab = Resources.Load<GameObject>("Blocks/Custom/" + prefabName);
-            if (!loadedPrefab)
-                loadedPrefab = Resources.Load<GameObject>("Blocks/FunctionBlock/" + prefabName);
             // v2.3 - using settable paths
             if (!loadedPrefab)
                 loadedPrefab = Resources.Load<GameObject>(BE2_Paths.PathToResources(BE2_Paths.TranslateMarkupPath(BE2_Paths.NewBlockPrefabPath)) + prefabName);
@@ -174,12 +157,6 @@ namespace MG_BlocksEngine2.Utils
             Attribute.SerializeAsVariableAttribute varAttribute = (Attribute.SerializeAsVariableAttribute)System.Attribute.GetCustomAttribute(instructionType, typeof(Attribute.SerializeAsVariableAttribute));
 
             return varAttribute != null ? true : false;
-        }
-
-        // v2.12 - added method to the BlockUtils to check if a block's instruction is of type FunctionBlock
-        public static bool BlockIsFunction(this I_BE2_Block block)
-        {
-            return block.Instruction.GetType() == typeof(BE2_Ins_FunctionBlock);
         }
 
         // v2.11 - added CallOnEndOfFrame(this MonoBehaviour, System.Action) method to the Utils class
@@ -242,19 +219,10 @@ namespace MG_BlocksEngine2.Utils
             layout.Initialize();
 
             noViewInstruction = noViewBlockGO.AddComponent(block.Instruction.GetType()) as I_BE2_Instruction;
-            if (noViewInstruction is BE2_Ins_FunctionBlock)
-            {
-                (noViewInstruction as BE2_Ins_FunctionBlock).Initialize((block.Instruction as BE2_Ins_FunctionBlock).defineInstruction);
-            }
             noViewBlock.Instruction = noViewInstruction;
 
             if (noViewBlock.Type == BlockTypeEnum.operation)
-            {
-                if (noViewBlockGO.GetComponent<BE2_Op_FunctionLocalVariable>())
-                    noViewBlockGO.AddComponent<BE2_BlockSectionHeader_LocalVariable>();
-                else
-                    noViewBlockGO.AddComponent<BE2_BlockSectionHeader_Operation>();
-            }
+                noViewBlockGO.AddComponent<BE2_BlockSectionHeader_Operation>();
 
             return noViewBlock;
         }
@@ -307,10 +275,6 @@ namespace MG_BlocksEngine2.Utils
             layout.Initialize();
 
             noViewInstruction = noViewBlockGO.AddComponent(typeof(T)) as I_BE2_Instruction;
-            if (noViewInstruction is BE2_Ins_FunctionBlock)
-            {
-                (noViewInstruction as BE2_Ins_FunctionBlock).Initialize((block.Instruction as BE2_Ins_FunctionBlock).defineInstruction);
-            }
             noViewBlock.Instruction = noViewInstruction;
 
             if (noViewBlock.Type == BlockTypeEnum.operation)
