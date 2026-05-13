@@ -102,7 +102,7 @@ namespace MG_BlocksEngine2.UI
         }
 
         // v2.4 - bugfix: fixed blocks selection panel not scrolling after block being dragged to ProgrammingEnv.
-        //                Changed EnableScroll subscription to pointer up event from BE2_DragSelectionBlock and BE2_DragSelectionVariable to BE2_UI_BlocksSelectionViewer
+        //                Changed EnableScroll subscription to pointer up event from BE2_DragSelectionBlock to BE2_UI_BlocksSelectionViewer
         void OnEnable()
         {
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyUpEnd, EnableScroll);

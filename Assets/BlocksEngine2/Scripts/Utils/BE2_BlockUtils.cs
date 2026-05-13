@@ -150,15 +150,6 @@ namespace MG_BlocksEngine2.Utils
             return foundInstructions;
         }
 
-        // v2.10 - BlockIsVariable method added to BE2_BlockUtils class to identify Variable blocks 
-        public static bool BlockIsVariable(this I_BE2_Block block)
-        {
-            System.Type instructionType = block.Instruction.GetType();
-            Attribute.SerializeAsVariableAttribute varAttribute = (Attribute.SerializeAsVariableAttribute)System.Attribute.GetCustomAttribute(instructionType, typeof(Attribute.SerializeAsVariableAttribute));
-
-            return varAttribute != null ? true : false;
-        }
-
         // v2.11 - added CallOnEndOfFrame(this MonoBehaviour, System.Action) method to the Utils class
         // derived from https://forum.unity.com/threads/tip-invoke-any-function-with-delay-also-with-parameters.978273/
         public static void CallOnEndOfFrame(this MonoBehaviour monoBehaviour, System.Action action)
