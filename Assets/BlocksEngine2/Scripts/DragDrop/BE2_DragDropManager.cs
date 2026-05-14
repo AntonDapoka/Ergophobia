@@ -4,7 +4,6 @@ using UnityEngine;
 
 using MG_BlocksEngine2.Block;
 using MG_BlocksEngine2.Core;
-using MG_BlocksEngine2.UI;
 using MG_BlocksEngine2.Environment;
 
 namespace MG_BlocksEngine2.DragDrop
@@ -12,8 +11,6 @@ namespace MG_BlocksEngine2.DragDrop
     // v2.7 - BE2_DragDropManager refactored to use the BE2 Input Manager
     public class BE2_DragDropManager : MonoBehaviour
     {
-        BE2_UI_ContextMenuManager _contextMenuManager;
-
         // v2.6 - BE2_DragDropManager using instance as property to guarantee return
         static BE2_DragDropManager _instance;
         public static BE2_DragDropManager Instance
@@ -87,11 +84,6 @@ namespace MG_BlocksEngine2.DragDrop
         {
             Raycaster = GetComponent<I_BE2_Raycaster>();
             _dragDropComponentsCanvas = BE2_DragDropManager.Instance.draggedObjectsTransform.GetComponentInParent<BE2_Canvas>().Canvas;
-        }
-
-        void Start()
-        {
-            _contextMenuManager = BE2_UI_ContextMenuManager.instance;
         }
 
         void OnEnable()

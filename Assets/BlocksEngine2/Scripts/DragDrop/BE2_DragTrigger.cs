@@ -4,7 +4,6 @@ using UnityEngine;
 
 using MG_BlocksEngine2.Block;
 using MG_BlocksEngine2.Core;
-using MG_BlocksEngine2.UI;
 using MG_BlocksEngine2.Environment;
 
 namespace MG_BlocksEngine2.DragDrop
@@ -36,7 +35,7 @@ namespace MG_BlocksEngine2.DragDrop
 
         public void OnRightPointerDownOrHold()
         {
-            BE2_UI_ContextMenuManager.instance.OpenContextMenu(0, Block);
+
         }
 
         public void OnDragStart()

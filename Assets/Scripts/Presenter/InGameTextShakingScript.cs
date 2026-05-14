@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InGameTextShakingScript : MonoBehaviour
@@ -32,16 +30,13 @@ public class InGameTextShakingScript : MonoBehaviour
     {
         if (mainCamera == null) return;
 
-        // Вычисляем значение кривой для покачивания
         float t = Mathf.Repeat(Time.time * speed + timeOffset, 1f);
         float curveValue = swingCurve.Evaluate(t);
         float swing = Mathf.Lerp(-1f, 1f, curveValue);
         float z = swing * angle;
 
-        // Повернуть объект лицом к камере (billboard)
         transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.transform.position);
 
-        // Добавить покачивание (локально)
         transform.rotation *= Quaternion.Euler(0, 0, z);
     }
 }

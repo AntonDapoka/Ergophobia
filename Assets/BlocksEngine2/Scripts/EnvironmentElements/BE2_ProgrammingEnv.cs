@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 using MG_BlocksEngine2.DragDrop;
 using MG_BlocksEngine2.Block;
-using MG_BlocksEngine2.UI;
 
 namespace MG_BlocksEngine2.Environment
 {
@@ -87,11 +86,6 @@ namespace MG_BlocksEngine2.Environment
                         BlocksList.Add(childBlock);
                 }
             }
-        }
-
-        public void OpenContextMenu()
-        {
-            BE2_UI_ContextMenuManager.instance.OpenContextMenu(1, this);
         }
 
         public void ClearBlocks()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 using MG_BlocksEngine2.DragDrop;
 using MG_BlocksEngine2.EditorScript;
-using MG_BlocksEngine2.UI;
 using System.Linq;
 
 namespace MG_BlocksEngine2.Core
@@ -99,7 +98,7 @@ namespace MG_BlocksEngine2.Core
                 _mainEventsManager.TriggerEvent(BE2EventTypes.OnPrimaryKey);
                 // v2.6 - using BE2_Pointer as main pointer input source
                 float distance = Vector2.Distance(_lastPosition, (Vector2)ScreenPointerPosition);
-                if (distance > 0.5f && !BE2_UI_ContextMenuManager.instance.isActive)
+                if (distance > 0.5f)
                 {
                     _mainEventsManager.TriggerEvent(BE2EventTypes.OnDrag);
                 }

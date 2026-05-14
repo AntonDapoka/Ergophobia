@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using MG_BlocksEngine2.Block;
-using MG_BlocksEngine2.UI;
 using MG_BlocksEngine2.Environment;
 
 namespace MG_BlocksEngine2.DragDrop
@@ -35,7 +34,7 @@ namespace MG_BlocksEngine2.DragDrop
 
         public void OnRightPointerDownOrHold()
         {
-            BE2_UI_ContextMenuManager.instance.OpenContextMenu(0, Block);
+
         }
 
         // v2.13 - BE2_DragBlock.OnDragStart implements the group drag feature with also the possibility to drag a single block by holding the auxiliary key  
