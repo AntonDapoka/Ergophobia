@@ -145,8 +145,49 @@ namespace MG_BlocksEngine2.Core
         public void PopulateStack()
         {
             InstructionsArray = new I_BE2_Instruction[0];
+
+            I_BE2_Block triggerBlock = TriggerInstruction.InstructionBase.Block;
+            BE2_Line triggerLine = triggerBlock.Transform.parent?.GetComponent<BE2_Line>();
+
+            if (triggerLine != null && triggerLine.ParentBody == null)
+            {
+                BE2_ProgrammingEnv env = triggerLine.Transform.GetComponentInParent<BE2_ProgrammingEnv>();
+                if (env != null && env.MainLines != null)
+                {
+                    PopulateStackFromMainLines(triggerBlock, triggerLine, env);
+                    _arrayLength = InstructionsArray.Length;
+                    return;
+                }
+            }
+
             PopulateStackRecursive(TriggerInstruction.InstructionBase.Block);
             _arrayLength = InstructionsArray.Length;
+        }
+
+        void PopulateStackFromMainLines(I_BE2_Block triggerBlock, BE2_Line triggerLine, BE2_ProgrammingEnv env)
+        {
+            I_BE2_Instruction triggerInstruction = triggerBlock.Instruction;
+            I_BE2_InstructionBase triggerBase = triggerInstruction as I_BE2_InstructionBase;
+            triggerBase.TargetObject = TargetObject;
+            triggerBase.BlocksStack = this;
+            triggerBase.LocationsArray = new int[2];
+
+            InstructionsArray = BE2_ArrayUtils.AddReturn(InstructionsArray, triggerInstruction);
+            triggerBase.LocationsArray[0] = InstructionsArray.Length;
+
+            for (int i = triggerLine.LineIndex + 1; i < env.MainLines.Count; i++)
+            {
+                BE2_Line line = env.MainLines[i];
+                if (line == null || line.CurrentBlock == null) continue;
+                if (line.CurrentBlock.Type == BlockTypeEnum.trigger) break;
+
+                PopulateStackRecursive(line.CurrentBlock);
+            }
+
+            InstructionsArray = BE2_ArrayUtils.AddReturn(InstructionsArray, triggerInstruction);
+            triggerBase.LocationsArray[1] = InstructionsArray.Length;
+
+            triggerBase.PrepareToPlay();
         }
 
         // v2.11 - PopulateStackRecursive refactored to improved way to run the block stack. The tigger block function is executed as the other block types,

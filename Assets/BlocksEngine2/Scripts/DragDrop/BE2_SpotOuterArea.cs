@@ -41,12 +41,13 @@ namespace MG_BlocksEngine2.Block
 
         void OnEnable()
         {
-            _dragDropManager.AddToSpotsList(this);
+            // Line-based system: OuterArea is no longer a drop target.
+            // _dragDropManager.AddToSpotsList(this);
         }
 
         void OnDisable()
         {
-            _dragDropManager.RemoveFromSpotsList(this);
+            // _dragDropManager.RemoveFromSpotsList(this);
         }
     }
 }

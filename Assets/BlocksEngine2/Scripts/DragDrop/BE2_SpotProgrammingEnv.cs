@@ -42,12 +42,14 @@ namespace MG_BlocksEngine2.Block
 
         void OnEnable()
         {
-            _dragDropManager.AddToSpotsList(this);
+            // Line-based system: ProgrammingEnv is no longer a direct drop target.
+            // Blocks drop into Lines instead.
+            // _dragDropManager.AddToSpotsList(this);
         }
 
         void OnDisable()
         {
-            _dragDropManager.RemoveFromSpotsList(this);
+            // _dragDropManager.RemoveFromSpotsList(this);
         }
     }
 }

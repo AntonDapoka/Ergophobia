@@ -144,10 +144,10 @@ namespace MG_BlocksEngine2.Core
             {
                 I_BE2_ProgrammingEnv programmingEnv = _programmingEnvsList[i];
 
-                int childCount = programmingEnv.Transform.childCount;
-                for (int j = 0; j < childCount; j++)
+                // Line-based system: iterate BlocksList instead of direct children
+                foreach (Block.I_BE2_Block block in programmingEnv.BlocksList)
                 {
-                    I_BE2_BlocksStack blocksStack = programmingEnv.Transform.GetChild(j).GetComponent<I_BE2_BlocksStack>();
+                    I_BE2_BlocksStack blocksStack = block.Transform.GetComponent<I_BE2_BlocksStack>();
                     if (blocksStack != null)
                     {
                         BE2_ArrayUtils.Add(ref blocksStacksArray, blocksStack);

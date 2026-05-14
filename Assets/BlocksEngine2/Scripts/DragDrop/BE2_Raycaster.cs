@@ -214,12 +214,14 @@ namespace MG_BlocksEngine2.DragDrop
                 }
             }
 
-            if (activeEnv != null)
+            if (activeEnv != null && drag.Block.Layout.OuterArea != null)
             {
                 Vector3 point = drag.Block.Layout.OuterArea.Transform.position;
                 if (drag.Block.Layout.OuterArea.childBlocksCount > 0)
                 {
-                    point = drag.Block.Layout.OuterArea.childBlocksArray[drag.Block.Layout.OuterArea.childBlocksCount - 1].Layout.OuterArea.Transform.position;
+                    I_BE2_Block lastChild = drag.Block.Layout.OuterArea.childBlocksArray[drag.Block.Layout.OuterArea.childBlocksCount - 1];
+                    if (lastChild.Layout.OuterArea != null)
+                        point = lastChild.Layout.OuterArea.Transform.position;
                 }
 
                 foreach (Transform child in activeEnv.Transform)
@@ -239,6 +241,65 @@ namespace MG_BlocksEngine2.DragDrop
             }
 
             return connectionPoint.block;
+        }
+
+        // Line-based system: find the closest empty line for dropping a block
+        public BE2_Line FindClosestEmptyLine(I_BE2_Drag drag, float maxDistance)
+        {
+            // First pass: find a line that contains the drag point in its bounds
+            int spotsCount = _dragDropManager.SpotsList.Count;
+            for (int i = 0; i < spotsCount; i++)
+            {
+                I_BE2_Spot spot = _dragDropManager.SpotsList[i];
+                if (spot is BE2_Line line && !line.IsOccupied && line.Transform.gameObject.activeSelf)
+                {
+                    I_BE2_ProgrammingEnv programmingEnv = line.Transform.GetComponentInParent<BE2_ProgrammingEnv>();
+                    if (programmingEnv == null || !programmingEnv.Visible)
+                        continue;
+
+                    if (IsPointInsideLine(line, drag.RayPoint))
+                        return line;
+                }
+            }
+
+            // Fallback: find closest line by distance to center
+            float minDistance = Mathf.Infinity;
+            BE2_Line foundLine = null;
+            for (int i = 0; i < spotsCount; i++)
+            {
+                I_BE2_Spot spot = _dragDropManager.SpotsList[i];
+                if (spot is BE2_Line line && !line.IsOccupied && line.Transform.gameObject.activeSelf)
+                {
+                    I_BE2_ProgrammingEnv programmingEnv = line.Transform.GetComponentInParent<BE2_ProgrammingEnv>();
+                    if (programmingEnv == null || !programmingEnv.Visible)
+                        continue;
+
+                    float distance = Vector2.Distance(drag.RayPoint, spot.DropPosition);
+                    if (distance < minDistance && distance <= maxDistance)
+                    {
+                        foundLine = line;
+                        minDistance = distance;
+                    }
+                }
+            }
+
+            return foundLine;
+        }
+
+        bool IsPointInsideLine(BE2_Line line, Vector2 worldPoint)
+        {
+            RectTransform rt = line.Transform as RectTransform;
+            if (rt == null) return false;
+
+            Vector3[] corners = new Vector3[4];
+            rt.GetWorldCorners(corners);
+
+            float minX = Mathf.Min(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+            float maxX = Mathf.Max(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+            float minY = Mathf.Min(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+            float maxY = Mathf.Max(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+
+            return worldPoint.x >= minX && worldPoint.x <= maxX && worldPoint.y >= minY && worldPoint.y <= maxY;
         }
     }
 }

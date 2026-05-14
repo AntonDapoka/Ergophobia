@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 using MG_BlocksEngine2.DragDrop;
 using MG_BlocksEngine2.Block;
+using MG_BlocksEngine2.Core;
 
 namespace MG_BlocksEngine2.Environment
 {
@@ -15,6 +15,12 @@ namespace MG_BlocksEngine2.Environment
         public List<I_BE2_Block> BlocksList { get; set; }
         public BE2_TargetObject targetObject;
         public I_BE2_TargetObject TargetObject => targetObject;
+
+        // --- Line-based system: main lines ---
+        [Header("Lines")]
+        public int maxMainLines = 20;
+        public float lineHeight = 60f;
+        public List<BE2_Line> MainLines { get; private set; }
 
         // v2.4 - added property to set visibility of Programming Environment, facilitates the use of multiple individualy programmable Target Objects in the same scene 
         [SerializeField]
@@ -63,6 +69,7 @@ namespace MG_BlocksEngine2.Environment
             }
 
             _transform = transform;
+            CreateMainLines();
             UpdateBlocksList();
 
             _parentCanvasGroup = GetComponentInParent<CanvasGroup>();
@@ -74,30 +81,93 @@ namespace MG_BlocksEngine2.Environment
             BE2_DragDropManager.Instance.Raycaster.AddRaycaster(_parentGraphicRaycaster);
         }
 
+        void OnEnable()
+        {
+            BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyUpEnd, UpdateLinePositions);
+        }
+
+        void OnDisable()
+        {
+            BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyUpEnd, UpdateLinePositions);
+        }
+
+        void LateUpdate()
+        {
+            UpdateLinePositions();
+        }
+
+        public void UpdateLinePositions()
+        {
+            if (MainLines == null) return;
+
+            float currentY = 0;
+            for (int i = 0; i < MainLines.Count; i++)
+            {
+                BE2_Line line = MainLines[i];
+                if (line == null) continue;
+
+                RectTransform rt = line.GetComponent<RectTransform>();
+                if (rt == null) continue;
+
+                rt.anchoredPosition = new Vector2(0, currentY);
+
+                if (line.CurrentBlock != null && line.CurrentBlock.Layout != null)
+                {
+                    currentY -= line.CurrentBlock.Layout.Size.y;
+                }
+                else
+                {
+                    currentY -= lineHeight;
+                }
+            }
+        }
+
+        void CreateMainLines()
+        {
+            MainLines = new List<BE2_Line>();
+            for (int i = 0; i < maxMainLines; i++)
+            {
+                GameObject lineGO = new GameObject("Line " + i, typeof(RectTransform), typeof(Image), typeof(BE2_Line));
+                lineGO.transform.SetParent(_transform);
+                lineGO.transform.SetAsLastSibling();
+
+                RectTransform rt = lineGO.GetComponent<RectTransform>();
+                rt.anchorMin = new Vector2(0, 1);
+                rt.anchorMax = new Vector2(1, 1);
+                rt.pivot = new Vector2(0, 1);
+                rt.anchoredPosition = new Vector2(0, -i * lineHeight);
+                rt.sizeDelta = new Vector2(0, lineHeight);
+
+                BE2_Line line = lineGO.GetComponent<BE2_Line>();
+                line.LineIndex = i;
+                MainLines.Add(line);
+            }
+        }
+
         public void UpdateBlocksList()
         {
             BlocksList = new List<I_BE2_Block>();
-            foreach (Transform child in Transform)
+            if (MainLines != null)
             {
-                if (child.gameObject.activeSelf)
+                foreach (BE2_Line line in MainLines)
                 {
-                    I_BE2_Block childBlock = child.GetComponent<I_BE2_Block>();
-                    if (childBlock != null)
-                        BlocksList.Add(childBlock);
+                    if (line != null && line.CurrentBlock != null)
+                        BlocksList.Add(line.CurrentBlock);
                 }
             }
         }
 
         public void ClearBlocks()
         {
-            BlocksList = new List<I_BE2_Block>();
-            foreach (Transform child in Transform)
+            if (MainLines != null)
             {
-                if (child.gameObject.activeSelf)
+                foreach (BE2_Line line in MainLines)
                 {
-                    I_BE2_Block childBlock = child.GetComponent<I_BE2_Block>();
-                    if (childBlock != null)
-                        Destroy(childBlock.Transform.gameObject);
+                    if (line != null && line.CurrentBlock != null)
+                    {
+                        Destroy(line.CurrentBlock.Transform.gameObject);
+                        line.ClearBlock();
+                    }
                 }
             }
 

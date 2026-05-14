@@ -37,12 +37,14 @@ namespace MG_BlocksEngine2.Block
 
         void OnEnable()
         {
-            _dragDropManager.AddToSpotsList(this);
+            // Line-based system: BlockBody is no longer a direct drop target.
+            // Sub-lines inside the body handle drop detection.
+            // _dragDropManager.AddToSpotsList(this);
         }
 
         void OnDisable()
         {
-            _dragDropManager.RemoveFromSpotsList(this);
+            // _dragDropManager.RemoveFromSpotsList(this);
         }
     }
 }

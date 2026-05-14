@@ -30,6 +30,13 @@ namespace MG_BlocksEngine2.Block
         }
         public I_BE2_Spot Spot { get; set; }
         public int ChildBlocksCount { get; set; }
+
+        // --- Line-based system: sub-lines for nested blocks ---
+        [Header("Sub Lines")]
+        public int maxSubLines = 5;
+        public float subLineHeight = 55f;
+        public float subLineIndent = 20f;
+        public List<BE2_Line> SubLines { get; private set; }
         Shadow _shadow;
         public Shadow Shadow
         {
@@ -72,6 +79,38 @@ namespace MG_BlocksEngine2.Block
 
             ChildBlocksArray = new I_BE2_Block[0];
             Spot = GetComponent<I_BE2_Spot>();
+
+            CreateSubLines();
+        }
+
+        void CreateSubLines()
+        {
+            if (!Application.isPlaying) return;
+            if (_section == null) return;
+
+            BlockTypeEnum type = _section.Block.Type;
+            if (type != BlockTypeEnum.condition && type != BlockTypeEnum.loop && type != BlockTypeEnum.define)
+                return;
+
+            SubLines = new List<BE2_Line>();
+            for (int i = 0; i < maxSubLines; i++)
+            {
+                GameObject lineGO = new GameObject("SubLine " + i, typeof(RectTransform), typeof(Image), typeof(BE2_Line));
+                lineGO.transform.SetParent(transform);
+                lineGO.transform.SetAsLastSibling();
+
+                RectTransform rt = lineGO.GetComponent<RectTransform>();
+                rt.anchorMin = new Vector2(0, 1);
+                rt.anchorMax = new Vector2(1, 1);
+                rt.pivot = new Vector2(0, 1);
+                rt.anchoredPosition = new Vector2(subLineIndent, -i * subLineHeight);
+                rt.sizeDelta = new Vector2(-subLineIndent * 2, subLineHeight);
+
+                BE2_Line line = lineGO.GetComponent<BE2_Line>();
+                line.LineIndex = i;
+                line.ParentBody = this;
+                SubLines.Add(line);
+            }
         }
 
         //void Start()
@@ -87,15 +126,31 @@ namespace MG_BlocksEngine2.Block
         public void UpdateChildBlocksList()
         {
             ChildBlocksArray = new I_BE2_Block[0];
-            int childCount = transform.childCount;
-            for (int i = 0; i < childCount; i++)
+
+            if (SubLines != null && SubLines.Count > 0)
             {
-                I_BE2_Block childBlock = transform.GetChild(i).GetComponent<I_BE2_Block>();
-                if (childBlock != null)
+                foreach (BE2_Line line in SubLines)
                 {
-                    ChildBlocksArray = BE2_ArrayUtils.AddReturn(ChildBlocksArray, childBlock);
+                    if (line != null && line.CurrentBlock != null)
+                    {
+                        ChildBlocksArray = BE2_ArrayUtils.AddReturn(ChildBlocksArray, line.CurrentBlock);
+                    }
                 }
             }
+            else
+            {
+                // Fallback for backwards compatibility
+                int childCount = transform.childCount;
+                for (int i = 0; i < childCount; i++)
+                {
+                    I_BE2_Block childBlock = transform.GetChild(i).GetComponent<I_BE2_Block>();
+                    if (childBlock != null)
+                    {
+                        ChildBlocksArray = BE2_ArrayUtils.AddReturn(ChildBlocksArray, childBlock);
+                    }
+                }
+            }
+
             ChildBlocksCount = ChildBlocksArray.Length;
         }
 
@@ -104,28 +159,35 @@ namespace MG_BlocksEngine2.Block
             if (_image.sprite != null && _blockLayout != null)
                 _image.color = _blockLayout.Color;
 
-            float minHeight = 50;
-            if (_section.Block.Type == BlockTypeEnum.trigger || _section.Block.Type == BlockTypeEnum.define)
-                minHeight = 0;
-
             float height = 0;
 
-            UpdateChildBlocksList();
-            int childsLength = ChildBlocksArray.Length;
-            for (int i = 0; i < childsLength; i++)
+            if (SubLines != null && SubLines.Count > 0)
             {
-                height += ChildBlocksArray[i].Layout.Size.y - 10;
+                height = SubLines.Count * subLineHeight;
             }
-            height -= 10;
-
-            if (height < minHeight)
-                height = minHeight;
-
-            if (_section.RectTransform.transform.GetSiblingIndex() == _section.RectTransform.transform.parent.childCount - 2)
+            else
             {
-                if (_section.Block.Type != BlockTypeEnum.trigger && _section.Block.Type != BlockTypeEnum.define)
+                float minHeight = 50;
+                if (_section.Block.Type == BlockTypeEnum.trigger || _section.Block.Type == BlockTypeEnum.define)
+                    minHeight = 0;
+
+                UpdateChildBlocksList();
+                int childsLength = ChildBlocksArray.Length;
+                for (int i = 0; i < childsLength; i++)
                 {
-                    height += 50;
+                    height += ChildBlocksArray[i].Layout.Size.y - 10;
+                }
+                height -= 10;
+
+                if (height < minHeight)
+                    height = minHeight;
+
+                if (_section.RectTransform.transform.GetSiblingIndex() == _section.RectTransform.transform.parent.childCount - 2)
+                {
+                    if (_section.Block.Type != BlockTypeEnum.trigger && _section.Block.Type != BlockTypeEnum.define)
+                    {
+                        height += 50;
+                    }
                 }
             }
 
