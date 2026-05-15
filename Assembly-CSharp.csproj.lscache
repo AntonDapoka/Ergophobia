@@ -59,6 +59,7 @@ Assets/BlocksEngine2/Scripts/Block/
  BE2_BlockNoViewLayout.cs
  BE2_BlockVerticalLayout.cs
  BE2_GhostBlock.cs
+ BE2_Line.cs
  I_BE2_Block.cs
  I_BE2_BlockLayout.cs
 Assets/BlocksEngine2/Scripts/BlockSections/
@@ -76,12 +77,9 @@ Assets/BlocksEngine2/Scripts/BlockSections/
   BE2_NoViewBlockSectionHeader.cs
 Assets/BlocksEngine2/Scripts/DragDrop/
  BE2_DragBlock.cs
- BE2_DragDefineFunctionBlock.cs
  BE2_DragDropManager.cs
  BE2_DragOperation.cs
  BE2_DragSelectionBlock.cs
- BE2_DragSelectionFunction.cs
- BE2_DragSelectionVariable.cs
  BE2_DragTrigger.cs
  BE2_Pointer.cs
  BE2_Raycaster.cs
@@ -96,63 +94,39 @@ Assets/BlocksEngine2/Scripts/DragDrop/
 Assets/BlocksEngine2/Scripts/
  EditorScripts/BE2_Inspector.cs
  EngineCore/Core/
-  Attributes/BE2_Attributes.cs
   BE2_BlocksStack.cs
   BE2_Canvas.cs
   BE2_ExecutionManager.cs
   EventSystem/
    BE2_EventsManager.cs
    BE2_MainEventsManager.cs
-  FunctionBlock/
-   BE2_FunctionBlocksManager.cs
-   BE2_VerticalFunctionBlocksManager.cs
   InputManager/
    BE2_InputManager.cs
    I_BE2_InputManager.cs
   I_BE2_BlocksStack.cs
-  Variable/
-   BE2_VariablesListManager.cs
-   BE2_VariablesManager.cs
-   I_BE2_VariablesManager.cs
  EngineCore/Instruction/
   BE2_InstructionBase.cs
   BlockInstructions/
-   BE2_Ins_AddToList.cs
-   BE2_Ins_AddVariable.cs
    BE2_Ins_BreakLoop.cs
-   BE2_Ins_ChangeColor.cs
-   BE2_Ins_ClearList.cs
    BE2_Ins_If.cs
    BE2_Ins_IfElse.cs
-   BE2_Ins_InsertAtList.cs
    BE2_Ins_MoveForward.cs
-   BE2_Ins_PlaySound.cs
-   BE2_Ins_RemoveIndexFromList.cs
-   BE2_Ins_RemoveValueFromList.cs
    BE2_Ins_Repeat.cs
    BE2_Ins_RepeatForever.cs
    BE2_Ins_RepeatUntil.cs
-   BE2_Ins_ReplaceIndexOfList.cs
    BE2_Ins_Return.cs
    BE2_Ins_RotateAxis.cs
-   BE2_Ins_SetVariable.cs
    BE2_Ins_SlideForward.cs
    BE2_Ins_TranslateToPosition.cs
    BE2_Ins_TurnDirection.cs
    BE2_Ins_Wait.cs
-   BE2_Ins_WhenJoystickKeyPressed.cs
    BE2_Ins_WhenKeyPressed.cs
    BE2_Ins_WhenPlayClicked.cs
    BE2_Op_And.cs
    BE2_Op_BiggerThan.cs
    BE2_Op_Divide.cs
    BE2_Op_Equal.cs
-   BE2_Op_IndexOfValueAtList.cs
-   BE2_Op_JoystickKeyPressed.cs
    BE2_Op_KeyPressed.cs
-   BE2_Op_List.cs
-   BE2_Op_ListContains.cs
-   BE2_Op_ListLength.cs
    BE2_Op_Multiply.cs
    BE2_Op_Nand.cs
    BE2_Op_Nor.cs
@@ -160,18 +134,12 @@ Assets/BlocksEngine2/Scripts/
    BE2_Op_Or.cs
    BE2_Op_Random.cs
    BE2_Op_Sum.cs
-   BE2_Op_ValueAtIndexAtList.cs
-   BE2_Op_Variable.cs
    BE2_Op_Xnor.cs
    BE2_Op_Xor.cs
    Custom/
     BE2_Cst_LookAtAndMove.cs
+    BE2_Cst_TestBlock2.cs
     BE2_Ins_SpacecraftShoot.cs
-   FunctionBlock/
-    BE2_Ins_DefineFunction.cs
-    BE2_Ins_FunctionBlock.cs
-    BE2_Ins_ReferenceFunctionBlock.cs
-    BE2_Op_FunctionLocalVariable.cs
   I_BE2_Instruction.cs
   I_BE2_InstructionBase.cs
  EnvironmentElements/
@@ -181,53 +149,24 @@ Assets/BlocksEngine2/Scripts/
   BE2_Zoom.cs
   I_BE2_ProgrammingEnv.cs
   I_BE2_TargetObject.cs
- Extras/
-  BE2_AudioManager.cs
-  BE2_HideBlocksSelection.cs
+ Extras/BE2_HideBlocksSelection.cs
  HeaderItems/
-  BE2_BlockSectionHeader_Custom.cs
   BE2_BlockSectionHeader_Dropdown.cs
   BE2_BlockSectionHeader_InputField.cs
   BE2_BlockSectionHeader_Label.cs
-  BE2_BlockSectionHeader_LocalVariable.cs
   BE2_BlockSectionHeader_Operation.cs
-  BE2_BlockSectionHeader_ReferenceInput.cs
   BE2_BlockSectionHeader_Toggle.cs
-  BE2_BlockSectionHeader_VariableLabel.cs
   BE2_DropdownDynamicResize.cs
   BE2_InputFieldDynamicResize.cs
   BE2_InputValues.cs
   I_BE2_BlockSectionHeaderInput.cs
   I_BE2_BlockSectionHeaderItem.cs
- Serialization/
-  BE2_BlocksSerializer.cs
-  BE2_BlockXML.cs
-  BE2_SerializableBlock.cs
  UI/
   BE2_UI_BlocksSelectionViewer.cs
   BE2_UI_SelectionBlock.cs
   BE2_UI_SelectionButton.cs
   BE2_UI_SelectionPanel.cs
-  ContextMenu/
-   BE2_UI_BlockContextMenu.cs
-   BE2_UI_ContextMenuManager.cs
-   BE2_UI_PanelCancel.cs
-   BE2_UI_SaveLoadContextMenu.cs
-   I_BE2_UI_ContextMenu.cs
   CustomScrollRect.cs
-  FunctionBlock/
-   BE2_UI_CreateFunctionBlockMenu.cs
-   Label.cs
-  Variable/
-   BE2_UI_NewVariablePanel.cs
-   BE2_UI_VariableViewer.cs
-   Lists/
-    BE2_UI_ListItem.cs
-    BE2_UI_NewVariableListPanel.cs
-    BE2_UI_VariableListViewer.cs
-  VirtualJoystick/
-   BE2_VirtualJoystick.cs
-   BE2_VirtualJoystickButton.cs
  Utils/
   BE2_ArrayUtils.cs
   BE2_BlockUtils.cs
@@ -276,9 +215,7 @@ Assets/Scripts/
     IInstruction.cs
     IInstructionBase.cs
     ISpot.cs
-    Utilities/
-     ArrayUtilitiesScript.cs
-     BlockUtilitiesScript.cs
+    Utilities/ArrayUtilitiesScript.cs
    Enemy/
     EnemyInteractorScript.cs
     Shooter Enemy/ShooterEnemyInteractorScript.cs
@@ -729,7 +666,7 @@ C:/Program Files/Unity 6000.4.2f1/Editor/Data/Tools/BuildPipeline/Unity.SourceGe
  Unity.Properties.SourceGenerator.dll
  Unity.SourceGenerators.dll
  Unity.UIToolkit.SourceGenerator.dll
-C:/Users/25022/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.2.1/Analyzers/Microsoft.Unity.Analyzers.dll
+C:/Users/25022/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.2.2/Analyzers/Microsoft.Unity.Analyzers.dll
 
 [analyzerConfigFiles]
 .editorconfig
