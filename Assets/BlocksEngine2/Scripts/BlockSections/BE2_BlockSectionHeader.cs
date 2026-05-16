@@ -163,7 +163,11 @@ namespace MG_BlocksEngine2.Block
             }
             else
             {
-                _rectTransform.sizeDelta = new Vector2(_blockLayout.SectionsArray[0].Header.Size.x, _rectTransform.sizeDelta.y);
+                if (_blockLayout != null && _blockLayout.SectionsArray != null && _blockLayout.SectionsArray.Length > 0
+                    && _blockLayout.SectionsArray[0].Header != null)
+                {
+                    _rectTransform.sizeDelta = new Vector2(_blockLayout.SectionsArray[0].Header.Size.x, _rectTransform.sizeDelta.y);
+                }
             }
         }
     }

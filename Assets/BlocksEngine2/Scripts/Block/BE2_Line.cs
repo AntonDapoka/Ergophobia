@@ -64,10 +64,26 @@ namespace MG_BlocksEngine2.Block
             CurrentBlock = block;
             if (block != null)
             {
+                // Preserve the block's intended size before parenting
+                Vector2 intendedSize = block.Layout != null ? block.Layout.Size : (block.Transform as RectTransform).sizeDelta;
+
                 block.Transform.SetParent(transform, false);
                 block.Transform.localPosition = Vector3.zero;
                 block.Transform.localScale = Vector3.one;
                 block.Transform.localEulerAngles = Vector3.zero;
+
+                // Force immediate layout update so the block keeps its correct size
+                if (block.Layout != null)
+                {
+                    block.Layout.UpdateLayout();
+                }
+
+                // Defensive: if layout collapsed the size, restore the intended size
+                RectTransform blockRT = block.Transform as RectTransform;
+                if (blockRT != null && blockRT.sizeDelta.x < intendedSize.x * 0.5f)
+                {
+                    blockRT.sizeDelta = intendedSize;
+                }
             }
             UpdateVisual();
         }

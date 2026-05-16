@@ -115,13 +115,13 @@ namespace MG_BlocksEngine2.Block
         // v2.12.1 - Block layout update made non coroutine
         public void UpdateLayout()
         {
-            _rectTransform.sizeDelta = Size;
-
             int sectionsLength = SectionsArray.Length;
             for (int i = 0; i < sectionsLength; i++)
             {
                 SectionsArray[i].UpdateLayout();
             }
+
+            _rectTransform.sizeDelta = Size;
 
             if (OuterArea != null)
                 OuterArea.UpdateLayout();

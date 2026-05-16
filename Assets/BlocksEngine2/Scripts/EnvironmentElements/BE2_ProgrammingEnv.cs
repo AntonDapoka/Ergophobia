@@ -28,6 +28,10 @@ namespace MG_BlocksEngine2.Environment
         public Color lineOccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
         public Sprite lineSprite;
 
+        [Header("Scrolling")]
+        public ScrollRect scrollRect;
+        public RectTransform contentContainer;
+
         // v2.4 - added property to set visibility of Programming Environment, facilitates the use of multiple individualy programmable Target Objects in the same scene 
         [SerializeField]
         bool _visible = true;
@@ -75,6 +79,7 @@ namespace MG_BlocksEngine2.Environment
             }
 
             _transform = transform;
+            SetupScrolling();
             CreateMainLines();
             UpdateBlocksList();
 
@@ -107,6 +112,8 @@ namespace MG_BlocksEngine2.Environment
             if (MainLines == null) return;
 
             float currentY = 0;
+            float totalHeight = 0;
+
             for (int i = 0; i < MainLines.Count; i++)
             {
                 BE2_Line line = MainLines[i];
@@ -117,15 +124,58 @@ namespace MG_BlocksEngine2.Environment
 
                 rt.anchoredPosition = new Vector2(0, currentY);
 
+                float lineSize = lineHeight;
                 if (line.CurrentBlock != null && line.CurrentBlock.Layout != null)
                 {
-                    currentY -= line.CurrentBlock.Layout.Size.y;
+                    lineSize = line.CurrentBlock.Layout.Size.y;
+                }
+
+                currentY -= lineSize;
+                totalHeight += lineSize;
+            }
+
+            if (contentContainer != null)
+            {
+                contentContainer.sizeDelta = new Vector2(0, totalHeight);
+            }
+        }
+
+        void SetupScrolling()
+        {
+            // Ensure RectMask2D for clipping overflow
+            if (GetComponent<RectMask2D>() == null)
+                gameObject.AddComponent<RectMask2D>();
+
+            // Ensure ScrollRect
+            if (scrollRect == null)
+                scrollRect = GetComponent<ScrollRect>() ?? gameObject.AddComponent<ScrollRect>();
+
+            // Ensure content container
+            if (contentContainer == null)
+            {
+                Transform existingContent = transform.Find("Content");
+                if (existingContent != null)
+                {
+                    contentContainer = existingContent.GetComponent<RectTransform>();
                 }
                 else
                 {
-                    currentY -= lineHeight;
+                    GameObject contentGO = new GameObject("Content", typeof(RectTransform));
+                    contentContainer = contentGO.GetComponent<RectTransform>();
+                    contentContainer.SetParent(transform, false);
+                    contentContainer.anchorMin = new Vector2(0, 1);
+                    contentContainer.anchorMax = new Vector2(1, 1);
+                    contentContainer.pivot = new Vector2(0, 1);
+                    contentContainer.anchoredPosition = Vector2.zero;
+                    contentContainer.sizeDelta = Vector2.zero;
                 }
             }
+
+            scrollRect.content = contentContainer;
+            scrollRect.viewport = GetComponent<RectTransform>();
+            scrollRect.horizontal = false;
+            scrollRect.vertical = true;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
         }
 
         void CreateMainLines()
@@ -134,7 +184,7 @@ namespace MG_BlocksEngine2.Environment
             for (int i = 0; i < maxMainLines; i++)
             {
                 GameObject lineGO = new GameObject("Line " + i, typeof(RectTransform), typeof(Image), typeof(BE2_Line));
-                lineGO.transform.SetParent(_transform);
+                lineGO.transform.SetParent(contentContainer != null ? contentContainer : _transform);
                 lineGO.transform.SetAsLastSibling();
 
                 RectTransform rt = lineGO.GetComponent<RectTransform>();

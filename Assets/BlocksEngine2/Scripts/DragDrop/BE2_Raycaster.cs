@@ -223,5 +223,17 @@ namespace MG_BlocksEngine2.DragDrop
 
             return worldPoint.x >= minX && worldPoint.x <= maxX && worldPoint.y >= minY && worldPoint.y <= maxY;
         }
+
+        public HolderEnvironment FindHolderEnvironmentAtPoint(Vector2 worldPoint)
+        {
+            foreach (HolderEnvironment holder in HolderEnvironment.ActiveHolders)
+            {
+                if (holder == null) continue;
+                if (!holder.gameObject.activeInHierarchy) continue;
+                if (holder.ContainsPoint(worldPoint))
+                    return holder;
+            }
+            return null;
+        }
     }
 }

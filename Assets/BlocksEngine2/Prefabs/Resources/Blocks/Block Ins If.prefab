@@ -818,9 +818,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0585ef98a5a36ae39a728e7a7843e042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSubLines: 5
-  subLineHeight: 80
-  subLineIndent: 30
+  maxSubLines: 3
+  subLineHeight: 100
+  subLineIndent: 50
   subLineNormalColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.3}
   subLineHoverColor: {r: 0.3, g: 0.5, b: 0.8, a: 0.5}
   subLineOccupiedColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.1}

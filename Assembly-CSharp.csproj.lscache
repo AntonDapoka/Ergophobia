@@ -141,6 +141,9 @@ Assets/BlocksEngine2/Scripts/
   BE2_ProgrammingEnv.cs
   BE2_TargetObject.cs
   BE2_TargetObjectSpacecraft3D.cs
+  ChestEnvironment.cs
+  HolderEnvironment.cs
+  InventoryEnvironment.cs
   I_BE2_ProgrammingEnv.cs
   I_BE2_TargetObject.cs
  HeaderItems/
