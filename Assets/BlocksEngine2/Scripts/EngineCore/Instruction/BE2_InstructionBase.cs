@@ -95,7 +95,12 @@ namespace MG_BlocksEngine2.Block.Instruction
 
         void GetBlockStack()
         {
-            BlocksStack = GetComponentInParent<I_BE2_BlocksStack>();
+            I_BE2_BlocksStack stack = GetComponentInParent<I_BE2_BlocksStack>();
+            if (stack != null)
+            {
+                BlocksStack = stack;
+            }
+
             if (BlocksStack == null)
             {
                 Block.SetShadowActive(false);
@@ -241,9 +246,9 @@ namespace MG_BlocksEngine2.Block.Instruction
         public I_BE2_InstructionBase InstructionBase { get; set; }
         public bool ExecuteInUpdate { get; }
 
-        public string Operation() { return ""; }
-        public void Function() { }
-        public void Reset() { }
+        public virtual string Operation() { return ""; }
+        public virtual void Function() { }
+        public virtual void Reset() { }
     }
 
 }

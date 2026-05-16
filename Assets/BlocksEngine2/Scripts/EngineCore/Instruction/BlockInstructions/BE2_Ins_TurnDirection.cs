@@ -18,7 +18,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         string _value;
         Vector3 _axis = Vector3.up;
 
-        public new void Function()
+        public override void Function()
         {
             _input0 = Section0Inputs[0];
             _value = _input0.StringValue;

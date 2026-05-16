@@ -33,7 +33,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             _dropdown.RefreshShownValue();
         }
 
-        public new string Operation()
+        public override string Operation()
         {
             // v2.12 - replace the use of the dropdown directly by the header input FloatValue to enable the substituion of the block input by a ReferenceInput
             if (Input.GetKey(BE2_InputManager.keyCodeList[(int)Section0Inputs[0].FloatValue]))

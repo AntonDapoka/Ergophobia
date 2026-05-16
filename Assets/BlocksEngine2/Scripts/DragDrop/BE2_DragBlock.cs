@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using MG_BlocksEngine2.Block;
+using MG_BlocksEngine2.Core;
 using MG_BlocksEngine2.Environment;
 
 namespace MG_BlocksEngine2.DragDrop
@@ -94,6 +95,15 @@ namespace MG_BlocksEngine2.DragDrop
             if (targetLine != null && !targetLine.IsOccupied)
             {
                 targetLine.SetBlock(Block);
+
+                if (Block.Type == BlockTypeEnum.trigger)
+                {
+                    I_BE2_ProgrammingEnv programmingEnv = Transform.GetComponentInParent<I_BE2_ProgrammingEnv>();
+                    if (programmingEnv != null)
+                    {
+                        BE2_ExecutionManager.Instance.AddToBlocksStackArray(Block.Instruction.InstructionBase.BlocksStack, programmingEnv.TargetObject);
+                    }
+                }
             }
             else
             {
@@ -117,24 +127,6 @@ namespace MG_BlocksEngine2.DragDrop
             Block.Instruction.InstructionBase.UpdateTargetObject();
         }
 
-        // v2.11 - added DropTo method to the BE2_DragBlock and BE2_DragOperation classes
-        void DropTo(Transform spot, int siblinIndex)
-        {
-            Transform.SetParent(spot);
-            Transform.SetSiblingIndex(siblinIndex);
-        }
-        void DropTo(I_BE2_Spot spot, int siblinIndex)
-        {
-            DropTo(spot.Transform, siblinIndex);
-        }
-        public void DropTo(I_BE2_Block parentBlock, int sectionIndex, int siblinIndex)
-        {
-            if (parentBlock.Layout.SectionsArray.Length > sectionIndex && parentBlock.Layout.SectionsArray[sectionIndex].Body != null) // make sure the body exists
-            {
-                DropTo(parentBlock.Layout.SectionsArray[sectionIndex].Body.Spot, siblinIndex);
 
-                parentBlock.Instruction.InstructionBase.BlocksStack.PopulateStack();
-            }
-        }
     }
 }

@@ -20,7 +20,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             _counter = 0;
         }
 
-        public new void Function()
+        public override void Function()
         {
             if (_firstPlay)
             {

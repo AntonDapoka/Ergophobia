@@ -36,9 +36,6 @@ namespace MG_BlocksEngine2.DragDrop
         /// </summary>
         I_BE2_Spot FindClosestSpotOfType<T>(I_BE2_Drag drag, float maxDistance);
 
-        // /// <summary>
-        // /// Returns the first spot component of types BE2_SpotBlockBody or BE2_SpotOuterArea (used to place draggable components at) that is closer to the given draggable and inside the range
-        // /// </summary>
-        // I_BE2_Spot FindClosestSpotForBlock(I_BE2_Drag drag, float maxDistance);
+
     }
 }

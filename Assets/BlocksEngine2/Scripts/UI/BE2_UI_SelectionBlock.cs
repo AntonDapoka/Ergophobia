@@ -53,14 +53,13 @@ namespace MG_BlocksEngine2.UI
                 LayoutGroup lg0 = child0.GetComponent<LayoutGroup>();
                 if (lg0) DestroyImmediate(lg0);
 
-                if (pref0.GetComponent<BE2_SpotOuterArea>())
+                if (pref0.name == "OuterArea")
                 {
                     DestroyImmediate(child0.gameObject);
+                    continue;
                 }
-                else
-                {
-                    child0.GetComponent<RectTransform>().sizeDelta = pref0.GetComponent<RectTransform>().sizeDelta;
-                }
+
+                child0.GetComponent<RectTransform>().sizeDelta = pref0.GetComponent<RectTransform>().sizeDelta;
 
                 //header & body
                 for (int j = 0; j < child0.childCount; j++)

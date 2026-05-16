@@ -18,7 +18,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         string _vs0;
         string _vs1;
 
-        public new string Operation()
+        public override string Operation()
         {
             _input0 = Section0Inputs[0];
             _input1 = Section0Inputs[1];

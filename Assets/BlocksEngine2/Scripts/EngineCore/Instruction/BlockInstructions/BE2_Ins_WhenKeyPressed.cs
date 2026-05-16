@@ -65,7 +65,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             _key = BE2_InputManager.keyCodeList[(int)Section0Inputs[0].FloatValue];
         }
 
-        public new void Function()
+        public override void Function()
         {
             ExecuteSection(0);
         }

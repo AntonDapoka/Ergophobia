@@ -133,7 +133,6 @@ namespace MG_BlocksEngine2.DragDrop
                 Transform.gameObject.SetActive(false);
         }
 
-        // v2.11 - added DropTo method to the BE2_DragBlock and BE2_DragOperation classes
         void DropTo(I_BE2_Spot spot)
         {
             Transform.SetParent(spot.Transform.parent);
@@ -142,22 +141,6 @@ namespace MG_BlocksEngine2.DragDrop
             (spot as BE2_SpotBlockInput).outline.enabled = false;
             _usedSpotTransform = spot.Transform;
             _usedSpotTransform.gameObject.SetActive(false);
-        }
-        public void DropTo(I_BE2_Block parentBlock, int sectionIndex, int inputIndex)
-        {
-            if (parentBlock.Layout.SectionsArray.Length > sectionIndex && parentBlock.Layout.SectionsArray[sectionIndex].Header.InputsArray.Length > inputIndex) // make sure the spot exists
-            {
-                I_BE2_Spot spot = parentBlock.Layout.SectionsArray[sectionIndex].Header.InputsArray[inputIndex].Transform.GetComponent<I_BE2_Spot>();
-                if (spot != null)
-                {
-                    DropTo(spot);
-
-                    parentBlock.Layout.SectionsArray[sectionIndex].Header.UpdateInputsArray();
-                    parentBlock.Layout.SectionsArray[sectionIndex].Header.UpdateItemsArray();
-                    parentBlock.Instruction.InstructionBase.BlocksStack.PopulateStack();
-                    parentBlock.Instruction.InstructionBase.UpdateTargetObject();
-                }
-            }
         }
     }
 }

@@ -58,13 +58,6 @@ namespace MG_BlocksEngine2.Block
             ParentSection = GetComponentInParent<I_BE2_BlockSection>();
         }
 
-        //void Update()
-        //{
-        //
-        //}
-
-        // v2.8 - removed redundant AddSpotsToManager and RemoveSpotsFromManager methods from BE2_Block
-
         // v2.12 - added shadow component null check to BE2_Block.SetShadowActive 
         public void SetShadowActive(bool value)
         {

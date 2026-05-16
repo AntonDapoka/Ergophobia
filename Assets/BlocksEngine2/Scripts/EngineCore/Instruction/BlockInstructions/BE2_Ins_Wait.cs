@@ -31,7 +31,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             _counter = 0;
         }
 
-        public new void Function()
+        public override void Function()
         {
             if (_firstPlay)
             {
@@ -53,7 +53,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         }
 
         // v2.12 - added Reset method to the instructions to enable reuse by Function Blocks
-        public new void Reset()
+        public override void Reset()
         {
             _firstPlay = true;
             _counter = 0;

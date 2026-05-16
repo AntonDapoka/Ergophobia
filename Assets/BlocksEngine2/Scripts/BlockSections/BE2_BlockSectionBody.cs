@@ -37,6 +37,12 @@ namespace MG_BlocksEngine2.Block
         public float subLineHeight = 55f;
         public float subLineIndent = 20f;
         public List<BE2_Line> SubLines { get; private set; }
+
+        [Header("Sub Line Appearance")]
+        public Color subLineNormalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
+        public Color subLineHoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
+        public Color subLineOccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
+        public Sprite subLineSprite;
         Shadow _shadow;
         public Shadow Shadow
         {
@@ -57,11 +63,6 @@ namespace MG_BlocksEngine2.Block
             }
         }
 
-        void OnValidate()
-        {
-            Awake();
-        }
-
         void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
@@ -79,7 +80,10 @@ namespace MG_BlocksEngine2.Block
 
             ChildBlocksArray = new I_BE2_Block[0];
             Spot = GetComponent<I_BE2_Spot>();
+        }
 
+        void Start()
+        {
             CreateSubLines();
         }
 
@@ -101,27 +105,25 @@ namespace MG_BlocksEngine2.Block
 
                 RectTransform rt = lineGO.GetComponent<RectTransform>();
                 rt.anchorMin = new Vector2(0, 1);
-                rt.anchorMax = new Vector2(1, 1);
+                rt.anchorMax = new Vector2(0, 1);
                 rt.pivot = new Vector2(0, 1);
                 rt.anchoredPosition = new Vector2(subLineIndent, -i * subLineHeight);
-                rt.sizeDelta = new Vector2(-subLineIndent * 2, subLineHeight);
+                rt.sizeDelta = new Vector2(Mathf.Max(10f, _rectTransform.rect.width - subLineIndent * 2), subLineHeight);
+
+                Image img = lineGO.GetComponent<Image>();
+                if (subLineSprite != null)
+                    img.sprite = subLineSprite;
 
                 BE2_Line line = lineGO.GetComponent<BE2_Line>();
                 line.LineIndex = i;
                 line.ParentBody = this;
+                line.NormalColor = subLineNormalColor;
+                line.HoverColor = subLineHoverColor;
+                line.OccupiedColor = subLineOccupiedColor;
+                line.BackgroundSprite = subLineSprite;
                 SubLines.Add(line);
             }
         }
-
-        //void Start()
-        //{
-        //
-        //}
-
-        //void Update()
-        //{
-        //    //UpdateLayout();
-        //}
 
         public void UpdateChildBlocksList()
         {
@@ -164,6 +166,18 @@ namespace MG_BlocksEngine2.Block
             if (SubLines != null && SubLines.Count > 0)
             {
                 height = SubLines.Count * subLineHeight;
+
+                float subLineWidth = Mathf.Max(10f, _rectTransform.rect.width - subLineIndent * 2);
+                for (int i = 0; i < SubLines.Count; i++)
+                {
+                    BE2_Line line = SubLines[i];
+                    if (line != null)
+                    {
+                        RectTransform lineRT = line.GetComponent<RectTransform>();
+                        if (lineRT != null)
+                            lineRT.sizeDelta = new Vector2(subLineWidth, subLineHeight);
+                    }
+                }
             }
             else
             {

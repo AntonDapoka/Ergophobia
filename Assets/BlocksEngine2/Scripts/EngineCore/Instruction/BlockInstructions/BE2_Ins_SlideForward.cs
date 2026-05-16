@@ -38,7 +38,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         int _counter = 0;
         Vector3 _initialPosition;
 
-        public new void Function()
+        public override void Function()
         {
             if (_firstPlay)
             {

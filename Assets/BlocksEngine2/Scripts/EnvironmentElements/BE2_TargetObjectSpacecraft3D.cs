@@ -48,10 +48,5 @@ namespace MG_BlocksEngine2.Environment
             }
         }
         
-        IEnumerator C_DestroyTime(GameObject go)
-        {
-            yield return new WaitForSeconds(1f);
-            Destroy(go);
-        }
     }
 }

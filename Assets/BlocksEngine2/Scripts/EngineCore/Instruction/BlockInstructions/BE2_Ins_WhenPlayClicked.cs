@@ -19,7 +19,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             BlocksStack.IsActive = false;
         }
 
-        public new void Function()
+        public override void Function()
         {
             ExecuteSection(0);
         }

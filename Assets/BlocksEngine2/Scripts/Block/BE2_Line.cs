@@ -32,12 +32,10 @@ namespace MG_BlocksEngine2.Block
         public BE2_BlockSectionBody ParentBody { get; set; }
         public bool IsOccupied => CurrentBlock != null;
 
-        [SerializeField]
-        Color _normalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
-        [SerializeField]
-        Color _hoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
-        [SerializeField]
-        Color _occupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
+        public Color NormalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
+        public Color HoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
+        public Color OccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
+        public Sprite BackgroundSprite;
 
         void Awake()
         {
@@ -83,13 +81,13 @@ namespace MG_BlocksEngine2.Block
         public void SetHover(bool isHovered)
         {
             if (_image != null)
-                _image.color = isHovered ? _hoverColor : (IsOccupied ? _occupiedColor : _normalColor);
+                _image.color = isHovered ? HoverColor : (IsOccupied ? OccupiedColor : NormalColor);
         }
 
         void UpdateVisual()
         {
             if (_image != null)
-                _image.color = IsOccupied ? _occupiedColor : _normalColor;
+                _image.color = IsOccupied ? OccupiedColor : NormalColor;
         }
     }
 }

@@ -108,11 +108,11 @@ namespace MG_BlocksEngine2.Core
                 {
                     I_BE2_Block firstBlock = TriggerInstruction.InstructionBase.Block;
                     BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypesBlock.OnStackExecutionStart, firstBlock);
+                    OverflowGuard = 0;
                 }
 
                 I_BE2_Instruction instruction = InstructionsArray[Pointer];
                 instruction.Function();
-                OverflowGuard = 0;
             }
 
             if (InstructionsArray != null && Pointer == InstructionsArray.Length && InstructionsArray.Length > 0)

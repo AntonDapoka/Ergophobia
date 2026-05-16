@@ -21,7 +21,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         //    
         //}
 
-        public new void Function()
+        public override void Function()
         {
             _input0 = Section0Inputs[0];
             _value = _input0.FloatValue;

@@ -7,13 +7,7 @@ namespace MG_BlocksEngine2.Utils
     {
         public static void Resize<T>(ref T[] array, int size)
         {
-            T[] tempArray = array;
-            array = new T[size];
-            for (int i = 0; i < tempArray.Length; i++)
-            {
-                if (size > i)
-                    array[i] = tempArray[i];
-            }
+            System.Array.Resize(ref array, size);
         }
 
         public static void Add<T>(ref T[] array, T value)
@@ -26,18 +20,21 @@ namespace MG_BlocksEngine2.Utils
         public static T[] AddReturn<T>(T[] array, T value)
         {
             int length = array.Length;
-            T[] newArray = array;
-            Resize<T>(ref newArray, length + 1);
-            newArray[length] = value;
-            return newArray;
+            Resize<T>(ref array, length + 1);
+            array[length] = value;
+            return array;
         }
 
         public static void Remove<T>(ref T[] array, T value)
         {
-            List<T> list = new List<T>();
-            list.AddRange(array);
-            list.Remove(value);
-            array = list.ToArray();
+            int count = array.Length;
+            int index = System.Array.IndexOf(array, value);
+            if (index < 0) return;
+
+            T[] newArray = new T[count - 1];
+            System.Array.Copy(array, 0, newArray, 0, index);
+            System.Array.Copy(array, index + 1, newArray, index, count - index - 1);
+            array = newArray;
         }
 
         // v2.10 - BE2_ArrayUtins FindAll and Find methods refactored to use System.Array class 

@@ -14,7 +14,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         //    
         //}
 
-        public new void Function()
+        public override void Function()
         {
             // v2.8 - bugfix: return block not stopping execution
             BE2_ExecutionManager.Instance.Stop();

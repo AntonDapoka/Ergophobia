@@ -15,16 +15,12 @@ namespace MG_BlocksEngine2.Block
         {
             this.Transform = transform;
             _rectTransform = transform as RectTransform;
-            spotOuterArea = transform.GetComponent<BE2_SpotOuterArea>();
-
             childBlocksArray = new I_BE2_Block[0];
-
             InitializeLayoutGroup();
         }
 
         public Transform Transform;
         public RectTransform _rectTransform;
-        public I_BE2_Spot spotOuterArea;
         public int childBlocksCount;
         public I_BE2_Block[] childBlocksArray;
 

@@ -28,8 +28,6 @@ namespace MG_BlocksEngine2.Utils
             I_BE2_BlockSectionHeader[] headers = blockTransform.GetComponentsInChildren<I_BE2_BlockSectionHeader>();
             for (int i = headers.Length - 1; i >= 0; i--) MonoBehaviour.DestroyImmediate(headers[i] as MonoBehaviour);
 
-            BE2_SpotOuterArea outerArea = blockTransform.GetComponentInChildren<BE2_SpotOuterArea>();
-            if (outerArea) MonoBehaviour.DestroyImmediate(outerArea.transform.gameObject);
             I_BE2_Spot[] spots = blockTransform.GetComponentsInChildren<I_BE2_Spot>();
             for (int i = spots.Length - 1; i >= 0; i--) MonoBehaviour.DestroyImmediate(spots[i] as MonoBehaviour);
 
@@ -125,17 +123,12 @@ namespace MG_BlocksEngine2.Utils
 
             return loadedPrefab;
         }
-        public static void UnloadPrefab()
-        {
-            Resources.UnloadUnusedAssets();
-        }
-
         // v2.4 - added new method GetParentInstructionOfTypeAll to BE2_BlockUtils
         public static List<I_BE2_Instruction> GetParentInstructionOfTypeAll(I_BE2_Instruction thisInstruction, BlockTypeEnum blockType)
         {
             List<I_BE2_Instruction> foundInstructions = new List<I_BE2_Instruction>();
 
-            I_BE2_BlockSectionBody parentBody = thisInstruction.InstructionBase.Block.Transform.parent.GetComponent<BE2_BlockSectionBody>();
+            I_BE2_BlockSectionBody parentBody = thisInstruction.InstructionBase.Block.Transform.parent.GetComponent<I_BE2_BlockSectionBody>();
             if (parentBody != null)
             {
                 I_BE2_Block parentBlock = parentBody.BlockSection.Block;
@@ -150,128 +143,6 @@ namespace MG_BlocksEngine2.Utils
             return foundInstructions;
         }
 
-        // v2.11 - added CallOnEndOfFrame(this MonoBehaviour, System.Action) method to the Utils class
-        // derived from https://forum.unity.com/threads/tip-invoke-any-function-with-delay-also-with-parameters.978273/
-        public static void CallOnEndOfFrame(this MonoBehaviour monoBehaviour, System.Action action)
-        {
-            monoBehaviour.StartCoroutine(InvokeRoutine(action));
-        }
-        private static IEnumerator InvokeRoutine(System.Action action)
-        {
-            yield return new WaitForEndOfFrame();
-            action();
-        }
 
-        // v2.12 - added method to the BlockUtils to instantiate "noView" blocks adding only the needed components excluding the visual components
-        public static I_BE2_Block InstantiateNoViewBlock(this I_BE2_Block block)
-        {
-            if (block is BE2_GhostBlock)
-                return null;
-
-            I_BE2_Block noViewBlock = null;
-            I_BE2_Instruction noViewInstruction = null;
-
-            GameObject noViewBlockGO = new GameObject(block.Transform.name + " noView", typeof(RectTransform));
-            BE2_BlockNoViewLayout layout = noViewBlockGO.AddComponent<BE2_BlockNoViewLayout>();
-            noViewBlock = noViewBlockGO.AddComponent<BE2_Block>() as I_BE2_Block;
-            noViewBlock.Type = block.Type;
-
-            for (int i = 0; i < block.Layout.SectionsArray.Length; i++)
-            {
-                I_BE2_BlockSection section = block.Layout.SectionsArray[i];
-
-                GameObject nvSectionGO = new GameObject("section", typeof(RectTransform));
-                nvSectionGO.transform.SetParent(noViewBlockGO.transform);
-                nvSectionGO.transform.SetAsLastSibling();
-                BE2_NoViewBlockSection nvSection = nvSectionGO.AddComponent<BE2_NoViewBlockSection>();
-                nvSection.index = i;
-
-                if (section.Header != null)
-                {
-                    GameObject nvSectionHeaderGO = new GameObject("header", typeof(RectTransform));
-                    nvSectionHeaderGO.transform.SetParent(nvSectionGO.transform);
-                    nvSectionHeaderGO.transform.SetAsLastSibling();
-                    BE2_NoViewBlockSectionHeader nvSectionHeader = nvSectionHeaderGO.AddComponent<BE2_NoViewBlockSectionHeader>();
-
-                    nvSection.Header = nvSectionHeader;
-                }
-
-                if (section.Body != null)
-                {
-                    GameObject nvSectionBodyGO = new GameObject("body", typeof(RectTransform));
-                    nvSectionBodyGO.transform.SetParent(nvSectionGO.transform);
-                    nvSectionBodyGO.transform.SetAsLastSibling();
-                    BE2_NoViewBlockSectionBody nvSectionBody = nvSectionBodyGO.AddComponent<BE2_NoViewBlockSectionBody>();
-
-                    nvSection.Body = nvSectionBody;
-                }
-            }
-
-            layout.Initialize();
-
-            noViewInstruction = noViewBlockGO.AddComponent(block.Instruction.GetType()) as I_BE2_Instruction;
-            noViewBlock.Instruction = noViewInstruction;
-
-            if (noViewBlock.Type == BlockTypeEnum.operation)
-                noViewBlockGO.AddComponent<BE2_BlockSectionHeader_Operation>();
-
-            return noViewBlock;
-        }
-
-        // v2.12 - added method to the BlockUtils to instantiate "noView" blocks adding only the needed components excluding the visual components
-        public static I_BE2_Block InstantiateNoViewBlock<T>(this I_BE2_Block block) where T : I_BE2_Instruction
-        {
-            if (block is BE2_GhostBlock)
-                return null;
-
-            I_BE2_Block noViewBlock = null;
-            I_BE2_Instruction noViewInstruction = null;
-
-            GameObject noViewBlockGO = new GameObject(block.Transform.name + " noView", typeof(RectTransform));
-            BE2_BlockNoViewLayout layout = noViewBlockGO.AddComponent<BE2_BlockNoViewLayout>();
-            noViewBlock = noViewBlockGO.AddComponent<BE2_Block>() as I_BE2_Block;
-            noViewBlock.Type = block.Type;
-
-            for (int i = 0; i < block.Layout.SectionsArray.Length; i++)
-            {
-                I_BE2_BlockSection section = block.Layout.SectionsArray[i];
-
-                GameObject nvSectionGO = new GameObject("section", typeof(RectTransform));
-                nvSectionGO.transform.SetParent(noViewBlockGO.transform);
-                nvSectionGO.transform.SetAsLastSibling();
-                BE2_NoViewBlockSection nvSection = nvSectionGO.AddComponent<BE2_NoViewBlockSection>();
-                nvSection.index = i;
-
-                if (section.Header != null)
-                {
-                    GameObject nvSectionHeaderGO = new GameObject("header", typeof(RectTransform));
-                    nvSectionHeaderGO.transform.SetParent(nvSectionGO.transform);
-                    nvSectionHeaderGO.transform.SetAsLastSibling();
-                    BE2_NoViewBlockSectionHeader nvSectionHeader = nvSectionHeaderGO.AddComponent<BE2_NoViewBlockSectionHeader>();
-
-                    nvSection.Header = nvSectionHeader;
-                }
-
-                if (section.Body != null)
-                {
-                    GameObject nvSectionBodyGO = new GameObject("body", typeof(RectTransform));
-                    nvSectionBodyGO.transform.SetParent(nvSectionGO.transform);
-                    nvSectionBodyGO.transform.SetAsLastSibling();
-                    BE2_NoViewBlockSectionBody nvSectionBody = nvSectionBodyGO.AddComponent<BE2_NoViewBlockSectionBody>();
-
-                    nvSection.Body = nvSectionBody;
-                }
-            }
-
-            layout.Initialize();
-
-            noViewInstruction = noViewBlockGO.AddComponent(typeof(T)) as I_BE2_Instruction;
-            noViewBlock.Instruction = noViewInstruction;
-
-            if (noViewBlock.Type == BlockTypeEnum.operation)
-                noViewBlockGO.AddComponent<BE2_BlockSectionHeader_Operation>();
-
-            return noViewBlock;
-        }
     }
 }

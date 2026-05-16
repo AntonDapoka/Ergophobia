@@ -16,7 +16,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         I_BE2_BlockSectionHeaderInput _input0;
         string _value;
 
-        public new void Function()
+        public override void Function()
         {
             _input0 = Section0Inputs[0];
             _value = _input0.StringValue;

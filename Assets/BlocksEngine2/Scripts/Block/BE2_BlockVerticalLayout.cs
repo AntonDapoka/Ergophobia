@@ -94,26 +94,12 @@ namespace MG_BlocksEngine2.Block
             _rectTransform = GetComponent<RectTransform>();
             _sectionsArray = new I_BE2_BlockSection[0];
 
-            BE2_SpotOuterArea spotOuterArea = null;
             foreach (Transform child in transform)
             {
-                spotOuterArea = child.GetComponent<BE2_SpotOuterArea>();
-                if (spotOuterArea)
-                    break;
-            }
-            if (spotOuterArea)
-            {
-                OuterArea = new BE2_OuterAreaVertical(spotOuterArea.transform);
-            }
-            else
-            {
-                foreach (Transform child in transform)
+                if (child.name == "OuterArea")
                 {
-                    if (child.name == "OuterArea")
-                    {
-                        OuterArea = new BE2_OuterAreaVertical(child);
-                        break;
-                    }
+                    OuterArea = new BE2_OuterAreaVertical(child);
+                    break;
                 }
             }
 

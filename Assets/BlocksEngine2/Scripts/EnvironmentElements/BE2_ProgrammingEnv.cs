@@ -22,6 +22,12 @@ namespace MG_BlocksEngine2.Environment
         public float lineHeight = 60f;
         public List<BE2_Line> MainLines { get; private set; }
 
+        [Header("Line Appearance")]
+        public Color lineNormalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
+        public Color lineHoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
+        public Color lineOccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
+        public Sprite lineSprite;
+
         // v2.4 - added property to set visibility of Programming Environment, facilitates the use of multiple individualy programmable Target Objects in the same scene 
         [SerializeField]
         bool _visible = true;
@@ -138,8 +144,16 @@ namespace MG_BlocksEngine2.Environment
                 rt.anchoredPosition = new Vector2(0, -i * lineHeight);
                 rt.sizeDelta = new Vector2(0, lineHeight);
 
+                Image img = lineGO.GetComponent<Image>();
+                if (lineSprite != null)
+                    img.sprite = lineSprite;
+
                 BE2_Line line = lineGO.GetComponent<BE2_Line>();
                 line.LineIndex = i;
+                line.NormalColor = lineNormalColor;
+                line.HoverColor = lineHoverColor;
+                line.OccupiedColor = lineOccupiedColor;
+                line.BackgroundSprite = lineSprite;
                 MainLines.Add(line);
             }
         }

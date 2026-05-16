@@ -29,7 +29,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             _parentConditionInstructions = BE2_BlockUtils.GetParentInstructionOfTypeAll(this, BlockTypeEnum.condition).ToArray();
         }
 
-        public new void Function()
+        public override void Function()
         {
             // v2.7.1 - bugfix: fixed BreakLoop block not working if played right after loading
             if (_parentLoopInstruction == null)

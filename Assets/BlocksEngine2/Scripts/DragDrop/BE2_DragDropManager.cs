@@ -30,8 +30,6 @@ namespace MG_BlocksEngine2.DragDrop
         public Transform draggedObjectsTransform;
         public Transform DraggedObjectsTransform => draggedObjectsTransform;
         public I_BE2_Drag CurrentDrag { get; set; }
-        
-        // public I_BE2_Spot CurrentSpot { get; set; }
         public BE2_Raycaster.ConnectionPoint ConnectionPoint { get; set; }
         
         List<I_BE2_Spot> _spotsList;
@@ -69,16 +67,7 @@ namespace MG_BlocksEngine2.DragDrop
             }
         }
 
-        // v2.13 - disableGroupDrag variable added to the darg drop manager  
-        public static bool disableGroupDrag;
-        static void DisableGroupDrag()
-        {
-            disableGroupDrag = true;
-        }
-        static void EnableGroupDrag()
-        {
-            disableGroupDrag = false;
-        }
+
 
         void Awake()
         {
@@ -96,8 +85,7 @@ namespace MG_BlocksEngine2.DragDrop
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnDrag, OnDrag);
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyUp, OnPointerUp);
 
-            BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnAuxKeyDown, DisableGroupDrag);
-            BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnAuxKeyUp, EnableGroupDrag);
+
         }
 
         private void OnDisable()
@@ -108,8 +96,7 @@ namespace MG_BlocksEngine2.DragDrop
             BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnDrag, OnDrag);
             BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyUp, OnPointerUp);
 
-            BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnAuxKeyDown, DisableGroupDrag);
-            BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnAuxKeyUp, EnableGroupDrag);
+
         }
 
         // v2.13 - BE2_DragDropManager.OnPointerDown made coroutine again to fix issues on using the device simulator

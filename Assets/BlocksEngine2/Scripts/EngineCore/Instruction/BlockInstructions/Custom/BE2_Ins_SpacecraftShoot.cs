@@ -14,7 +14,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         //    
         //}
 
-        public new void Function()
+        public override void Function()
         {
             if (TargetObject is BE2_TargetObjectSpacecraft3D)
             {

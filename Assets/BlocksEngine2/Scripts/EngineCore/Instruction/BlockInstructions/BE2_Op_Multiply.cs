@@ -19,7 +19,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         BE2_InputValues _v0;
         BE2_InputValues _v1;
 
-        public new string Operation()
+        public override string Operation()
         {
             _input0 = Section0Inputs[0];
             _input1 = Section0Inputs[1];

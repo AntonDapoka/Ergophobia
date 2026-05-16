@@ -27,7 +27,7 @@ namespace MG_BlocksEngine2.Block.Instruction
             _counter = 0;
         }
 
-        public new void Function()
+        public override void Function()
         {
             _input0 = Section0Inputs[0];
             _value = _input0.FloatValue;
@@ -45,7 +45,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         }
 
         // v2.12 - added Reset method to the instructions to enable reuse by Function Blocks
-        public new void Reset()
+        public override void Reset()
         {
             _counter = 0;
         }

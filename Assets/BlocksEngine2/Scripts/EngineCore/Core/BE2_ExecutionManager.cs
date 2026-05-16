@@ -40,24 +40,25 @@ namespace MG_BlocksEngine2.Core
         I_BE2_InputManager _inputManager;
 
         // v2.9 - added list of actions executed by the Execution Manager
-        List<UnityAction> _actions = new List<UnityAction>();
+        List<UnityAction> _updateActions = new List<UnityAction>();
+        List<UnityAction> _lateUpdateActions = new List<UnityAction>();
 
         // v2.9 - Execution manager now has OnUpdate event, by default used to execute the blocks stacks
         UnityEvent OnUpdate = new UnityEvent();
         public void AddToUpdate(UnityAction action)
         {
-            if (!_actions.Contains(action))
+            if (!_updateActions.Contains(action))
             {
                 OnUpdate.AddListener(action);
-                _actions.Add(action);
+                _updateActions.Add(action);
             }
         }
         public void RemoveFromUpdate(UnityAction action)
         {
-            if (_actions.Contains(action))
+            if (_updateActions.Contains(action))
             {
                 OnUpdate.RemoveListener(action);
-                _actions.Remove(action);
+                _updateActions.Remove(action);
             }
         }
 
@@ -65,18 +66,18 @@ namespace MG_BlocksEngine2.Core
         UnityEvent OnLateUpdate = new UnityEvent();
         public void AddToLateUpdate(UnityAction action)
         {
-            if (!_actions.Contains(action))
+            if (!_lateUpdateActions.Contains(action))
             {
                 OnLateUpdate.AddListener(action);
-                _actions.Add(action);
+                _lateUpdateActions.Add(action);
             }
         }
         public void RemoveFromLateUpdate(UnityAction action)
         {
-            if (_actions.Contains(action))
+            if (_lateUpdateActions.Contains(action))
             {
                 OnLateUpdate.RemoveListener(action);
-                _actions.Remove(action);
+                _lateUpdateActions.Remove(action);
             }
         }
 
@@ -194,31 +195,13 @@ namespace MG_BlocksEngine2.Core
 
         void UpdateTargetObjects()
         {
-            _targetObjectsList = new List<I_BE2_TargetObject>();
-
-            GameObject[] gos = FindObjectsByType<GameObject>();
-            int gosCount = gos.Length;
-            for (int i = 0; i < gosCount; i++)
-            {
-                I_BE2_TargetObject targetObject = gos[i].GetComponent<I_BE2_TargetObject>();
-                if (targetObject != null)
-                    _targetObjectsList.Add(targetObject);
-            }
+            _targetObjectsList = new List<I_BE2_TargetObject>(FindObjectsByType<BE2_TargetObject>());
         }
 
         // v2.7 - UpdateProgrammingEnvsList method of Execution Manager made public
         public void UpdateProgrammingEnvsList()
         {
-            _programmingEnvsList = new List<I_BE2_ProgrammingEnv>();
-
-            GameObject[] gos = FindObjectsByType<GameObject>();
-            int gosCount = gos.Length;
-            for (int i = 0; i < gosCount; i++)
-            {
-                I_BE2_ProgrammingEnv programmingEnv = gos[i].GetComponent<I_BE2_ProgrammingEnv>();
-                if (programmingEnv != null)
-                    _programmingEnvsList.Add(programmingEnv);
-            }
+            _programmingEnvsList = new List<I_BE2_ProgrammingEnv>(FindObjectsByType<BE2_ProgrammingEnv>());
         }
     }
 }
