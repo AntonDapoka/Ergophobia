@@ -368,6 +368,8 @@ Library/ScriptAssemblies/
  UnityEngine.TestRunner.dll
  UnityEngine.UI.dll
 Temp/bin/Debug/
+ MoreMountains.Interface.dll
+ MoreMountains.InventoryEngine.dll
  MoreMountains.Tools.dll
  MoreMountains.Tools.Editor.dll
  MoreMountains.TopDownEngine.dll

@@ -355,7 +355,9 @@ Library/ScriptAssemblies/
  UnityEditor.UI.dll
  UnityEngine.TestRunner.dll
  UnityEngine.UI.dll
-Temp/bin/Debug/MoreMountains.Interface.dll
+Temp/bin/Debug/
+ MoreMountains.Interface.dll
+ MoreMountains.Tools.dll
 
 [analyzerReferences]
 C:/Program Files/Unity 6000.4.2f1/Editor/Data/Tools/BuildPipeline/Unity.SourceGenerators/
