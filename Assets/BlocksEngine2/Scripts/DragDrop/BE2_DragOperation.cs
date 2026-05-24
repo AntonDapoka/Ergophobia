@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using MG_BlocksEngine2.Block;
 using MG_BlocksEngine2.Environment;
@@ -27,20 +25,11 @@ namespace MG_BlocksEngine2.DragDrop
             Block = GetComponent<I_BE2_Block>();
         }
 
-        public void OnPointerDown()
-        {
+        public void OnPointerDown() {}
 
-        }
+        public void OnRightPointerDownOrHold() {}
 
-        public void OnRightPointerDownOrHold()
-        {
-
-        }
-
-        public void OnDragStart()
-        {
-
-        }
+        public void OnDragStart() {}
 
         public void OnDrag()
         {
@@ -54,13 +43,11 @@ namespace MG_BlocksEngine2.DragDrop
             if (Transform.parent != _dragDropManager.DraggedObjectsTransform)
                 Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
 
-            // v2.6 - bugfix: fixed operation blocks not using drag ad drop detection distance as parameter 
             BE2_Raycaster.ConnectionPoint connectionPoint = new BE2_Raycaster.ConnectionPoint();
             I_BE2_Spot spot = _dragDropManager.Raycaster.FindClosestSpotOfType<BE2_SpotBlockInput>(this, _dragDropManager.detectionDistance);
 
             if (spot != null)
             {
-                // last selected spot
                 if (_dragDropManager.ConnectionPoint.spot != null && _dragDropManager.ConnectionPoint.spot != spot)
                     (_dragDropManager.ConnectionPoint.spot as BE2_SpotBlockInput).outline.enabled = false;
 
