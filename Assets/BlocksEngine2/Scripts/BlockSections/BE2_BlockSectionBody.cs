@@ -33,9 +33,9 @@ namespace MG_BlocksEngine2.Block
 
         // --- Line-based system: sub-lines for nested blocks ---
         [Header("Sub Lines")]
-        public int maxSubLines = 5;
-        public float subLineHeight = 55f;
-        public float subLineIndent = 20f;
+        public int maxSubLines = 100;
+        public float lineHeight = 60f;
+        public float indentPerLevel = 20f;
         public List<BE2_Line> SubLines { get; private set; }
 
         [Header("Sub Line Appearance")]
@@ -107,8 +107,8 @@ namespace MG_BlocksEngine2.Block
                 rt.anchorMin = new Vector2(0, 1);
                 rt.anchorMax = new Vector2(0, 1);
                 rt.pivot = new Vector2(0, 1);
-                rt.anchoredPosition = new Vector2(subLineIndent, -i * subLineHeight);
-                rt.sizeDelta = new Vector2(Mathf.Max(10f, _rectTransform.rect.width - subLineIndent * 2), subLineHeight);
+                rt.anchoredPosition = new Vector2(0, -i * lineHeight);
+                rt.sizeDelta = new Vector2(_rectTransform.rect.width, lineHeight);
 
                 Image img = lineGO.GetComponent<Image>();
                 if (subLineSprite != null)
@@ -156,6 +156,33 @@ namespace MG_BlocksEngine2.Block
             ChildBlocksCount = ChildBlocksArray.Length;
         }
 
+        public void UpdateSubLinePositions()
+        {
+            if (SubLines == null || SubLines.Count == 0)
+                return;
+
+            float currentY = 0;
+            for (int i = 0; i < SubLines.Count; i++)
+            {
+                BE2_Line line = SubLines[i];
+                if (line == null)
+                    continue;
+
+                RectTransform rt = line.GetComponent<RectTransform>();
+                if (rt == null)
+                    continue;
+
+                float indent = line.NestingLevel * indentPerLevel;
+                rt.anchoredPosition = new Vector2(indent, currentY);
+
+                float lineSize = lineHeight;
+                if (line.CurrentBlock != null && line.CurrentBlock.Layout != null)
+                    lineSize = line.CurrentBlock.Layout.Size.y;
+
+                currentY -= lineSize;
+            }
+        }
+
         public void UpdateLayout()
         {
             if (_image.sprite != null && _blockLayout != null)
@@ -165,18 +192,31 @@ namespace MG_BlocksEngine2.Block
 
             if (SubLines != null && SubLines.Count > 0)
             {
-                height = SubLines.Count * subLineHeight;
+                UpdateSubLinePositions();
 
-                float subLineWidth = Mathf.Max(10f, _rectTransform.rect.width - subLineIndent * 2);
+                float bodyWidth = _rectTransform.rect.width;
+
                 for (int i = 0; i < SubLines.Count; i++)
                 {
                     BE2_Line line = SubLines[i];
-                    if (line != null)
+                    if (line == null)
+                        continue;
+
+                    // Update subline width based on nesting level
+                    RectTransform lineRT = line.GetComponent<RectTransform>();
+                    if (lineRT != null)
                     {
-                        RectTransform lineRT = line.GetComponent<RectTransform>();
-                        if (lineRT != null)
-                            lineRT.sizeDelta = new Vector2(subLineWidth, subLineHeight);
+                        float indent = line.NestingLevel * indentPerLevel;
+                        float lineWidth = Mathf.Max(10f, bodyWidth - indent);
+                        lineRT.sizeDelta = new Vector2(lineWidth, lineHeight);
                     }
+
+                    // Accumulate body height from actual block sizes
+                    float lineSize = lineHeight;
+                    if (line.CurrentBlock != null && line.CurrentBlock.Layout != null)
+                        lineSize = line.CurrentBlock.Layout.Size.y;
+
+                    height += lineSize;
                 }
             }
             else

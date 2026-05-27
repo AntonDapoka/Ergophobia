@@ -32,6 +32,28 @@ namespace MG_BlocksEngine2.Block
         public BE2_BlockSectionBody ParentBody { get; set; }
         public bool IsOccupied => CurrentBlock != null;
 
+        /// <summary>
+        /// Returns the nesting level of this line.
+        /// Main lines = 0, sublines inside a block in a main line = 1, and so on recursively.
+        /// </summary>
+        public int NestingLevel
+        {
+            get
+            {
+                if (ParentBody == null)
+                    return 0;
+
+                if (ParentBody.BlockSection != null && ParentBody.BlockSection.Block != null)
+                {
+                    BE2_Line parentLine = ParentBody.BlockSection.Block.Transform.GetComponentInParent<BE2_Line>();
+                    if (parentLine != null)
+                        return parentLine.NestingLevel + 1;
+                }
+
+                return 1;
+            }
+        }
+
         public Color NormalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
         public Color HoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
         public Color OccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
