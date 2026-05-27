@@ -40,8 +40,10 @@ namespace MG_BlocksEngine2.DragDrop
                 _usedSpotTransform = null;
             }
 
+            Vector3 originalScale = Transform.localScale;
             if (Transform.parent != _dragDropManager.DraggedObjectsTransform)
                 Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
+            Transform.localScale = originalScale;
 
             BE2_Raycaster.ConnectionPoint connectionPoint = new BE2_Raycaster.ConnectionPoint();
             I_BE2_Spot spot = _dragDropManager.Raycaster.FindClosestSpotOfType<BE2_SpotBlockInput>(this, _dragDropManager.detectionDistance);
@@ -87,10 +89,12 @@ namespace MG_BlocksEngine2.DragDrop
                     if (programmingEnv == null && spot.Transform.GetChild(0) != null)
                         programmingEnv = spot.Transform.GetChild(0).GetComponentInParent<I_BE2_ProgrammingEnv>();
 
+                    Vector3 dropScale = Transform.localScale;
                     if (programmingEnv != null)
                         Transform.SetParent(programmingEnv.Transform);
                     else
                         Destroy(Transform.gameObject);
+                    Transform.localScale = dropScale;
                 }
                 else
                 {
@@ -122,8 +126,10 @@ namespace MG_BlocksEngine2.DragDrop
 
         void DropTo(I_BE2_Spot spot)
         {
+            Vector3 originalScale = Transform.localScale;
             Transform.SetParent(spot.Transform.parent);
             Transform.SetSiblingIndex(spot.Transform.GetSiblingIndex());
+            Transform.localScale = originalScale;
 
             (spot as BE2_SpotBlockInput).outline.enabled = false;
             _usedSpotTransform = spot.Transform;

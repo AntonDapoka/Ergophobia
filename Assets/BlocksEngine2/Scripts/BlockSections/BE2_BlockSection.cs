@@ -72,8 +72,6 @@ namespace MG_BlocksEngine2.Block
                 Header.UpdateLayout();
             if (Body != null)
                 Body.UpdateLayout();
-
-            _rectTransform.sizeDelta = Size;
         }
     }
 }

@@ -47,7 +47,6 @@ namespace MG_BlocksEngine2.Environment
 
             block.Transform.SetParent(contentArea, false);
             block.Transform.localPosition = new Vector3(localPosition.x, localPosition.y, 0);
-            block.Transform.localScale = Vector3.one;
             block.Transform.localEulerAngles = Vector3.zero;
 
             if (!Blocks.Contains(block))

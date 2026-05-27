@@ -30,11 +30,8 @@ namespace MG_BlocksEngine2.DragDrop
             _scrollRect = GetComponentInParent<ScrollRect>();
         }
 
-        Vector3 _envScale = Vector3.one;
-
         public void OnPointerDown()
         {
-            _envScale = BE2_ExecutionManager.Instance.ProgrammingEnvsList.Find(x => x.Visible == true).Transform.localScale;
         }
 
         public void OnRightPointerDownOrHold()
@@ -55,13 +52,12 @@ namespace MG_BlocksEngine2.DragDrop
             GameObject instantiatedBlock = Instantiate(_uiSelectionBlock.prefabBlock);
             instantiatedBlock.name = _uiSelectionBlock.prefabBlock.name;
             I_BE2_Block block = instantiatedBlock.GetComponent<I_BE2_Block>();
+            Vector3 originalScale = block.Drag.Transform.localScale;
             block.Drag.Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
+            block.Drag.Transform.localScale = originalScale;
 
             I_BE2_BlocksStack blocksStack = instantiatedBlock.GetComponent<I_BE2_BlocksStack>();
             
-            // v2.10 - scales the new block to the programming env's zoom
-            instantiatedBlock.transform.localScale = _envScale;
-
             instantiatedBlock.transform.position = transform.position;
             _dragDropManager.CurrentDrag = block.Drag;
 

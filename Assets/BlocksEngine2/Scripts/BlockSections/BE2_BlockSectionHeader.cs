@@ -159,14 +159,14 @@ namespace MG_BlocksEngine2.Block
                 if (height < minHeight)
                     height = minHeight;
 
-                _rectTransform.sizeDelta = new Vector2(width, height);
+                // Width/height no longer forced — block keeps its prefab size
             }
             else
             {
                 if (_blockLayout != null && _blockLayout.SectionsArray != null && _blockLayout.SectionsArray.Length > 0
                     && _blockLayout.SectionsArray[0].Header != null)
                 {
-                    _rectTransform.sizeDelta = new Vector2(_blockLayout.SectionsArray[0].Header.Size.x, _rectTransform.sizeDelta.y);
+                    // Width no longer copied from first section — block keeps its prefab size
                 }
             }
         }

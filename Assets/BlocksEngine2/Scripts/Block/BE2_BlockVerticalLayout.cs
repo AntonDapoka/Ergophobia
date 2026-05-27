@@ -59,7 +59,6 @@ namespace MG_BlocksEngine2.Block
         {
             _rectTransform.pivot = new Vector2(0, 1);
             UpdateLayout();
-            LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
 
             // use invoke repeating and remove UpdateLayout from the Uptade method if needed to increase performance 
             //InvokeRepeating("UpdateLayout", 0, 0.08f);
@@ -120,8 +119,6 @@ namespace MG_BlocksEngine2.Block
             {
                 SectionsArray[i].UpdateLayout();
             }
-
-            _rectTransform.sizeDelta = Size;
 
             if (OuterArea != null)
                 OuterArea.UpdateLayout();

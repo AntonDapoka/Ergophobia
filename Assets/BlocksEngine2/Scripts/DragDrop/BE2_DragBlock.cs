@@ -54,6 +54,12 @@ namespace MG_BlocksEngine2.DragDrop
             else if (_sourceHolder != null)
                 _sourceHolder.RemoveBlock(Block);
 
+            // Preserve the block's current scale when reparenting for drag
+            Vector3 originalScale = Transform.localScale;
+            if (Transform.parent != _dragDropManager.DraggedObjectsTransform)
+                Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
+            Transform.localScale = originalScale;
+
             // Disable ProgrammingEnv scrolling while dragging a block
             if (_programmingEnvScrollRect == null)
             {
@@ -82,8 +88,10 @@ namespace MG_BlocksEngine2.DragDrop
 
         void DetectSpot()
         {
+            Vector3 originalScale = Transform.localScale;
             if (Transform.parent != _dragDropManager.DraggedObjectsTransform)
                 Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
+            Transform.localScale = originalScale;
 
             BE2_Raycaster raycaster = _dragDropManager.Raycaster as BE2_Raycaster;
             BE2_Line targetLine = raycaster.FindClosestEmptyLine(this, _dragDropManager.detectionDistance);
@@ -97,7 +105,6 @@ namespace MG_BlocksEngine2.DragDrop
             {
                 ghostBlockTransform.SetParent(targetLine.Transform);
                 ghostBlockTransform.localPosition = Vector3.zero;
-                ghostBlockTransform.localScale = Vector3.one;
                 ghostBlockTransform.gameObject.SetActive(true);
                 targetLine.SetHover(true);
             }
@@ -106,7 +113,6 @@ namespace MG_BlocksEngine2.DragDrop
                 ghostBlockTransform.SetParent(targetHolder.contentArea);
                 Vector2 localPos = targetHolder.contentArea.InverseTransformPoint(RayPoint);
                 ghostBlockTransform.localPosition = new Vector3(localPos.x, localPos.y, 0);
-                ghostBlockTransform.localScale = Vector3.one;
                 ghostBlockTransform.gameObject.SetActive(true);
                 targetHolder.SetHoverVisual(true);
             }

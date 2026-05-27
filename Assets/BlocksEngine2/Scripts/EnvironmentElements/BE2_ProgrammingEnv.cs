@@ -186,6 +186,7 @@ namespace MG_BlocksEngine2.Environment
                 GameObject lineGO = new GameObject("Line " + i, typeof(RectTransform), typeof(Image), typeof(BE2_Line));
                 lineGO.transform.SetParent(contentContainer != null ? contentContainer : _transform);
                 lineGO.transform.SetAsLastSibling();
+                lineGO.transform.localScale = Vector3.one;
 
                 RectTransform rt = lineGO.GetComponent<RectTransform>();
                 rt.anchorMin = new Vector2(0, 1);
