@@ -20,6 +20,8 @@ namespace MG_BlocksEngine2.Environment
         [Header("Lines")]
         public int maxMainLines = 20;
         public float lineHeight = 60f;
+        public float lineIndent = 20f;
+        public float lineSpacing = 10f;
         public List<BE2_Line> MainLines { get; private set; }
 
         [Header("Line Appearance")]
@@ -122,16 +124,16 @@ namespace MG_BlocksEngine2.Environment
                 RectTransform rt = line.GetComponent<RectTransform>();
                 if (rt == null) continue;
 
-                rt.anchoredPosition = new Vector2(0, currentY);
+                rt.anchoredPosition = new Vector2(lineIndent, currentY);
 
                 float lineSize = lineHeight;
                 if (line.CurrentBlock != null && line.CurrentBlock.Layout != null)
                 {
-                    lineSize = line.CurrentBlock.Layout.Size.y;
+                    lineSize = Mathf.Max(lineHeight, line.CurrentBlock.Layout.Size.y);
                 }
 
-                currentY -= lineSize;
-                totalHeight += lineSize;
+                currentY -= lineSize + lineSpacing;
+                totalHeight += lineSize + lineSpacing;
             }
 
             if (contentContainer != null)
@@ -192,7 +194,7 @@ namespace MG_BlocksEngine2.Environment
                 rt.anchorMin = new Vector2(0, 1);
                 rt.anchorMax = new Vector2(1, 1);
                 rt.pivot = new Vector2(0, 1);
-                rt.anchoredPosition = new Vector2(0, -i * lineHeight);
+                rt.anchoredPosition = new Vector2(lineIndent, -i * lineHeight);
                 rt.sizeDelta = new Vector2(0, lineHeight);
 
                 Image img = lineGO.GetComponent<Image>();

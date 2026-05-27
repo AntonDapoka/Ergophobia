@@ -820,7 +820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSubLines: 3
   lineHeight: 60
-  indentPerLevel: 20
+  indentPerLevel: 30
   subLineNormalColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.3}
   subLineHoverColor: {r: 0.3, g: 0.5, b: 0.8, a: 0.5}
   subLineOccupiedColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.1}
