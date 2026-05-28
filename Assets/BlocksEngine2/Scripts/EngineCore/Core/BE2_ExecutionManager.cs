@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+using MG_BlocksEngine2.Block;
+using MG_BlocksEngine2.Block.Instruction;
 using MG_BlocksEngine2.DragDrop;
 using MG_BlocksEngine2.Environment;
 using MG_BlocksEngine2.Utils;
@@ -38,6 +40,7 @@ namespace MG_BlocksEngine2.Core
         // system components
         BE2_Pointer _pointer;
         I_BE2_InputManager _inputManager;
+        BE2_LineStepper _lineStepper;
 
         // v2.9 - added list of actions executed by the Execution Manager
         List<UnityAction> _updateActions = new List<UnityAction>();
@@ -89,6 +92,10 @@ namespace MG_BlocksEngine2.Core
             UpdateTargetObjects();
             UpdateProgrammingEnvsList();
             Instance = this;
+
+            _lineStepper = GetComponent<BE2_LineStepper>();
+            if (_lineStepper == null)
+                _lineStepper = gameObject.AddComponent<BE2_LineStepper>();
         }
 
         void Start()
@@ -128,12 +135,25 @@ namespace MG_BlocksEngine2.Core
         {
             BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnPlay);
             EventSystem.current.SetSelectedGameObject(null);
+
+            foreach (var env in _programmingEnvsList)
+            {
+                if (env.Visible && env is BE2_ProgrammingEnv be2Env)
+                {
+                    _lineStepper.Play(be2Env);
+                    break;
+                }
+            }
         }
 
         public void Stop()
         {
             BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnStop);
             EventSystem.current.SetSelectedGameObject(null);
+            _lineStepper.Stop();
+
+            // Reset all instruction states so the next run starts clean
+            ResetAllInstructions();
         }
 
         // v2.3 - method UpdateBlocksStackList from the Execution Manager made public
@@ -154,8 +174,7 @@ namespace MG_BlocksEngine2.Core
                         BE2_ArrayUtils.Add(ref blocksStacksArray, blocksStack);
                         blocksStack.TargetObject = programmingEnv.TargetObject;
 
-                        // v2.9 - BlocksStack Execute action is now executed from the OnUpdate event
-                        AddToUpdate(blocksStack.Execute);
+                        // Line-based stepper: BlocksStack.Execute is no longer used in Update
                     }
                 }
             }
@@ -173,8 +192,7 @@ namespace MG_BlocksEngine2.Core
 
                 BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnBlocksStackArrayUpdate);
 
-                // v2.9 - BlocksStack Execute action is now executed from the OnUpdate event
-                AddToUpdate(blocksStack.Execute);
+                // Line-based stepper: BlocksStack.Execute is no longer used in Update
             }
         }
 
@@ -196,6 +214,48 @@ namespace MG_BlocksEngine2.Core
         void UpdateTargetObjects()
         {
             _targetObjectsList = new List<I_BE2_TargetObject>(FindObjectsByType<BE2_TargetObject>());
+        }
+
+        void ResetAllInstructions()
+        {
+            foreach (var env in _programmingEnvsList)
+            {
+                if (env is BE2_ProgrammingEnv be2Env && be2Env.MainLines != null)
+                {
+                    foreach (var line in be2Env.MainLines)
+                    {
+                        if (line?.CurrentBlock?.Instruction?.InstructionBase != null)
+                        {
+                            ResetInstructionRecursive(line.CurrentBlock);
+                        }
+                    }
+                }
+            }
+        }
+
+        void ResetInstructionRecursive(I_BE2_Block block)
+        {
+            if (block == null) return;
+
+            ((BE2_InstructionBase)block.Instruction.InstructionBase).Reset();
+
+            if (block.Layout?.SectionsArray != null)
+            {
+                foreach (var section in block.Layout.SectionsArray)
+                {
+                    var body = section?.Body as BE2_BlockSectionBody;
+                    if (body?.SubLines != null)
+                    {
+                        foreach (var subLine in body.SubLines)
+                        {
+                            if (subLine?.CurrentBlock != null)
+                            {
+                                ResetInstructionRecursive(subLine.CurrentBlock);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // v2.7 - UpdateProgrammingEnvsList method of Execution Manager made public

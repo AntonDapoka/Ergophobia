@@ -17,5 +17,10 @@ namespace MG_BlocksEngine2.Block.Instruction
         {
             ExecuteSection(0);
         }
+
+        public override StepResult ExecuteStep()
+        {
+            return StepResult.EnterBody(0);
+        }
     }
 }

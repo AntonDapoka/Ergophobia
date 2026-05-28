@@ -52,6 +52,13 @@ namespace MG_BlocksEngine2.Block.Instruction
             }
         }
 
+        public override StepResult ExecuteStep()
+        {
+            _input0 = Section0Inputs[0];
+            float waitDuration = _input0.FloatValue;
+            return StepResult.WaitForSeconds(waitDuration);
+        }
+
         // v2.12 - added Reset method to the instructions to enable reuse by Function Blocks
         public override void Reset()
         {

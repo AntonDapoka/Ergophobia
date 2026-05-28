@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using MG_BlocksEngine2.DragDrop;
+using MG_BlocksEngine2.Environment;
 
 namespace MG_BlocksEngine2.Block
 {
@@ -57,7 +58,10 @@ namespace MG_BlocksEngine2.Block
         public Color NormalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
         public Color HoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
         public Color OccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
+        public Color ActiveColor = new Color(0.2f, 0.8f, 0.2f, 0.6f);
         public Sprite BackgroundSprite;
+
+        bool _isHighlighted;
 
         void Awake()
         {
@@ -89,6 +93,10 @@ namespace MG_BlocksEngine2.Block
                 block.Transform.SetParent(transform, false);
                 block.Transform.localPosition = Vector3.zero;
                 block.Transform.localEulerAngles = Vector3.zero;
+
+                var env = GetComponentInParent<BE2_ProgrammingEnv>();
+                if (env != null && block.Instruction?.InstructionBase != null)
+                    block.Instruction.InstructionBase.TargetObject = env.TargetObject;
             }
             UpdateVisual();
         }
@@ -101,13 +109,25 @@ namespace MG_BlocksEngine2.Block
 
         public void SetHover(bool isHovered)
         {
-            if (_image != null)
+            if (_image == null) return;
+            if (_isHighlighted)
+                _image.color = ActiveColor;
+            else
                 _image.color = isHovered ? HoverColor : (IsOccupied ? OccupiedColor : NormalColor);
+        }
+
+        public void SetActiveHighlight(bool active)
+        {
+            _isHighlighted = active;
+            UpdateVisual();
         }
 
         void UpdateVisual()
         {
-            if (_image != null)
+            if (_image == null) return;
+            if (_isHighlighted)
+                _image.color = ActiveColor;
+            else
                 _image.color = IsOccupied ? OccupiedColor : NormalColor;
         }
     }

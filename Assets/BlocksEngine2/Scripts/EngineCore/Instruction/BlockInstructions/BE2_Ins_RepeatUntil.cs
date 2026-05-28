@@ -30,5 +30,20 @@ namespace MG_BlocksEngine2.Block.Instruction
                 ExecuteNextInstruction();
             }
         }
+
+        public override StepResult ExecuteStep()
+        {
+            _input0 = Section0Inputs[0];
+            _value = _input0.StringValue;
+
+            if (_value != "1" && _value != "true")
+            {
+                return StepResult.EnterBody(0);
+            }
+            else
+            {
+                return StepResult.Completed;
+            }
+        }
     }
 }

@@ -53,6 +53,31 @@ namespace MG_BlocksEngine2.Block.Instruction
             }
         }
 
+        public override StepResult ExecuteStep()
+        {
+            if (_isFirstPlay)
+            {
+                _input0 = Section0Inputs[0];
+                _value = _input0.StringValue;
+
+                if (_value == "1" || _value.ToLower() == "true")
+                {
+                    _isFirstPlay = false;
+                    return StepResult.EnterBody(0);
+                }
+                else
+                {
+                    _isFirstPlay = false;
+                    return StepResult.EnterBody(1);
+                }
+            }
+            else
+            {
+                _isFirstPlay = true;
+                return StepResult.Completed;
+            }
+        }
+
         // v2.12 - added Reset method to the instructions to enable reuse by Function Blocks
         public override void Reset()
         {

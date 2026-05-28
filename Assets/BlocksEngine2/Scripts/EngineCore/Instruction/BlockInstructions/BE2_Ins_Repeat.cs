@@ -44,6 +44,23 @@ namespace MG_BlocksEngine2.Block.Instruction
             }
         }
 
+        public override StepResult ExecuteStep()
+        {
+            _input0 = Section0Inputs[0];
+            _value = _input0.FloatValue;
+
+            _counter++;
+            if (_counter <= _value)
+            {
+                return StepResult.EnterBody(0);
+            }
+            else
+            {
+                _counter = 0;
+                return StepResult.Completed;
+            }
+        }
+
         // v2.12 - added Reset method to the instructions to enable reuse by Function Blocks
         public override void Reset()
         {

@@ -136,6 +136,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         // v2.9 - ExecuteSection and ExecuteNextInstruction refactored to enable StepPlay and Pause
         public void ExecuteSection(int sectionIndex)
         {
+            if (BlocksStack == null) return;
             if (BlocksStack.InstructionsArray.Length > LocationsArray[sectionIndex])
             {
                 // v2.9 - renamed instruction to nextInstruction
@@ -183,6 +184,7 @@ namespace MG_BlocksEngine2.Block.Instruction
         // v2.9 - ExecuteSection and ExecuteNextInstruction refactored to enable StepPlay and Pause
         public void ExecuteNextInstruction()
         {
+            if (BlocksStack == null) return;
             if (BlocksStack.InstructionsArray.Length > _lastLocation)
             {
                 // v2.9 - renamed instruction to nextInstruction
@@ -249,6 +251,14 @@ namespace MG_BlocksEngine2.Block.Instruction
         public virtual string Operation() { return ""; }
         public virtual void Function() { }
         public virtual void Reset() { }
+
+        // Step-based execution: single-step entry point for the line-based executor.
+        // Override in container instructions (If, Repeat, etc.) to return EnterBody/SkipBody.
+        public virtual StepResult ExecuteStep()
+        {
+            Function();
+            return StepResult.Completed;
+        }
     }
 
 }
