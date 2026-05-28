@@ -22,6 +22,7 @@ namespace MG_BlocksEngine2.Environment
         public float lineHeight = 60f;
         public float lineIndent = 20f;
         public float lineSpacing = 10f;
+        public float lineWidth = 600f;
         public List<BE2_Line> MainLines { get; private set; }
 
         [Header("Line Appearance")]
@@ -138,7 +139,7 @@ namespace MG_BlocksEngine2.Environment
 
             if (contentContainer != null)
             {
-                contentContainer.sizeDelta = new Vector2(0, totalHeight);
+                contentContainer.sizeDelta = new Vector2(lineWidth, totalHeight);
             }
         }
 
@@ -166,16 +167,15 @@ namespace MG_BlocksEngine2.Environment
                     contentContainer = contentGO.GetComponent<RectTransform>();
                     contentContainer.SetParent(transform, false);
                     contentContainer.anchorMin = new Vector2(0, 1);
-                    contentContainer.anchorMax = new Vector2(1, 1);
+                    contentContainer.anchorMax = new Vector2(0, 1);
                     contentContainer.pivot = new Vector2(0, 1);
                     contentContainer.anchoredPosition = Vector2.zero;
-                    contentContainer.sizeDelta = Vector2.zero;
+                    contentContainer.sizeDelta = new Vector2(lineWidth, 0);
                 }
             }
-
             scrollRect.content = contentContainer;
             scrollRect.viewport = GetComponent<RectTransform>();
-            scrollRect.horizontal = false;
+            scrollRect.horizontal = true;
             scrollRect.vertical = true;
             scrollRect.movementType = ScrollRect.MovementType.Clamped;
         }
@@ -192,12 +192,12 @@ namespace MG_BlocksEngine2.Environment
 
                 RectTransform rt = lineGO.GetComponent<RectTransform>();
                 rt.anchorMin = new Vector2(0, 1);
-                rt.anchorMax = new Vector2(1, 1);
+                rt.anchorMax = new Vector2(0, 1);
                 rt.pivot = new Vector2(0, 1);
                 rt.anchoredPosition = new Vector2(lineIndent, -i * lineHeight);
-                rt.sizeDelta = new Vector2(0, lineHeight);
-
+                rt.sizeDelta = new Vector2(lineWidth, lineHeight);
                 Image img = lineGO.GetComponent<Image>();
+                
                 if (lineSprite != null)
                     img.sprite = lineSprite;
 
