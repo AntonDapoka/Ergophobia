@@ -73,11 +73,13 @@ namespace MG_BlocksEngine2.DragDrop
         {
             Raycaster = GetComponent<I_BE2_Raycaster>();
             _dragDropComponentsCanvas = BE2_DragDropManager.Instance.draggedObjectsTransform.GetComponentInParent<BE2_Canvas>().Canvas;
+            Debug.Log($"[BE2_DragDropManager] Awake: Raycaster={(Raycaster != null ? Raycaster.GetType().Name : "NULL")}, draggedObjectsTransform={(draggedObjectsTransform != null ? draggedObjectsTransform.name : "NULL")}, _dragDropComponentsCanvas={(_dragDropComponentsCanvas != null ? _dragDropComponentsCanvas.name : "NULL")}");
         }
 
         void OnEnable()
         {
             Instance = this;
+            Debug.Log("[BE2_DragDropManager] OnEnable: subscribed to events");
 
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnPrimaryKeyDown, OnPointerDown);
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypes.OnSecondaryKeyDown, OnRightPointerDownOrHold);
@@ -90,6 +92,7 @@ namespace MG_BlocksEngine2.DragDrop
 
         private void OnDisable()
         {
+            Debug.Log("[BE2_DragDropManager] OnDisable: unsubscribed from events");
             BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyDown, OnPointerDown);
             BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnSecondaryKeyDown, OnRightPointerDownOrHold);
             BE2_MainEventsManager.Instance.StopListening(BE2EventTypes.OnPrimaryKeyHold, OnRightPointerDownOrHold);
@@ -105,7 +108,20 @@ namespace MG_BlocksEngine2.DragDrop
         {
             yield return new WaitForEndOfFrame();
 
-            I_BE2_Drag drag = Raycaster.GetDragAtPosition(BE2_InputManager.Instance.ScreenPointerPosition);
+            if (Raycaster == null)
+            {
+                Debug.LogError("[BE2_DragDropManager] C_OnPointerDown: Raycaster is NULL!");
+                yield break;
+            }
+            var inputMgr = BE2_InputManager.Instance;
+            if (inputMgr == null)
+            {
+                Debug.LogError("[BE2_DragDropManager] C_OnPointerDown: BE2_InputManager.Instance is NULL!");
+                yield break;
+            }
+
+            I_BE2_Drag drag = Raycaster.GetDragAtPosition(inputMgr.ScreenPointerPosition);
+            Debug.Log($"[BE2_DragDropManager] C_OnPointerDown: drag={(drag != null ? drag.GetType().Name : "NULL")} at screenPos={inputMgr.ScreenPointerPosition}");
             if (drag != null)
             {
                 CurrentDrag = drag;
@@ -137,6 +153,7 @@ namespace MG_BlocksEngine2.DragDrop
                 // v2.11.1 - added handler method to the BE2_DragDropManager.OnDrag for the new Block drag events
                 if (!isDragging)
                 {
+                    Debug.Log($"[BE2_DragDropManager] OnDrag: starting drag for block={(CurrentDrag.Block != null ? CurrentDrag.Block.Transform.name : "NULL")}");
                     // v2.13 - invoke the OnDragStart event 
                     CurrentDrag.OnDragStart();
                     BE2_MainEventsManager.Instance.TriggerEvent(BE2EventTypes.OnDragStart);
@@ -153,6 +170,7 @@ namespace MG_BlocksEngine2.DragDrop
         // v2.11.1 - added a handler method on the BE2_DragDropManager.OnPointerUp to call the new Block drop events
         void OnPointerUp()
         {
+            Debug.Log($"[BE2_DragDropManager] OnPointerUp: CurrentDrag={(CurrentDrag != null ? CurrentDrag.GetType().Name : "NULL")}, isDragging={isDragging}");
             if (CurrentDrag != null && isDragging)
             {
                 CurrentDrag.OnPointerUp();

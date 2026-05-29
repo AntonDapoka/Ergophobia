@@ -20,6 +20,25 @@ namespace MG_BlocksEngine2.Core
 
         public I_BE2_TargetObject TargetObject { get; set; }
         public I_BE2_Instruction TriggerInstruction { get; set; }
+
+        static I_BE2_Instruction _emptyInstruction;
+        public static I_BE2_Instruction EmptyInstruction
+        {
+            get
+            {
+                // Fix: interface references don't trigger Unity's null check for destroyed MonoBehaviours
+                if (_emptyInstruction is Object unityObj && unityObj == null)
+                    _emptyInstruction = null;
+
+                if (_emptyInstruction == null)
+                {
+                    GameObject go = new GameObject("EmptyInstruction", typeof(BE2_Ins_EmptyStep));
+                    go.hideFlags = HideFlags.HideAndDontSave;
+                    _emptyInstruction = go.GetComponent<I_BE2_Instruction>();
+                }
+                return _emptyInstruction;
+            }
+        }
         
         public bool IsActive
         {
@@ -178,7 +197,12 @@ namespace MG_BlocksEngine2.Core
             for (int i = triggerLine.LineIndex + 1; i < env.MainLines.Count; i++)
             {
                 BE2_Line line = env.MainLines[i];
-                if (line == null || line.CurrentBlock == null) continue;
+                if (line == null) continue;
+                if (line.CurrentBlock == null)
+                {
+                    InstructionsArray = BE2_ArrayUtils.AddReturn(InstructionsArray, EmptyInstruction);
+                    continue;
+                }
                 if (line.CurrentBlock.Type == BlockTypeEnum.trigger) break;
 
                 PopulateStackRecursive(line.CurrentBlock);

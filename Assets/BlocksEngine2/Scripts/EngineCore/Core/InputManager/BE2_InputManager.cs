@@ -16,6 +16,14 @@ namespace MG_BlocksEngine2.Core
         {
             get
             {
+                // Bugfix: interface references don't trigger Unity's null check for destroyed MonoBehaviours.
+                // Cast to Object to properly detect destroyed objects after scene reloads.
+                if (_instance is Object unityObj && unityObj == null)
+                {
+                    Debug.LogWarning("[BE2_InputManager] _instance was a destroyed MonoBehaviour, resetting to null.");
+                    _instance = null;
+                }
+
                 if (_instance == null)
                 {
                     // v2.11 - custom InputManagers derived only from the I_BE2_InputManager interface (not from the BE2_InputManager class) can be used 
@@ -26,6 +34,7 @@ namespace MG_BlocksEngine2.Core
                             break;
                     }
                     // _instance = GameObject.FindObjectOfType<BE2_InputManager>() as I_BE2_InputManager;
+                    Debug.Log($"[BE2_InputManager] Instance resolved: {(_instance != null ? ((_instance as MonoBehaviour)?.name ?? "non-MB") : "NULL")}");
                 }
                 return _instance;
             }
@@ -67,13 +76,21 @@ namespace MG_BlocksEngine2.Core
 
             _mainEventsManager = BE2_MainEventsManager.Instance;
             _dragDropManager = BE2_DragDropManager.Instance;
+            Debug.Log($"[BE2_InputManager] OnEnable: _mainEventsManager={(_mainEventsManager != null)}, _dragDropManager={(_dragDropManager != null)}, this.name={name}");
         }
 
         public void OnUpdate()
         {
+            if (_mainEventsManager == null)
+            {
+                Debug.LogError("[BE2_InputManager] OnUpdate: _mainEventsManager is NULL!");
+                return;
+            }
+
             // pointer 0 down
             if (Input.GetKeyDown(primaryKey))
             {
+                Debug.Log("[BE2_InputManager] OnUpdate: Triggering OnPrimaryKeyDown");
                 _mainEventsManager.TriggerEvent(BE2EventTypes.OnPrimaryKeyDown);
             }
 

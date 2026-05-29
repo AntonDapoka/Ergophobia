@@ -5,16 +5,29 @@ using MG_BlocksEngine2.Block;
 
 namespace MG_BlocksEngine2.Environment
 {
-    public class ChestEnvironment : HolderEnvironment
+    /// <summary>
+    /// A read-only storage from which blocks can be taken but not placed back.
+    /// Inherits scrolling and visuals from StorageEnvironment.
+    /// Designed for manual population via the Inspector (prefab list).
+    /// Future extension: populate from a database with prefab references.
+    /// </summary>
+    public class ChestEnvironment : StorageEnvironment
     {
         [Header("Spawner")]
+        [Tooltip("Anchor point inside the chest where blocks will be spawned around.")]
         public Transform spawnAnchor;
+        [Tooltip("Prefabs to spawn when Populate() is called manually.")]
         public List<GameObject> blockPrefabs = new List<GameObject>();
+        [Tooltip("Radius for spreading spawned blocks around the anchor.")]
         public float spawnSpreadRadius = 30f;
 
         public override bool CanPlaceBlock(I_BE2_Block block) => false;
         public override bool CanPickupBlock(I_BE2_Block block) => true;
 
+        /// <summary>
+        /// Manually populate the chest with the configured block prefabs.
+        /// Call this from editor scripts, buttons, or future database loaders.
+        /// </summary>
         public void Populate()
         {
             if (spawnAnchor == null) return;
@@ -42,6 +55,9 @@ namespace MG_BlocksEngine2.Environment
             }
         }
 
+        /// <summary>
+        /// Remove and destroy all blocks currently in the chest.
+        /// </summary>
         public void Clear()
         {
             for (int i = Blocks.Count - 1; i >= 0; i--)

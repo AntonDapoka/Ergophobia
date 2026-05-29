@@ -35,6 +35,11 @@ namespace MG_BlocksEngine2.DragDrop
                 if (BE2_ArrayUtils.Find(ref raycasters, (x => x == raycaster)) == null)
                 {
                     BE2_ArrayUtils.Add(ref raycasters, raycaster);
+                    Debug.Log($"[BE2_Raycaster] AddRaycaster: added {raycaster.name} (total={raycasters.Length})");
+                }
+                else
+                {
+                    Debug.Log($"[BE2_Raycaster] AddRaycaster: {raycaster.name} already registered (total={raycasters.Length})");
                 }
             }
 
@@ -52,6 +57,12 @@ namespace MG_BlocksEngine2.DragDrop
 
         public I_BE2_Drag GetDragAtPosition(Vector2 position)
         {
+            if (raycasters == null || raycasters.Length == 0)
+            {
+                Debug.LogError("[BE2_Raycaster] GetDragAtPosition: NO raycasters registered!");
+                return null;
+            }
+
             _pointerEventData = new PointerEventData(eventSystem);
 
             // v2.6 - Raycaster ray position adjusted base on the Canvas render mode
@@ -68,17 +79,24 @@ namespace MG_BlocksEngine2.DragDrop
             int rayCount = raycasters.Length;
             for (int i = 0; i < rayCount; i++)
             {
+                if (raycasters[i] == null)
+                {
+                    Debug.LogWarning($"[BE2_Raycaster] raycasters[{i}] is NULL, skipping.");
+                    continue;
+                }
                 List<RaycastResult> results = new List<RaycastResult>();
                 raycasters[i].Raycast(_pointerEventData, results);
                 globalResults.AddRange(results);
             }
 
+            Debug.Log($"[BE2_Raycaster] GetDragAtPosition: screenPos={position}, raycasters={rayCount}, totalResults={globalResults.Count}");
+
             int resultCount = globalResults.Count;
             for (int i = 0; i < resultCount; i++)
             {
                 GameObject resultGameObject = globalResults[i].gameObject;
-
                 I_BE2_Drag drag = resultGameObject.GetComponentInParent<I_BE2_Drag>();
+                Debug.Log($"[BE2_Raycaster]   result[{i}]: {resultGameObject.name} -> drag={(drag != null ? drag.GetType().Name : "NULL")}");
                 if (drag != null)
                 {
                     return drag;
@@ -226,11 +244,24 @@ namespace MG_BlocksEngine2.DragDrop
 
         public HolderEnvironment FindHolderEnvironmentAtPoint(Vector2 worldPoint)
         {
-            foreach (HolderEnvironment holder in HolderEnvironment.ActiveHolders)
+            int count = HolderEnvironment.ActiveHolders.Count;
+            Debug.Log($"[BE2_Raycaster] FindHolderEnvironmentAtPoint: worldPoint={worldPoint}, activeHolders={count}");
+            for (int i = 0; i < count; i++)
             {
-                if (holder == null) continue;
-                if (!holder.gameObject.activeInHierarchy) continue;
-                if (holder.ContainsPoint(worldPoint))
+                HolderEnvironment holder = HolderEnvironment.ActiveHolders[i];
+                if (holder == null)
+                {
+                    Debug.LogWarning($"[BE2_Raycaster]   holder[{i}] is NULL (destroyed?)");
+                    continue;
+                }
+                if (!holder.gameObject.activeInHierarchy)
+                {
+                    Debug.Log($"[BE2_Raycaster]   holder[{i}]={holder.name} inactive, skipping.");
+                    continue;
+                }
+                bool contains = holder.ContainsPoint(worldPoint);
+                Debug.Log($"[BE2_Raycaster]   holder[{i}]={holder.name} ContainsPoint={contains}");
+                if (contains)
                     return holder;
             }
             return null;

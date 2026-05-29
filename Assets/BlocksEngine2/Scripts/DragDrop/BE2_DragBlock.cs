@@ -48,17 +48,26 @@ namespace MG_BlocksEngine2.DragDrop
         {
             _sourceLine = Transform.parent?.GetComponent<BE2_Line>();
             _sourceHolder = Transform.parent?.GetComponentInParent<HolderEnvironment>();
+            // Fallback: if parent is the drag manager, look at the block itself for a holder
+            if (_sourceHolder == null)
+            {
+                _sourceHolder = Transform.GetComponentInParent<HolderEnvironment>();
+            }
+            Debug.Log($"[BE2_DragBlock] OnDragStart: block={Transform.name}, parent={Transform.parent?.name}, _sourceLine={(_sourceLine != null ? _sourceLine.name : "NULL")}, _sourceHolder={(_sourceHolder != null ? _sourceHolder.name : "NULL")}");
 
             if (_sourceLine != null)
                 _sourceLine.ClearBlock();
             else if (_sourceHolder != null)
                 _sourceHolder.RemoveBlock(Block);
+            else
+                Debug.LogWarning($"[BE2_DragBlock] OnDragStart: block has NO sourceLine and NO sourceHolder! parent={Transform.parent?.name}");
 
             // Preserve the block's current scale when reparenting for drag
             Vector3 originalScale = Transform.localScale;
             if (Transform.parent != _dragDropManager.DraggedObjectsTransform)
                 Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
             Transform.localScale = originalScale;
+            Debug.Log($"[BE2_DragBlock] OnDragStart: reparented to DraggedObjectsTransform");
 
             // Disable ProgrammingEnv scrolling while dragging a block
             if (_programmingEnvScrollRect == null)
@@ -76,6 +85,7 @@ namespace MG_BlocksEngine2.DragDrop
 
             if (_programmingEnvScrollRect != null)
             {
+                Debug.Log($"[BE2_DragBlock] OnDragStart: disabled ScrollRect {_programmingEnvScrollRect.name}");
                 _programmingEnvScrollRect.StopMovement();
                 _programmingEnvScrollRect.enabled = false;
             }
@@ -93,10 +103,18 @@ namespace MG_BlocksEngine2.DragDrop
                 Transform.SetParent(_dragDropManager.DraggedObjectsTransform, true);
             Transform.localScale = originalScale;
 
+            if (_dragDropManager.Raycaster == null)
+            {
+                Debug.LogError("[BE2_DragBlock] DetectSpot: _dragDropManager.Raycaster is NULL!");
+                return;
+            }
+
             BE2_Raycaster raycaster = _dragDropManager.Raycaster as BE2_Raycaster;
             BE2_Line targetLine = raycaster.FindClosestEmptyLine(this, _dragDropManager.detectionDistance);
             HolderEnvironment targetHolder = raycaster.FindHolderEnvironmentAtPoint(RayPoint);
             Transform ghostBlockTransform = _dragDropManager.GhostBlockTransform;
+
+            Debug.Log($"[BE2_DragBlock] DetectSpot: targetLine={(targetLine != null ? targetLine.name : "NULL")}, targetHolder={(targetHolder != null ? targetHolder.name : "NULL")}, CanPlace={(targetHolder != null ? targetHolder.CanPlaceBlock(Block) : false)}");
 
             ClearLineHighlights();
             ClearHolderHighlights();
@@ -143,12 +161,21 @@ namespace MG_BlocksEngine2.DragDrop
         // Line-based system: blocks drop into Lines
         public void OnPointerUp()
         {
+            if (_dragDropManager.Raycaster == null)
+            {
+                Debug.LogError("[BE2_DragBlock] OnPointerUp: _dragDropManager.Raycaster is NULL!");
+                return;
+            }
+
             BE2_Raycaster raycaster = _dragDropManager.Raycaster as BE2_Raycaster;
             BE2_Line targetLine = raycaster.FindClosestEmptyLine(this, _dragDropManager.detectionDistance);
             HolderEnvironment targetHolder = raycaster.FindHolderEnvironmentAtPoint(RayPoint);
 
+            Debug.Log($"[BE2_DragBlock] OnPointerUp: targetLine={(targetLine != null ? targetLine.name : "NULL")}, targetHolder={(targetHolder != null ? targetHolder.name : "NULL")}, _sourceHolder={(_sourceHolder != null ? _sourceHolder.name : "NULL")}");
+
             if (targetLine != null && !targetLine.IsOccupied)
             {
+                Debug.Log($"[BE2_DragBlock] OnPointerUp: dropping to line {targetLine.name}");
                 targetLine.SetBlock(Block);
 
                 if (Block.Type == BlockTypeEnum.trigger)
@@ -163,21 +190,32 @@ namespace MG_BlocksEngine2.DragDrop
             else if (targetHolder != null && targetHolder.CanPlaceBlock(Block))
             {
                 Vector2 localPos = targetHolder.contentArea.InverseTransformPoint(RayPoint);
+                Debug.Log($"[BE2_DragBlock] OnPointerUp: dropping to holder {targetHolder.name} at localPos={localPos}");
                 targetHolder.AddBlock(Block, localPos);
             }
             else
             {
+                // Final fallback: if we still have no source holder, try to find one from the block's current hierarchy
+                if (_sourceHolder == null)
+                {
+                    _sourceHolder = Transform.GetComponentInParent<HolderEnvironment>();
+                    Debug.Log($"[BE2_DragBlock] OnPointerUp: fallback sourceHolder search result={(_sourceHolder != null ? _sourceHolder.name : "NULL")}");
+                }
+
                 if (_sourceLine != null)
                 {
+                    Debug.Log($"[BE2_DragBlock] OnPointerUp: returning to source line {_sourceLine.name}");
                     _sourceLine.SetBlock(Block);
                 }
                 else if (_sourceHolder != null)
                 {
                     Vector2 returnPos = _sourceHolder.contentArea.InverseTransformPoint(RayPoint);
+                    Debug.Log($"[BE2_DragBlock] OnPointerUp: returning to source holder {_sourceHolder.name} at localPos={returnPos}");
                     _sourceHolder.AddBlock(Block, returnPos);
                 }
                 else
                 {
+                    Debug.LogWarning("[BE2_DragBlock] OnPointerUp: NO sourceLine, NO sourceHolder, NO target — DESTROYING block!");
                     Destroy(Transform.gameObject);
                 }
             }
