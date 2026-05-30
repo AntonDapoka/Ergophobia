@@ -1,0 +1,497 @@
+{
+  "assetCategories": {
+    "surface": {
+      "marble": {
+        "polished": {}
+      }
+    }
+  },
+  "averageColor": "#312518",
+  "categories": [
+    "surface",
+    "stone",
+    "marble"
+  ],
+  "comp_version": 1,
+  "description": "",
+  "environment": {
+    "biome": "undefined",
+    "region": "undefined"
+  },
+  "highest_available_res": 8192,
+  "id": "tfjjdcrc",
+  "json": {
+    "contentLength": 10113,
+    "uri": "tfjjdcrc.json"
+  },
+  "maps": [
+    {
+      "averageColor": "#312518",
+      "bitDepth": 16,
+      "colorSpace": "sRGB",
+      "contentLength": 250896608,
+      "maxIntensity": 212,
+      "mimeType": "image/x-exr",
+      "minIntensity": 3,
+      "name": "Basecolor",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "basecolor",
+      "uri": "tfjjdcrc_8K_Basecolor.exr"
+    },
+    {
+      "averageColor": "#312518",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 35433309,
+      "maxIntensity": 212,
+      "mimeType": "image/jpeg",
+      "minIntensity": 3,
+      "name": "Basecolor",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "basecolor",
+      "uri": "tfjjdcrc_8K_Basecolor.jpg"
+    },
+    {
+      "averageColor": "#FEFEFE",
+      "bitDepth": 32,
+      "colorSpace": "sRGB",
+      "contentLength": 27725362,
+      "maxIntensity": 255,
+      "mimeType": "image/x-exr",
+      "minIntensity": 250,
+      "name": "Cavity",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "cavity",
+      "uri": "tfjjdcrc_8K_Cavity.exr"
+    },
+    {
+      "averageColor": "#FEFEFE",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 7269785,
+      "maxIntensity": 255,
+      "mimeType": "image/jpeg",
+      "minIntensity": 250,
+      "name": "Cavity",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "cavity",
+      "uri": "tfjjdcrc_8K_Cavity.jpg"
+    },
+    {
+      "averageColor": "#E1E1E1",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 71386786,
+      "maxIntensity": 226,
+      "mimeType": "image/x-exr",
+      "minIntensity": 221,
+      "name": "Gloss",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "gloss",
+      "uri": "tfjjdcrc_8K_Gloss.exr"
+    },
+    {
+      "averageColor": "#E1E1E1",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 8184766,
+      "maxIntensity": 226,
+      "mimeType": "image/jpeg",
+      "minIntensity": 221,
+      "name": "Gloss",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "gloss",
+      "uri": "tfjjdcrc_8K_Gloss.jpg"
+    },
+    {
+      "averageColor": "#8181FF",
+      "bitDepth": 16,
+      "colorSpace": "Linear",
+      "contentLength": 13074688,
+      "maxIntensity": 144,
+      "mimeType": "image/x-exr",
+      "minIntensity": 143,
+      "name": "Normal",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "normal",
+      "uri": "tfjjdcrc_8K_Normal.exr"
+    },
+    {
+      "averageColor": "#8181FF",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 930394,
+      "maxIntensity": 144,
+      "mimeType": "image/jpeg",
+      "minIntensity": 143,
+      "name": "Normal",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "normal",
+      "uri": "tfjjdcrc_8K_Normal.jpg"
+    },
+    {
+      "averageColor": "#1E1E1E",
+      "bitDepth": 32,
+      "colorSpace": "sRGB",
+      "contentLength": 77846621,
+      "maxIntensity": 34,
+      "mimeType": "image/x-exr",
+      "minIntensity": 29,
+      "name": "Roughness",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "roughness",
+      "uri": "tfjjdcrc_8K_Roughness.exr"
+    },
+    {
+      "averageColor": "#1E1E1E",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 8487027,
+      "maxIntensity": 34,
+      "mimeType": "image/jpeg",
+      "minIntensity": 29,
+      "name": "Roughness",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "roughness",
+      "uri": "tfjjdcrc_8K_Roughness.jpg"
+    },
+    {
+      "averageColor": "#383838",
+      "bitDepth": 16,
+      "colorSpace": "sRGB",
+      "contentLength": 109642607,
+      "maxIntensity": 61,
+      "mimeType": "image/x-exr",
+      "minIntensity": 55,
+      "name": "Specular",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "specular",
+      "uri": "tfjjdcrc_8K_Specular.exr"
+    },
+    {
+      "averageColor": "#383838",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 7197864,
+      "maxIntensity": 61,
+      "mimeType": "image/jpeg",
+      "minIntensity": 55,
+      "name": "Specular",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "specular",
+      "uri": "tfjjdcrc_8K_Specular.jpg"
+    }
+  ],
+  "meta": [
+    {
+      "key": "scanArea",
+      "name": "Scan Area",
+      "value": "2x2 m"
+    },
+    {
+      "key": "height",
+      "name": "Height",
+      "value": "20 m"
+    },
+    {
+      "key": "tileable",
+      "name": "Tileable",
+      "value": true
+    },
+    {
+      "key": "texelDensity",
+      "name": "Texel Density",
+      "value": "4096 px/m"
+    },
+    {
+      "key": "calibration",
+      "name": "Calibration",
+      "value": "GretagMacbeth ColorChecker Color Rendition Chart"
+    },
+    {
+      "key": "scanner",
+      "name": "Scanner",
+      "value": "MKX"
+    }
+  ],
+  "models": [],
+  "name": "Black and Gold Marble",
+  "pack": {
+    "_id": "pristine-marbles",
+    "name": "Pristine Marbles"
+  },
+  "physicalSize": null,
+  "points": 2,
+  "previews": {
+    "images": [
+      {
+        "contentLength": 256055,
+        "resolution": "360x360",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "tfjjdcrc_Grid_360.png"
+      },
+      {
+        "contentLength": 344734,
+        "resolution": "420x420",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "tfjjdcrc_Grid_420.png"
+      },
+      {
+        "contentLength": 988424,
+        "resolution": "720x720",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_Grid_720.png"
+      },
+      {
+        "contentLength": 1338693,
+        "resolution": "840x840",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_Grid_840.png"
+      },
+      {
+        "contentLength": 1723987,
+        "resolution": "1440x768",
+        "tags": [
+          "preview",
+          "clay"
+        ],
+        "uri": "tfjjdcrc_PopupClay_1440.png"
+      },
+      {
+        "contentLength": 3170338,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview",
+          "clay"
+        ],
+        "uri": "tfjjdcrc_PopupClay_1920.png"
+      },
+      {
+        "contentLength": 6654235,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "clay",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_PopupClay_2880.png"
+      },
+      {
+        "contentLength": 11687787,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "clay",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_PopupClay_3840.png"
+      },
+      {
+        "contentLength": 2714455,
+        "resolution": "1440x768",
+        "tags": [
+          "preview",
+          "tiled"
+        ],
+        "uri": "tfjjdcrc_PopupTiled_1440.png"
+      },
+      {
+        "contentLength": 4960712,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview",
+          "tiled"
+        ],
+        "uri": "tfjjdcrc_PopupTiled_1920.png"
+      },
+      {
+        "contentLength": 10312425,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "tiled",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_PopupTiled_2880.png"
+      },
+      {
+        "contentLength": 19403046,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "tiled",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_PopupTiled_3840.png"
+      },
+      {
+        "contentLength": 2550993,
+        "resolution": "1440x768",
+        "tags": [
+          "preview"
+        ],
+        "uri": "tfjjdcrc_Popup_1440.png"
+      },
+      {
+        "contentLength": 4658077,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview"
+        ],
+        "uri": "tfjjdcrc_Popup_1920.png"
+      },
+      {
+        "contentLength": 9718009,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_Popup_2880.png"
+      },
+      {
+        "contentLength": 18521644,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "tfjjdcrc_Popup_3840.png"
+      }
+    ],
+    "relativeSize": "1x1",
+    "scaleReferences": []
+  },
+  "process_date": "2024-04-17 10:21:21",
+  "properties": [],
+  "referencePreviews": {
+    "maps": [],
+    "models": []
+  },
+  "references": [],
+  "revised": false,
+  "revision": 0,
+  "semanticTags": {
+    "3d_mesh": [],
+    "architectural_style": {},
+    "asset_type": "surface",
+    "color": [
+      "black",
+      "gold"
+    ],
+    "contains": [
+      "marble",
+      "michelangelo marble"
+    ],
+    "descriptive": [
+      "smooth",
+      " shiny",
+      " polished",
+      " decorative"
+    ],
+    "environment": [
+      "urban"
+    ],
+    "industry": [
+      "archviz",
+      "games",
+      "VFX"
+    ],
+    "interior_exterior": [
+      "interior",
+      "exterior"
+    ],
+    "latin_name": [],
+    "locations": {
+      "Global": {
+        "Global": {}
+      }
+    },
+    "maxSize": 2,
+    "minSize": 2,
+    "name": "Black and Gold Marble",
+    "orientation": [
+      "floor"
+    ],
+    "resolution": 8192,
+    "season": [],
+    "state": [
+      "new"
+    ],
+    "subject_matter": "manmade",
+    "theme": [
+      "kitchen",
+      " counter tops",
+      " washroom",
+      " bathroom"
+    ]
+  },
+  "tags": [
+    "marble",
+    "black",
+    "and",
+    "gold",
+    "michelangelo",
+    "stone",
+    "archviz"
+  ],
+  "texelDensity": 4096,
+  "texture_type": "basic",
+  "ue_plugin_archives": [
+    {
+      "contentLength": 94076436,
+      "gltfVersion": "2.0",
+      "tier": 0,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_0/tfjjdcrc_tier_0.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 33912699,
+      "gltfVersion": "2.0",
+      "tier": 1,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_1/tfjjdcrc_tier_1.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 9608108,
+      "gltfVersion": "2.0",
+      "tier": 2,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_2/tfjjdcrc_tier_2.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 880679,
+      "gltfVersion": "2.0",
+      "tier": 3,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_3/tfjjdcrc_tier_3.zip",
+      "version": 1
+    }
+  ],
+  "version": 2
+}

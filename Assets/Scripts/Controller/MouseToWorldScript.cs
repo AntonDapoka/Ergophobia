@@ -1,11 +1,13 @@
+
 using UnityEngine;
 
 public class MouseToWorldScript : MonoBehaviour
 {
-    public Camera worldCamera;
-    public Transform aimTarget;
+    [SerializeField] private Camera worldCamera;
+    [SerializeField] private Transform aimTarget;
 
-    void Update()
+
+    private void Update()
     {
         Ray ray = worldCamera.ScreenPointToRay(Input.mousePosition);
 
