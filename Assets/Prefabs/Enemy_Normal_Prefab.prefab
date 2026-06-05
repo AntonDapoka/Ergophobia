@@ -1143,8 +1143,8 @@ GameObject:
   - component: {fileID: 4418421346283874380}
   - component: {fileID: 9157997975644340708}
   - component: {fileID: 4554290110856630661}
-  - component: {fileID: 8536085063200063529}
   - component: {fileID: 5669633620807955885}
+  - component: {fileID: 3252443749922154449}
   m_Layer: 0
   m_Name: Enemy_Normal_Prefab
   m_TagString: Untagged
@@ -1265,8 +1265,9 @@ MonoBehaviour:
   hitboxRadius: 0.5
   targetLayer:
     serializedVersion: 2
-    m_Bits: 8
-  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310, type: 3}
+    m_Bits: 0
+  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310,
+    type: 3}
 --- !u!114 &6768271797209461991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,7 +1308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SensorComponent
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!136 &9157997975644340708
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1345,18 +1346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   flashColor: {r: 0.78431374, g: 0, b: 0, a: 0.78431374}
   flashDuration: 0.1
---- !u!114 &8536085063200063529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5155479499189778231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9c210e02e958f4dbc2d8c9c030b764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!54 &5669633620807955885
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1384,6 +1373,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &3252443749922154449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5155479499189778231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb7410ea8adb2c4193be36a36e1aeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!1 &5710572666815772069
 GameObject:
   m_ObjectHideFlags: 0

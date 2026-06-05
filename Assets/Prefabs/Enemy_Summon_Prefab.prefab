@@ -55,7 +55,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371164685366770089}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0019696949, y: -0.0000001788139, z: -0.000000014901159, w: 0.9999981}
+  m_LocalRotation: {x: -0.0019696949, y: -0.0000001788139, z: -0.000000014901159,
+    w: 0.9999981}
   m_LocalPosition: {x: -8.215652e-17, y: 0.004625446, z: -4.6566126e-11}
   m_LocalScale: {x: 1, y: 0.9999999, z: 1.0000001}
   m_ConstrainProportionsScale: 0
@@ -550,8 +551,8 @@ GameObject:
   - component: {fileID: 4947858429099263315}
   - component: {fileID: 2100422599186919619}
   - component: {fileID: 2349040009795008236}
-  - component: {fileID: -5165052037202749420}
   - component: {fileID: -3649814546478426760}
+  - component: {fileID: 1377778810617210035}
   m_Layer: 0
   m_Name: Enemy_Summon_Prefab
   m_TagString: Untagged
@@ -674,7 +675,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SensorComponent
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!114 &1416934246239916286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,7 +712,8 @@ MonoBehaviour:
   postSummonDelay: 1.5
   summonCooldown: 5
   animator: {fileID: 8871306842786860827}
-  summonVFX: {fileID: 4733259860566346399, guid: 7e9faaf631ad5724e968ae385e212c06, type: 3}
+  summonVFX: {fileID: 4733259860566346399, guid: 7e9faaf631ad5724e968ae385e212c06,
+    type: 3}
 --- !u!54 &2100422599186919619
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -762,18 +764,6 @@ CapsuleCollider:
   m_Height: 8
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
---- !u!114 &-5165052037202749420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5766968530537544742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9c210e02e958f4dbc2d8c9c030b764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!114 &-3649814546478426760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,6 +778,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   flashColor: {r: 0.78431374, g: 0, b: 0, a: 0.78431374}
   flashDuration: 0.1
+--- !u!114 &1377778810617210035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766968530537544742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb7410ea8adb2c4193be36a36e1aeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!1 &6036769251477928768
 GameObject:
   m_ObjectHideFlags: 0

@@ -546,10 +546,10 @@ GameObject:
   - component: {fileID: 8134671196196078038}
   - component: {fileID: 2726905794736687568}
   - component: {fileID: 1066047533960838315}
-  - component: {fileID: 4802519590784394834}
   - component: {fileID: 8610362388781201517}
   - component: {fileID: -886624554651174185}
   - component: {fileID: 8657734020433226494}
+  - component: {fileID: 3505042046869296763}
   m_Layer: 0
   m_Name: Enemy_Giant_Prefab
   m_TagString: Untagged
@@ -634,8 +634,9 @@ MonoBehaviour:
   hitboxRadius: 3
   targetLayer:
     serializedVersion: 2
-    m_Bits: 8
-  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310, type: 3}
+    m_Bits: 0
+  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310,
+    type: 3}
 --- !u!114 &4886462862367366328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,7 +661,8 @@ MonoBehaviour:
   impactRecoveryTime: 1
   animator: {fileID: 2904821261375244556}
   agent: {fileID: 8267010641515478739}
-  impactVFX: {fileID: 8570587800491788650, guid: e348d8112cc4c284080900b6de020033, type: 3}
+  impactVFX: {fileID: 8570587800491788650, guid: e348d8112cc4c284080900b6de020033,
+    type: 3}
 --- !u!114 &3751696718186981624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SensorComponent
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!114 &1066047533960838315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,18 +738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69dfa68c8b555fa43948de9fe009f425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdlePatrolStrategy
---- !u!114 &4802519590784394834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4220699220634254896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9c210e02e958f4dbc2d8c9c030b764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!54 &8610362388781201517
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -812,6 +802,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   flashColor: {r: 0.78431374, g: 0, b: 0, a: 0.78431374}
   flashDuration: 0.1
+--- !u!114 &3505042046869296763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4220699220634254896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb7410ea8adb2c4193be36a36e1aeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!1 &4426862712088930357
 GameObject:
   m_ObjectHideFlags: 0

@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 2884188003211939713}
   - component: {fileID: 7583012053797223855}
   - component: {fileID: 5310996121334166520}
-  - component: {fileID: -6565179614113469864}
+  - component: {fileID: 2296208280317628717}
   m_Layer: 0
   m_Name: Enemy_Explode_Prefab
   m_TagString: Untagged
@@ -813,7 +813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SensorComponent
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!114 &7236776316275903857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,7 +842,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SuicideAttackStrategy
   fuseTime: 0.5
   explosionRadius: 10
-  explosionVFX: {fileID: 2530143152716916853, guid: bf927d325275f484bb86f1c5ce93cbc0, type: 3}
+  explosionVFX: {fileID: 2530143152716916853, guid: bf927d325275f484bb86f1c5ce93cbc0,
+    type: 3}
   canDamageAllies: 0
   pushForce: 200
   cancelableTime: 0.25
@@ -913,7 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   flashColor: {r: 0.78431374, g: 0, b: 0, a: 0.78431374}
   flashDuration: 0.1
---- !u!114 &-6565179614113469864
+--- !u!114 &2296208280317628717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -922,7 +923,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1730309123035251453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9c210e02e958f4dbc2d8c9c030b764, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fb7410ea8adb2c4193be36a36e1aeb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!1 &1760585589706446290

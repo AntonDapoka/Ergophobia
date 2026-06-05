@@ -1126,9 +1126,9 @@ GameObject:
   - component: {fileID: 1396225643008925769}
   - component: {fileID: 2819559979182630271}
   - component: {fileID: 6266821097421541099}
-  - component: {fileID: 7603333007730678276}
   - component: {fileID: 964251187673839945}
   - component: {fileID: 4123384713706326959}
+  - component: {fileID: 7130434674306297412}
   m_Layer: 0
   m_Name: Enemy_Gun_Prefab
   m_TagString: Untagged
@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SensorComponent
   playerLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
 --- !u!114 &2819559979182630271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1285,8 +1285,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangedAttackStrategy
   animator: {fileID: 4892923374625487727}
   firePoint: {fileID: 852345831991472084}
-  bulletPrefab: {fileID: 8056107386980040533, guid: 588fe5959df7a7a4e9e1bc8491893881, type: 3}
-  aimVFXPrefab: {fileID: 4552896295053800301, guid: f7e91b1ef7b24b84f9ee1c292009845c, type: 3}
+  bulletPrefab: {fileID: 8056107386980040533, guid: 588fe5959df7a7a4e9e1bc8491893881,
+    type: 3}
+  aimVFXPrefab: {fileID: 4552896295053800301, guid: f7e91b1ef7b24b84f9ee1c292009845c,
+    type: 3}
   aimDuration: 1.5
   fireRecovery: 1
   aimTurnSpeed: 150
@@ -1314,18 +1316,6 @@ CapsuleCollider:
   m_Height: 8.05301
   m_Direction: 1
   m_Center: {x: -0.088466294, y: 3.5265067, z: 0.09088922}
---- !u!114 &7603333007730678276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4604580955673072181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9c210e02e958f4dbc2d8c9c030b764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!54 &964251187673839945
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1367,6 +1357,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   flashColor: {r: 0.78431374, g: 0, b: 0, a: 0.78431374}
   flashDuration: 0.1
+--- !u!114 &7130434674306297412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604580955673072181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb7410ea8adb2c4193be36a36e1aeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
 --- !u!1 &4707974046464823209
 GameObject:
   m_ObjectHideFlags: 0
