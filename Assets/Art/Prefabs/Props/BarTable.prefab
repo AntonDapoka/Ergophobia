@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 4554422995347599602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.0057, y: 0.5323, z: 35.1291}
-  m_LocalScale: {x: 3.4481552, y: 1.0227147, z: 0.5929707}
+  m_LocalPosition: {x: 40, y: 0.5323, z: 35}
+  m_LocalScale: {x: 3.45, y: 1, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3914600386877063350}
@@ -60,8 +60,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0642561, z: 1.0458946}
+  m_Center: {x: 0, y: 0.032128036, z: 0.18358548}
 --- !u!1 &7950012775032821378
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6025294453304579105}
   - component: {fileID: 5548703156915404144}
   m_Layer: 0
-  m_Name: default
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

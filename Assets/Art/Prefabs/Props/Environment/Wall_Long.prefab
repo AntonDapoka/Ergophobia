@@ -341,7 +341,7 @@ GameObject:
   - component: {fileID: 6394733371405794071}
   - component: {fileID: 4778485472867754803}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Colliider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -389,8 +389,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.8883824, y: 2.88017, z: 0.9999998}
+  m_Center: {x: -0.055808797, y: 0.94008464, z: 0}
 --- !u!1 &4153389941224383892
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 1650663445302911148}
   - component: {fileID: 2168612582435817682}
   m_Layer: 0
-  m_Name: Wall_Panel (1)
+  m_Name: Wall_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
