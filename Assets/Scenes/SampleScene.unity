@@ -36113,7 +36113,7 @@ MonoBehaviour:
   roomGapX: 4
   roomGapZ: 3
   roomCount: 8
-  branchChance: 0.45
+  branchChance: 0.318
   generateOnStart: 1
 --- !u!1 &1851289399
 GameObject:
