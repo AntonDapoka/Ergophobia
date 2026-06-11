@@ -343,7 +343,6 @@ GameObject:
   - component: {fileID: 140524321}
   - component: {fileID: 140524320}
   - component: {fileID: 140524319}
-  - component: {fileID: 140524318}
   m_Layer: 0
   m_Name: 'SummonSpawner '
   m_TagString: Untagged
@@ -351,18 +350,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &140524318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140524317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88178efb87910de47a8211b0c73a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
 --- !u!65 &140524319
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1022,7 +1009,6 @@ GameObject:
   - component: {fileID: 809837102}
   - component: {fileID: 809837101}
   - component: {fileID: 809837100}
-  - component: {fileID: 809837099}
   m_Layer: 0
   m_Name: 'PuppeteerSpawner '
   m_TagString: Untagged
@@ -1030,18 +1016,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &809837099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809837098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88178efb87910de47a8211b0c73a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
 --- !u!65 &809837100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1538,7 +1512,6 @@ GameObject:
   - component: {fileID: 1029687247}
   - component: {fileID: 1029687246}
   - component: {fileID: 1029687245}
-  - component: {fileID: 1029687244}
   m_Layer: 0
   m_Name: GunSpawner
   m_TagString: Untagged
@@ -1546,18 +1519,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1029687244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029687243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88178efb87910de47a8211b0c73a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
 --- !u!65 &1029687245
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1859,7 +1820,6 @@ GameObject:
   - component: {fileID: 1525317218}
   - component: {fileID: 1525317217}
   - component: {fileID: 1525317216}
-  - component: {fileID: 1525317215}
   m_Layer: 0
   m_Name: NormalSpawner
   m_TagString: Untagged
@@ -1867,18 +1827,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1525317215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525317214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88178efb87910de47a8211b0c73a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
 --- !u!65 &1525317216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2017,7 +1965,6 @@ GameObject:
   - component: {fileID: 1879646730}
   - component: {fileID: 1879646729}
   - component: {fileID: 1879646728}
-  - component: {fileID: 1879646727}
   m_Layer: 0
   m_Name: 'ExplodeSpawner '
   m_TagString: Untagged
@@ -2025,18 +1972,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1879646727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879646726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88178efb87910de47a8211b0c73a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
 --- !u!65 &1879646728
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2325,7 +2260,6 @@ GameObject:
   - component: {fileID: 1949209812}
   - component: {fileID: 1949209811}
   - component: {fileID: 1949209810}
-  - component: {fileID: 1949209809}
   m_Layer: 0
   m_Name: 'ShieldSpawner '
   m_TagString: Untagged
@@ -2333,18 +2267,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1949209809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949209808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88178efb87910de47a8211b0c73a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
 --- !u!65 &1949209810
 BoxCollider:
   m_ObjectHideFlags: 0
