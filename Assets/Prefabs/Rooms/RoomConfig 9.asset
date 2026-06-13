@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7add8071aaa3d74399dbbaac7e87984, type: 3}
   m_Name: RoomConfig 9
   m_EditorClassIdentifier: Assembly-CSharp::RoomPrefabConfig
-  prefab: {fileID: 2626589640972955553, guid: e852f071b05b1664a8cee154e3bec576, type: 3}
+  roomPrefabReference:
+    m_AssetGUID: e852f071b05b1664a8cee154e3bec576
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   hasNorthLeft: 1
   hasNorthRight: 1
   hasSouthLeft: 1

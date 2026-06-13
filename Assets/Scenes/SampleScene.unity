@@ -3958,6 +3958,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 130932060}
   m_CullTransparentMesh: 0
+--- !u!1 &133320772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 133320773}
+  - component: {fileID: 133320774}
+  m_Layer: 0
+  m_Name: RoomPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &133320773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133320772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1883564613}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133320774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133320772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b386f688d8ce7e34fa0cbf2334a88dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomPool
+  poolParent: {fileID: 140032946}
 --- !u!1 &135266897
 GameObject:
   m_ObjectHideFlags: 0
@@ -4174,6 +4219,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138101353}
   m_CullTransparentMesh: 0
+--- !u!1 &140032945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 140032946}
+  m_Layer: 0
+  m_Name: LevelHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &140032946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140032945}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &147879909
 GameObject:
   m_ObjectHideFlags: 0
@@ -36810,6 +36886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88c384f609900774682f326583ebc343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelLayoutGenerationScript
+  roomPool: {fileID: 133320774}
   roomConfigs:
   - {fileID: 11400000, guid: 502ee46ee6128b7468fb0868597a64f0, type: 2}
   - {fileID: 11400000, guid: 9860213cd99c586408d3ee334a30d365, type: 2}
@@ -36826,8 +36903,9 @@ MonoBehaviour:
   allowStaggeredBranches: 1
   roomGapX: 4
   roomGapZ: 3
-  roomCount: 0
+  roomCount: 8
   branchChance: 0.318
+  roomsPerFrame: 1
   generateOnStart: 1
 --- !u!1 &1851289399
 GameObject:
@@ -37534,6 +37612,7 @@ Transform:
   - {fileID: 1453769859}
   - {fileID: 1968977144}
   - {fileID: 1849655294}
+  - {fileID: 133320773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1884269256
@@ -44377,3 +44456,4 @@ SceneRoots:
   - {fileID: 1361845959}
   - {fileID: 442682859}
   - {fileID: 1243554151}
+  - {fileID: 140032946}

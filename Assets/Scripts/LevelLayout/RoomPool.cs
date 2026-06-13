@@ -6,10 +6,9 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class RoomPool : MonoBehaviour
 {
-    [Header("Settings")]
     [SerializeField] private Transform poolParent;
 
-    private Dictionary<string, Queue<GameObject>> pools = new Dictionary<string, Queue<GameObject>>();
+    private Dictionary<string, Queue<GameObject>> pools = new();
     private Dictionary<string, AsyncOperationHandle<GameObject>> loadedPrefabs = new Dictionary<string, AsyncOperationHandle<GameObject>>();
 
     public IEnumerator InitializeAsync(List<RoomPrefabConfig> configs)

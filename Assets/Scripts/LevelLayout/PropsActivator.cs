@@ -5,18 +5,16 @@ using UnityEngine;
 public class PropsActivator : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private string propsFolderName = "Props";
+    [SerializeField] private Transform holderProps;
     [SerializeField] private int propsPerFrame = 3;
 
-    private List<GameObject> props = new List<GameObject>();
+    private List<GameObject> props = new();
 
     public void Prepare()
     {
         props.Clear();
-        Transform propsTransform = transform.Find(propsFolderName);
-        if (propsTransform == null) return;
 
-        foreach (Transform child in propsTransform)
+        foreach (Transform child in holderProps)
         {
             if (child == null) continue;
             props.Add(child.gameObject);

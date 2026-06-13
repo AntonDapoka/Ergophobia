@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Rooms
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Rooms
+  m_GUID: 1bb49e97f07b83947a85a10812b3d877
+  m_SerializeEntries:
+  - m_GUID: 0154a39321cb9074187a437c682c9b6e
+    m_Address: Assets/Prefabs/Rooms/Holder Room 2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 079cb83dcc425184ba0a908ac843e079
+    m_Address: Assets/Prefabs/Rooms/Holder Room 10.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c956609528d21f4988993ce8da61cd9
+    m_Address: Assets/Prefabs/Rooms/Holder Room 4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 426c328b258f04b459fedfa78c790ea7
+    m_Address: Assets/Prefabs/Rooms/Holder Room 6.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 661d7ed67a4c9ad4180b16645402f523
+    m_Address: Assets/Prefabs/Rooms/Holder Room 7.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ce4709cd09df434abb49d9bc00f9dc9
+    m_Address: Assets/Prefabs/Rooms/Holder Room 13.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89ba0f8af58ed404b97a1ea76a516e69
+    m_Address: Assets/Prefabs/Rooms/Holder Room 1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac49e7143d4810241a66a2cd3dbb9487
+    m_Address: Assets/Prefabs/Rooms/Holder Room 5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c926080e4c12a70489baac8a629b08f8
+    m_Address: Assets/Prefabs/Rooms/Holder Room 3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4f5c699be36ee347baca6644e17dca2
+    m_Address: Assets/Prefabs/Rooms/Holder Room 12.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e852f071b05b1664a8cee154e3bec576
+    m_Address: Assets/Prefabs/Rooms/Holder Room 11.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 79f471adae72957428c8bb417a311ab0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f8fb8fc5b5eaa354c8f2dff302ef4881, type: 2}
+    - {fileID: 11400000, guid: a66653209a8e47b4d89d8ac50df72225, type: 2}
