@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 [CreateAssetMenu(fileName = "NewRoomConfig", menuName = "Level Generation/Room Config")]
 public class RoomPrefabConfig : ScriptableObject
 {
-    [Header("Prefab")]
-    public GameObject prefab;
+    [Header("Addressable Prefab")]
+    public AssetReferenceGameObject roomPrefabReference;
 
     [Header("Available Doors")]
     public bool hasNorthLeft;

@@ -14,6 +14,7 @@ public class RoomScript : MonoBehaviour
 
     public Vector2Int GridPosition => gridPosition;
     public Vector2 RoomSize => roomSize;
+    public RoomPrefabConfig SourceConfig { get; set; }
 
     public void Initialize(Vector2Int gridPos)
     {

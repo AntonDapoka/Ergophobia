@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +7,9 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 {
     private const float RoomWidth = 16f;
     private const float RoomHeight = 9f;
-    private const float StaggeredOffset = RoomWidth * 0.5f;
+
+    [Header("Systems")]
+    [SerializeField] private RoomPool roomPool;
 
     [Header("Prefabs")]
     [SerializeField] private List<RoomPrefabConfig> roomConfigs;
@@ -23,12 +26,14 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     [Header("Generation")]
     [SerializeField] private int roomCount = 8;
     [SerializeField, Range(0f, 1f)] private float branchChance = 0.3f;
+    [SerializeField] private int roomsPerFrame = 1;
 
     [Header("Debug")]
     [SerializeField] private bool generateOnStart = true;
 
     private List<RoomScript> spawnedRooms = new List<RoomScript>();
     private Dictionary<RoomSlot, RoomScript> slotMap = new Dictionary<RoomSlot, RoomScript>();
+    private List<System.Tuple<RoomScript, DoorDirection>> pendingBranches = new List<System.Tuple<RoomScript, DoorDirection>>();
 
     private void Start()
     {
@@ -38,19 +43,41 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
     public void GenerateLevel()
     {
+        StartCoroutine(GenerateLevelAsync());
+    }
+
+    public IEnumerator GenerateLevelAsync()
+    {
         ClearLevel();
+
+        if (roomPool == null)
+        {
+            Debug.LogError("RoomPool is not assigned!");
+            yield break;
+        }
 
         if (roomConfigs == null || roomConfigs.Count == 0)
         {
             Debug.LogError("No room configs assigned!");
-            return;
+            yield break;
         }
 
-        RoomScript startRoom = SpawnStartRoom();
+        yield return StartCoroutine(roomPool.InitializeAsync(roomConfigs));
+
+        RoomPrefabConfig startConfig = PickStartConfig();
+        if (startConfig == null)
+        {
+            Debug.LogError("Failed to pick start room config.");
+            yield break;
+        }
+
+        RoomScript startRoom = null;
+        yield return StartCoroutine(SpawnRoomInSlot(startConfig, new RoomSlot(0, 0), r => startRoom = r));
+
         if (startRoom == null)
         {
-            Debug.LogError("Failed to spawn start room. Check room configs.");
-            return;
+            Debug.LogError("Failed to spawn start room.");
+            yield break;
         }
 
         spawnedRooms.Add(startRoom);
@@ -70,7 +97,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
                 break;
             }
 
-            RoomScript newRoom = SpawnRoomInSlot(config, mainSlot);
+            RoomScript newRoom = null;
+            yield return StartCoroutine(SpawnRoomInSlot(config, mainSlot, r => newRoom = r));
             if (newRoom == null) break;
 
             spawnedRooms.Add(newRoom);
@@ -78,19 +106,27 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
             ConnectSlots(previousMainRoom.CurrentSlot, mainSlot, DoorDirection.East);
 
-            if (allowAlignedBranches)
-            {
-                TrySpawnBranch(newRoom, DoorDirection.North, false);
-                TrySpawnBranch(newRoom, DoorDirection.South, false);
-            }
+            pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.North));
+            pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.South));
 
-            if (allowStaggeredBranches)
-            {
-                TrySpawnBranch(newRoom, DoorDirection.North, true);
-                TrySpawnBranch(newRoom, DoorDirection.South, true);
-            }
+            if (i % roomsPerFrame == 0)
+                yield return null;
 
             previousMainRoom = newRoom;
+        }
+
+        for (int i = 0; i < pendingBranches.Count; i++)
+        {
+            var branch = pendingBranches[i];
+
+            if (allowAlignedBranches)
+                yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, false));
+
+            if (allowStaggeredBranches)
+                yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, true));
+
+            if (i % roomsPerFrame == 0)
+                yield return null;
         }
 
         foreach (var room in spawnedRooms)
@@ -98,13 +134,20 @@ public class LevelLayoutGenerationScript : MonoBehaviour
             if (room != null)
                 room.SealUnusedDoors();
         }
+
+        foreach (var room in spawnedRooms)
+        {
+            PropsActivator activator = room.GetComponent<PropsActivator>();
+            if (activator != null)
+                yield return StartCoroutine(activator.ActivateAsync());
+        }
     }
 
-    private RoomScript SpawnStartRoom()
+    private RoomPrefabConfig PickStartConfig()
     {
         RoomPrefabConfig config = startRoomConfig;
 
-        if (config != null && config.prefab != null)
+        if (config != null && config.roomPrefabReference != null && config.roomPrefabReference.RuntimeKeyIsValid())
         {
             if (!config.HasDoor(DoorType.East) || config.HasDoor(DoorType.West))
             {
@@ -121,9 +164,7 @@ public class LevelLayoutGenerationScript : MonoBehaviour
             );
         }
 
-        if (config == null || config.prefab == null) return null;
-
-        return SpawnRoomInSlot(config, new RoomSlot(0, 0));
+        return config;
     }
 
     private RoomPrefabConfig PickMainRoomConfig(RoomScript previousRoom, bool isLast)
@@ -152,24 +193,29 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         return config;
     }
 
-    private RoomScript SpawnRoomInSlot(RoomPrefabConfig config, RoomSlot slot)
+    private IEnumerator SpawnRoomInSlot(RoomPrefabConfig config, RoomSlot slot, System.Action<RoomScript> onComplete)
     {
-        if (config == null || config.prefab == null) return null;
+        RoomScript room = null;
+        yield return StartCoroutine(roomPool.GetAsync(config, transform, go => room = go?.GetComponent<RoomScript>()));
 
-        Vector3 worldPos = GetSlotPosition(slot);
-        GameObject go = Instantiate(config.prefab, worldPos, Quaternion.identity, transform);
-
-        RoomScript room = go.GetComponent<RoomScript>();
         if (room == null)
         {
-            Debug.LogError($"Prefab '{config.prefab.name}' is missing a RoomScript component.");
-            Destroy(go);
-            return null;
+            Debug.LogError($"Failed to spawn room from config '{config.name}'.");
+            onComplete?.Invoke(null);
+            yield break;
         }
 
+        room.transform.position = GetSlotPosition(slot);
+        room.transform.rotation = Quaternion.identity;
         room.Initialize(slot);
         room.SetDoorsFromConfig(config);
-        return room;
+        room.SourceConfig = config;
+
+        PropsActivator activator = room.GetComponent<PropsActivator>();
+        if (activator != null)
+            activator.Prepare();
+
+        onComplete?.Invoke(room);
     }
 
     private Vector3 GetSlotPosition(RoomSlot slot)
@@ -180,15 +226,15 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         return new Vector3(slot.X * stepX + offsetX, 0f, slot.Lane * stepZ);
     }
 
-    private void TrySpawnBranch(RoomScript parentRoom, DoorDirection direction, bool staggered)
+    private IEnumerator TrySpawnBranchAsync(RoomScript parentRoom, DoorDirection direction, bool staggered)
     {
-        if (Random.value > branchChance) return;
-        if (!parentRoom.HasAvailableExit(direction)) return;
+        if (Random.value > branchChance) yield break;
+        if (!parentRoom.HasAvailableExit(direction)) yield break;
 
         int lane = direction == DoorDirection.North ? 1 : -1;
         RoomSlot branchSlot = new RoomSlot(parentRoom.CurrentSlot.X, lane, staggered);
 
-        if (IsBranchSlotBlocked(branchSlot)) return;
+        if (IsBranchSlotBlocked(branchSlot)) yield break;
 
         DoorDirection opposite = DoorTypeHelper.GetOppositeDirection(direction);
         DoorType[] requiredTypes = DoorTypeHelper.GetTypesByDirection(opposite).ToArray();
@@ -197,12 +243,13 @@ public class LevelLayoutGenerationScript : MonoBehaviour
             requiredTypes.Any(t => c.HasDoor(t))
         ).ToList();
 
-        if (candidates.Count == 0) return;
+        if (candidates.Count == 0) yield break;
 
         RoomPrefabConfig config = candidates[Random.Range(0, candidates.Count)];
 
-        RoomScript branchRoom = SpawnRoomInSlot(config, branchSlot);
-        if (branchRoom == null) return;
+        RoomScript branchRoom = null;
+        yield return StartCoroutine(SpawnRoomInSlot(config, branchSlot, r => branchRoom = r));
+        if (branchRoom == null) yield break;
 
         spawnedRooms.Add(branchRoom);
         slotMap[branchSlot] = branchRoom;
@@ -215,8 +262,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         if (slotMap.ContainsKey(slot)) return true;
 
         float newX = GetSlotPosition(slot).x;
-
         float stepX = RoomWidth + roomGapX;
+
         foreach (var kvp in slotMap)
         {
             RoomSlot existing = kvp.Key;
@@ -257,6 +304,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     private RoomPrefabConfig GetRandomConfig(List<DoorType> requiredDoors, List<DoorType> forbiddenDoors)
     {
         List<RoomPrefabConfig> candidates = roomConfigs.Where(cfg =>
+            cfg.roomPrefabReference != null &&
+            cfg.roomPrefabReference.RuntimeKeyIsValid() &&
             requiredDoors.All(r => cfg.HasDoor(r)) &&
             forbiddenDoors.All(f => !cfg.HasDoor(f))
         ).ToList();
@@ -269,10 +318,16 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     {
         foreach (var room in spawnedRooms)
         {
-            if (room != null && room.gameObject != null)
+            if (room == null || room.gameObject == null) continue;
+
+            if (room.SourceConfig != null && roomPool != null)
+                roomPool.Return(room.SourceConfig, room.gameObject);
+            else
                 Destroy(room.gameObject);
         }
+
         spawnedRooms.Clear();
         slotMap.Clear();
+        pendingBranches.Clear();
     }
 }
