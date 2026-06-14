@@ -49,8 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomScript
   roomSize: {x: 16, y: 9}
   doors:
-  - {fileID: 7210239231836040656}
-  gridPosition: {x: 0, y: 0}
+  - {fileID: 0}
 --- !u!1 &1513048890253248550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1043,11 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 2335175803638747491, guid: 797914b3a7fd7b64297586b78f772da9,
+        type: 3}
+      propertyPath: doorType
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4719405808753778560, guid: 797914b3a7fd7b64297586b78f772da9,
         type: 3}
       propertyPath: m_VersionIndex
@@ -1122,32 +1126,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 642354558057252804, guid: 797914b3a7fd7b64297586b78f772da9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7210239231836040656}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797914b3a7fd7b64297586b78f772da9, type: 3}
---- !u!1 &402660965812130759 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 642354558057252804, guid: 797914b3a7fd7b64297586b78f772da9,
-    type: 3}
-  m_PrefabInstance: {fileID: 971810030565118979}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7210239231836040656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 402660965812130759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524b6ddb1d5930c4e9b4141de879baeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorScript
-  doorType: 5
-  isBlockedByPrefab: 0
 --- !u!4 &4793068781243147115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5762627008504657768, guid: 797914b3a7fd7b64297586b78f772da9,

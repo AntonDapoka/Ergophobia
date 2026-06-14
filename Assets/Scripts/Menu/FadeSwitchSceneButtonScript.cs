@@ -5,7 +5,7 @@ public class FadeSwitchSceneButtonScript : SwitchSceneButtonScript
 {
     [SerializeField] private FadeInAndOutScript fadeScript;
 
-    protected override void OnClick()
+    /*protected override void OnClick()
     {
         StartCoroutine(HandleClickWithFade());
     }
@@ -18,5 +18,5 @@ public class FadeSwitchSceneButtonScript : SwitchSceneButtonScript
         }
 
         base.OnClick();
-    }
+    }*/
 }

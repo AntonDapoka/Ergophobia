@@ -1,90 +1,85 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FadeInAndOutScript : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private Image panelFade;
-    [SerializeField] private float durationFadeIn;
-    [SerializeField] private float durationFadeOut;
-    [SerializeField] private bool isStartFadeIn;
+
+    [Header("Curves")]
+    [Tooltip("0 = прозрачно, 1 = непрозрачно")]
+    [SerializeField] private AnimationCurve fadeOutCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    [Tooltip("0 = прозрачно, 1 = непрозрачно")]
+    [SerializeField] private AnimationCurve fadeInCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+
+    [Header("Durations")]
+    [SerializeField] private float fadeOutDuration = 0.5f;
+    [SerializeField] private float fadeInDuration = 0.5f;
+    [SerializeField] private float startFadeInDuration = 5f;
+    [SerializeField] private bool playStartFadeIn = true;
 
     private void Awake()
     {
         if (panelFade != null)
         {
-            Color c = panelFade.color;
-            c.a = 0f;
-            panelFade.color = c;
+            SetAlpha(0f);
+            panelFade.gameObject.SetActive(false);
         }
     }
 
     private void Start()
     {
-        if (isStartFadeIn)
-            StartCoroutine(PlayFadeIn());
+        if (playStartFadeIn && panelFade != null)
+            StartCoroutine(PlayFadeIn(startFadeInDuration));
     }
 
-    public IEnumerator PlayFadeOut()
+    public IEnumerator PlayFadeOut(float? duration = null)
     {
-        panelFade.gameObject.SetActive(true);
+        yield return PlayFade(duration ?? fadeOutDuration, fadeOutCurve);
+    }
 
+    public IEnumerator PlayFadeIn(float? duration = null)
+    {
+        yield return PlayFade(duration ?? fadeInDuration, fadeInCurve);
+        panelFade?.gameObject.SetActive(false);
+    }
+
+    public IEnumerator PlayFadeOutAndIn(float? fadeOutDuration = null, float? fadeInDuration = null, Action onMidpoint = null)
+    {
+        yield return PlayFadeOut(fadeOutDuration);
+        onMidpoint?.Invoke();
+        yield return PlayFadeIn(fadeInDuration);
+    }
+
+    private IEnumerator PlayFade(float duration, AnimationCurve curve)
+    {
         if (panelFade == null)
         {
-            Debug.LogWarning("fadeImage �� ��������!");
+            Debug.LogWarning("Fade image is not assigned");
             yield break;
         }
 
-        float elapsed = 0f;
-
-        Color color = panelFade.color;
-        color.a = 0f;
-        panelFade.color = color;
-
-        while (elapsed < durationFadeOut)
-        {
-            elapsed += Time.deltaTime;
-            float alpha = Mathf.Clamp01(elapsed / durationFadeOut);
-            color.a = alpha;
-            panelFade.color = color;
-            yield return null;
-        }
-
-        color.a = 1f;
-        panelFade.color = color;
-
-
-    }
-
-    private IEnumerator PlayFadeIn()
-    {
         panelFade.gameObject.SetActive(true);
-
-        if (panelFade == null)
-        {
-            Debug.LogWarning("fadeImage �� ��������!");
-            yield break;
-        }
-
         float elapsed = 0f;
 
-        Color color = panelFade.color;
-        color.a = 1f;
-        panelFade.color = color;
-
-        while (elapsed < durationFadeIn)
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float alpha = 1f - Mathf.Clamp01(elapsed / durationFadeIn);
-            color.a = alpha;
-            panelFade.color = color;
+            float t = Mathf.Clamp01(elapsed / duration);
+            SetAlpha(curve.Evaluate(t));
             yield return null;
         }
 
-        color.a = 0f;
-        panelFade.color = color;
-
-        panelFade.gameObject.SetActive(false);
+        SetAlpha(curve.Evaluate(1f));
     }
 
+    private void SetAlpha(float alpha)
+    {
+        if (panelFade == null) return;
+        Color color = panelFade.color;
+        color.a = Mathf.Clamp01(alpha);
+        panelFade.color = color;
+    }
 }

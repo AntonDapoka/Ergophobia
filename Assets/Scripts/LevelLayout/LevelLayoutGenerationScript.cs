@@ -14,6 +14,7 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private List<RoomPrefabConfig> roomConfigs;
     [SerializeField] private RoomPrefabConfig startRoomConfig;
+    [SerializeField] private RoomPrefabConfig finalRoomConfig;
 
     [Header("Branch Types")]
     [SerializeField] private bool allowAlignedBranches = true;
@@ -28,8 +29,13 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float branchChance = 0.3f;
     [SerializeField] private int roomsPerFrame = 1;
 
+    [Header("References")]
+    [SerializeField] private LevelTransitionManager transitionManager;
+
     [Header("Debug")]
     [SerializeField] private bool generateOnStart = true;
+
+    public event System.Action<List<RoomScript>> OnLevelGenerated;
 
     private List<RoomScript> spawnedRooms = new();
     private Dictionary<RoomSlot, RoomScript> slotMap = new();
@@ -87,9 +93,13 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
         for (int i = 1; i < roomCount; i++)
         {
+            bool isLast = i == roomCount - 1;
             RoomSlot mainSlot = new(i, 0);
 
-            RoomPrefabConfig config = PickMainRoomConfig(previousMainRoom, i == roomCount - 1);
+            RoomPrefabConfig config = isLast && finalRoomConfig != null
+                ? ValidateFinalRoomConfig()
+                : PickMainRoomConfig(previousMainRoom, isLast);
+
             if (config == null)
             {
                 Debug.LogError($"No suitable room config at index {i}");
@@ -105,8 +115,11 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
             ConnectSlots(previousMainRoom.CurrentSlot, mainSlot, DoorDirection.East);
 
-            pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.North));
-            pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.South));
+            if (!isLast)
+            {
+                pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.North));
+                pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.South));
+            }
 
             if (i % roomsPerFrame == 0)
                 yield return null;
@@ -140,6 +153,23 @@ public class LevelLayoutGenerationScript : MonoBehaviour
             if (activator != null)
                 yield return StartCoroutine(activator.ActivateAsync());
         }
+
+        OnLevelGenerated?.Invoke(spawnedRooms);
+
+        transitionManager.Initialize(spawnedRooms);
+    }
+
+    private RoomPrefabConfig ValidateFinalRoomConfig()
+    {
+        if (finalRoomConfig == null) return null;
+
+        if (!finalRoomConfig.HasDoor(DoorType.West) || finalRoomConfig.HasDoor(DoorType.East))
+        {
+            Debug.LogWarning("Final room config must have West and no East door. Falling back to random final room.");
+            return GetRandomConfig(new List<DoorType> { DoorType.West }, new List<DoorType> { DoorType.East });
+        }
+
+        return finalRoomConfig;
     }
 
     private RoomPrefabConfig PickStartConfig()
@@ -236,7 +266,6 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         DoorDirection opposite = DoorTypeHelper.GetOppositeDirection(direction);
         DoorType[] requiredTypes = DoorTypeHelper.GetTypesByDirection(opposite).ToArray();
 
-        // Для любой ветки предпочитаем комнаты с двумя дверями (SouthLeft+SouthRight / NorthLeft+NorthRight)
         List<RoomPrefabConfig> candidates = roomConfigs.Where(c => requiredTypes.All(t => c.HasDoor(t))).ToList();
 
         if (candidates.Count == 0)
@@ -271,11 +300,10 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     {
         if (direction == DoorDirection.North)
         {
-            // Соединяем обе пары дверей: левую с левой, правую с правой
             TryConnectSpecificDoors(branchRoom, DoorType.SouthLeft, parentRoom, DoorType.NorthLeft);
             TryConnectSpecificDoors(branchRoom, DoorType.SouthRight, parentRoom, DoorType.NorthRight);
         }
-        else // South
+        else
         {
             TryConnectSpecificDoors(branchRoom, DoorType.NorthLeft, parentRoom, DoorType.SouthLeft);
             TryConnectSpecificDoors(branchRoom, DoorType.NorthRight, parentRoom, DoorType.SouthRight);
@@ -285,7 +313,7 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     private void ConnectStaggeredBranch(RoomScript branchRoom, RoomScript parentRoom, DoorDirection direction)
     {
         int parentX = parentRoom.CurrentSlot.X;
-        RoomSlot leftMainSlot = new RoomSlot(parentX + 1, 0);
+        RoomSlot leftMainSlot = new(parentX + 1, 0);
 
         if (!slotMap.ContainsKey(leftMainSlot)) return;
         RoomScript leftMainRoom = slotMap[leftMainSlot];
@@ -294,28 +322,16 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
         if (direction == DoorDirection.North)
         {
-            // Северная ветка: её южные двери смотрят на основную линию
             ConnectDoorsByRelativeX(branchRoom, branchX, parentRoom, DoorType.SouthRight, DoorType.SouthLeft, DoorType.NorthLeft, DoorType.NorthRight);
             ConnectDoorsByRelativeX(branchRoom, branchX, leftMainRoom, DoorType.SouthRight, DoorType.SouthLeft, DoorType.NorthLeft, DoorType.NorthRight);
         }
-        else // South
+        else
         {
-            // Южная ветка: её северные двери смотрят на основную линию
             ConnectDoorsByRelativeX(branchRoom, branchX, parentRoom, DoorType.NorthRight, DoorType.NorthLeft, DoorType.SouthLeft, DoorType.SouthRight);
             ConnectDoorsByRelativeX(branchRoom, branchX, leftMainRoom, DoorType.NorthRight, DoorType.NorthLeft, DoorType.SouthLeft, DoorType.SouthRight);
         }
     }
 
-    /// <summary>
-    /// Соединяет двери веточной и основной комнаты на основе их относительного положения по X.
-    /// </summary>
-    /// <param name="branchRoom">Веточная комната</param>
-    /// <param name="branchX">X-координата веточной комнаты</param>
-    /// <param name="mainRoom">Основная комната</param>
-    /// <param name="branchDoorWhenBranchLeft">Дверь ветки, когда ветка слева от основной</param>
-    /// <param name="branchDoorWhenBranchRight">Дверь ветки, когда ветка справа от основной</param>
-    /// <param name="mainDoorWhenBranchLeft">Дверь основной комнаты, когда ветка слева</param>
-    /// <param name="mainDoorWhenBranchRight">Дверь основной комнаты, когда ветка справа</param>
     private void ConnectDoorsByRelativeX(
         RoomScript branchRoom, float branchX, RoomScript mainRoom,
         DoorType branchDoorWhenBranchLeft, DoorType branchDoorWhenBranchRight,

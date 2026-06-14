@@ -7,11 +7,10 @@ public class PlayerMoving : MonoBehaviour
     [SerializeField] private float runSpeed = 8f;      
     private Vector3 inputDir;
     private bool isRunning;
+    private Rigidbody rb;
  
     [Header("References")]
     [SerializeField] private Animator anim;
-    [SerializeField] private Camera cameraMain;
-    private Rigidbody rb;
 
     private void Start()
     {
