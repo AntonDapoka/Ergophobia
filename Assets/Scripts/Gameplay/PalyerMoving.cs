@@ -53,8 +53,10 @@ public class PlayerMoving : MonoBehaviour
     {
         float speed = isRunning ? runSpeed : walkSpeed;
 
-        rb.MovePosition(
+        /*rb.MovePosition(
             rb.position + inputDir * speed * Time.fixedDeltaTime
-        );
+        );*/
+
+        rb.linearVelocity = inputDir * speed;
     }
 }
