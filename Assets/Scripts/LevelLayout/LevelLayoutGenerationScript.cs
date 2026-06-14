@@ -239,9 +239,15 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         DoorDirection opposite = DoorTypeHelper.GetOppositeDirection(direction);
         DoorType[] requiredTypes = DoorTypeHelper.GetTypesByDirection(opposite).ToArray();
 
-        List<RoomPrefabConfig> candidates = roomConfigs.Where(c =>
-            requiredTypes.Any(t => c.HasDoor(t))
-        ).ToList();
+        // Для любой ветки предпочитаем комнаты с двумя дверями (SouthLeft+SouthRight / NorthLeft+NorthRight)
+        List<RoomPrefabConfig> candidates = roomConfigs.Where(c => requiredTypes.All(t => c.HasDoor(t))).ToList();
+
+        if (candidates.Count == 0)
+        {
+            if (staggered)
+                Debug.LogWarning($"No prefab with both {opposite} doors for staggered {direction} branch. Falling back to single-door prefabs.");
+            candidates = roomConfigs.Where(c => requiredTypes.Any(t => c.HasDoor(t))).ToList();
+        }
 
         if (candidates.Count == 0) yield break;
 
@@ -266,18 +272,17 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
     private void ConnectAlignedBranch(RoomScript branchRoom, RoomScript parentRoom, DoorDirection direction)
     {
-        DoorDirection opposite = DoorTypeHelper.GetOppositeDirection(direction);
-
-        List<DoorScript> parentDoors = parentRoom.GetAvailableDoorsByDirection(direction);
-        List<DoorScript> branchDoors = branchRoom.GetAvailableDoorsByDirection(opposite);
-
-        if (parentDoors.Count == 0 || branchDoors.Count == 0) return;
-
-        DoorScript parentDoor = parentDoors[Random.Range(0, parentDoors.Count)];
-        DoorScript branchDoor = branchDoors[Random.Range(0, branchDoors.Count)];
-
-        parentDoor.ConnectTo(branchDoor);
-        branchDoor.ConnectTo(parentDoor);
+        if (direction == DoorDirection.North)
+        {
+            // Соединяем обе пары дверей: левую с левой, правую с правой
+            TryConnectSpecificDoors(branchRoom, DoorType.SouthLeft, parentRoom, DoorType.NorthLeft);
+            TryConnectSpecificDoors(branchRoom, DoorType.SouthRight, parentRoom, DoorType.NorthRight);
+        }
+        else // South
+        {
+            TryConnectSpecificDoors(branchRoom, DoorType.NorthLeft, parentRoom, DoorType.SouthLeft);
+            TryConnectSpecificDoors(branchRoom, DoorType.NorthRight, parentRoom, DoorType.SouthRight);
+        }
     }
 
     private void ConnectStaggeredBranch(RoomScript branchRoom, RoomScript parentRoom, DoorDirection direction)

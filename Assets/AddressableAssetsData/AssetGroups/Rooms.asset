@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56b0a63a97f8e784291fbbe046d1fa9d
+    m_Address: Assets/Prefabs/Rooms/Holder Room Final.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 661d7ed67a4c9ad4180b16645402f523
     m_Address: Assets/Prefabs/Rooms/Holder Room 7.prefab
     m_ReadOnly: 0
