@@ -5,11 +5,10 @@ using UnityEngine;
 public class RoomScript : MonoBehaviour
 {
     [Header("Config")]
-    [SerializeField] private Vector2 roomSize = new Vector2(10f, 10f);
+    [SerializeField] private Vector2 roomSize = new(10f, 10f);
     [SerializeField] private DoorScript[] doors;
 
-    [Header("Runtime")]
-    [SerializeField] private Vector2Int gridPosition;
+    private Vector2Int gridPosition;
     public RoomSlot CurrentSlot { get; private set; }
 
     public Vector2Int GridPosition => gridPosition;
