@@ -222,8 +222,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     {
         float stepX = RoomWidth + roomGapX;
         float stepZ = RoomHeight + roomGapZ;
-        float offsetX = (slot.Lane != 0 && slot.IsStaggered) ? stepX * 0.5f : 0f;
-        return new Vector3(slot.X * stepX + offsetX, 0f, slot.Lane * stepZ);
+        float offsetX = (slot.Lane != 0 && slot.IsStaggered) ? -stepX * 0.5f : 0f;
+        return new Vector3(-slot.X * stepX + offsetX, 0f, -slot.Lane * stepZ);
     }
 
     private IEnumerator TrySpawnBranchAsync(RoomScript parentRoom, DoorDirection direction, bool staggered)
@@ -254,7 +254,67 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         spawnedRooms.Add(branchRoom);
         slotMap[branchSlot] = branchRoom;
 
-        ConnectSlots(parentRoom.CurrentSlot, branchSlot, direction);
+        if (staggered)
+        {
+            ConnectStaggeredBranch(branchRoom, parentRoom, direction);
+        }
+        else
+        {
+            ConnectAlignedBranch(branchRoom, parentRoom, direction);
+        }
+    }
+
+    private void ConnectAlignedBranch(RoomScript branchRoom, RoomScript parentRoom, DoorDirection direction)
+    {
+        DoorDirection opposite = DoorTypeHelper.GetOppositeDirection(direction);
+
+        List<DoorScript> parentDoors = parentRoom.GetAvailableDoorsByDirection(direction);
+        List<DoorScript> branchDoors = branchRoom.GetAvailableDoorsByDirection(opposite);
+
+        if (parentDoors.Count == 0 || branchDoors.Count == 0) return;
+
+        DoorScript parentDoor = parentDoors[Random.Range(0, parentDoors.Count)];
+        DoorScript branchDoor = branchDoors[Random.Range(0, branchDoors.Count)];
+
+        parentDoor.ConnectTo(branchDoor);
+        branchDoor.ConnectTo(parentDoor);
+    }
+
+    private void ConnectStaggeredBranch(RoomScript branchRoom, RoomScript parentRoom, DoorDirection direction)
+    {
+        int parentX = parentRoom.CurrentSlot.X;
+        RoomSlot leftMainSlot = new RoomSlot(parentX + 1, 0);
+
+        if (direction == DoorDirection.North)
+        {
+            // Правая основная (parent) справа от ветки: SouthRight ↔ NorthLeft
+            TryConnectSpecificDoors(branchRoom, DoorType.SouthRight, parentRoom, DoorType.NorthLeft);
+
+            // Левая основная слева от ветки: SouthLeft ↔ NorthRight
+            if (slotMap.ContainsKey(leftMainSlot))
+                TryConnectSpecificDoors(branchRoom, DoorType.SouthLeft, slotMap[leftMainSlot], DoorType.NorthRight);
+        }
+        else // South
+        {
+            // Правая основная (parent) справа от ветки: NorthRight ↔ SouthLeft
+            TryConnectSpecificDoors(branchRoom, DoorType.NorthRight, parentRoom, DoorType.SouthLeft);
+
+            // Левая основная слева от ветки: NorthLeft ↔ SouthRight
+            if (slotMap.ContainsKey(leftMainSlot))
+                TryConnectSpecificDoors(branchRoom, DoorType.NorthLeft, slotMap[leftMainSlot], DoorType.SouthRight);
+        }
+    }
+
+    private void TryConnectSpecificDoors(RoomScript roomA, DoorType typeA, RoomScript roomB, DoorType typeB)
+    {
+        DoorScript doorA = roomA.GetDoor(typeA);
+        DoorScript doorB = roomB.GetDoor(typeB);
+
+        if (doorA == null || doorB == null) return;
+        if (doorA.IsConnected || doorB.IsConnected || doorA.IsBlockedByPrefab || doorB.IsBlockedByPrefab) return;
+
+        doorA.ConnectTo(doorB);
+        doorB.ConnectTo(doorA);
     }
 
     private bool IsBranchSlotBlocked(RoomSlot slot)
