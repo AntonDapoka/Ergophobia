@@ -1,9 +1,11 @@
 public enum EnemyType
 {
+    Normal,
     Shooter,
     Bomber,
-    Necromancer
-    //Add yours
+    Shielder,
+    Summoner,
+    Puppeteer,
 }
 /*
 You can use it like this:
