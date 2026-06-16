@@ -1,0 +1,975 @@
+fileFormatVersion: 2
+guid: cfa069dfabd75154483a9915747cb135
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6780692758945179981
+    second: musicVolum_0
+  - first:
+      213: 8585232132099181631
+    second: musicVolum_1
+  - first:
+      213: 9026637231632171646
+    second: musicVolum_2
+  - first:
+      213: 5893834286861827181
+    second: musicVolum_3
+  - first:
+      213: 2284003581587061933
+    second: musicVolum_4
+  - first:
+      213: -5217823995888040942
+    second: musicVolum_5
+  - first:
+      213: 4692869970260248905
+    second: musicVolum_6
+  - first:
+      213: 5088166322007299601
+    second: musicVolum_7
+  - first:
+      213: 8934653628035873576
+    second: musicVolum_8
+  - first:
+      213: -8639838924575210646
+    second: musicVolum_9
+  - first:
+      213: 2848646257071778760
+    second: musicVolum_10
+  - first:
+      213: 148890455652596351
+    second: musicVolum_11
+  - first:
+      213: -242014078943828834
+    second: musicVolum_12
+  - first:
+      213: 9133842704483467927
+    second: musicVolum_13
+  - first:
+      213: -1874614827667028556
+    second: musicVolum_14
+  - first:
+      213: 1738096759889164070
+    second: musicVolum_15
+  - first:
+      213: -1822807852451448782
+    second: musicVolum_16
+  - first:
+      213: -4688935027945466835
+    second: musicVolum_17
+  - first:
+      213: -4318797081120108049
+    second: musicVolum_18
+  - first:
+      213: 7782198587925240999
+    second: musicVolum_19
+  - first:
+      213: -2356547883936236165
+    second: musicVolum_20
+  - first:
+      213: 7690112450246437549
+    second: musicVolum_21
+  - first:
+      213: -285436496222288309
+    second: musicVolum_22
+  - first:
+      213: -7735243484843421375
+    second: musicVolum_23
+  - first:
+      213: 1735133763502171946
+    second: musicVolum_24
+  - first:
+      213: -8882662093327962295
+    second: musicVolum_25
+  - first:
+      213: 2585673470056311838
+    second: musicVolum_26
+  - first:
+      213: -3532666224153664772
+    second: musicVolum_27
+  - first:
+      213: 8912504458996338898
+    second: musicVolum_28
+  - first:
+      213: 1797975702446268903
+    second: musicVolum_29
+  - first:
+      213: -7819352462338948648
+    second: musicVolum_30
+  - first:
+      213: 4904028080858040169
+    second: musicVolum_31
+  - first:
+      213: 4355832780667697769
+    second: musicVolum_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: musicVolum_0
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 202
+        width: 28
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b652048cd326e1a0800000000000000
+      internalID: -6780692758945179981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_1
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 18
+        width: 1004
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3c8a0c332fd42770800000000000000
+      internalID: 8585232132099181631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_2
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 189
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7240cbacbe054d70800000000000000
+      internalID: 9026637231632171646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_3
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 189
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6cba699e0b1bc150800000000000000
+      internalID: 5893834286861827181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_4
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 182
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac7732082962bf10800000000000000
+      internalID: 2284003581587061933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_5
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 182
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 214859098b09697b0800000000000000
+      internalID: -5217823995888040942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_6
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 182
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 949c572cf5c602140800000000000000
+      internalID: 4692869970260248905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_7
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 177
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 116d955cf4ccc9640800000000000000
+      internalID: 5088166322007299601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_8
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 177
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82bbb3a03244efb70800000000000000
+      internalID: 8934653628035873576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_9
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 177
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a630a102640291880800000000000000
+      internalID: -8639838924575210646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_10
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 172
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cb62839dac688720800000000000000
+      internalID: 2848646257071778760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_11
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 172
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a7e9f9417f01200800000000000000
+      internalID: 148890455652596351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_12
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 172
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e94e8e93a7134acf0800000000000000
+      internalID: -242014078943828834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_13
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 172
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 792c70beb8de1ce70800000000000000
+      internalID: 9133842704483467927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_14
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 172
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b50a321fb70cf5e0800000000000000
+      internalID: -1874614827667028556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_15
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 164
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62773765bc5fe1810800000000000000
+      internalID: 1738096759889164070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_16
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 164
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 238b6d47ae514b6e0800000000000000
+      internalID: -1822807852451448782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_17
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d249c646f6e8deeb0800000000000000
+      internalID: -4688935027945466835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_18
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe197dacfec8014c0800000000000000
+      internalID: -4318797081120108049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_19
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ac94d4426ceffb60800000000000000
+      internalID: 7782198587925240999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_20
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7d38c16f2cdb4fd0800000000000000
+      internalID: -2356547883936236165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_21
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa6fbf8784c8ba60800000000000000
+      internalID: 7690112450246437549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_22
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b460dbcd40de90cf0800000000000000
+      internalID: -285436496222288309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_23
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 141d0ca9805e6a490800000000000000
+      internalID: -7735243484843421375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_24
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 152
+        width: 28
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27655bf6fe641810800000000000000
+      internalID: 1735133763502171946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_25
+      rect:
+        serializedVersion: 2
+        x: 1127
+        y: 151
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94feb5373e17ab480800000000000000
+      internalID: -8882662093327962295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_26
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 151
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1cabdf425822e320800000000000000
+      internalID: 2585673470056311838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_27
+      rect:
+        serializedVersion: 2
+        x: 1176
+        y: 151
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf2ec4739c279fec0800000000000000
+      internalID: -3532666224153664772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_28
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 151
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d0df81c5939fab70800000000000000
+      internalID: 8912504458996338898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_29
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 151
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e1e7131061b3f810800000000000000
+      internalID: 1797975702446268903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_30
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 141
+        width: 24
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d106bc3d541c7390800000000000000
+      internalID: -7819352462338948648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_31
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 141
+        width: 24
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96785109e8b9e0440800000000000000
+      internalID: 4904028080858040169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: musicVolum_32
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 141
+        width: 24
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96a33b8f5d6037c30800000000000000
+      internalID: 4355832780667697769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      musicVolum_0: -6780692758945179981
+      musicVolum_1: 8585232132099181631
+      musicVolum_10: 2848646257071778760
+      musicVolum_11: 148890455652596351
+      musicVolum_12: -242014078943828834
+      musicVolum_13: 9133842704483467927
+      musicVolum_14: -1874614827667028556
+      musicVolum_15: 1738096759889164070
+      musicVolum_16: -1822807852451448782
+      musicVolum_17: -4688935027945466835
+      musicVolum_18: -4318797081120108049
+      musicVolum_19: 7782198587925240999
+      musicVolum_2: 9026637231632171646
+      musicVolum_20: -2356547883936236165
+      musicVolum_21: 7690112450246437549
+      musicVolum_22: -285436496222288309
+      musicVolum_23: -7735243484843421375
+      musicVolum_24: 1735133763502171946
+      musicVolum_25: -8882662093327962295
+      musicVolum_26: 2585673470056311838
+      musicVolum_27: -3532666224153664772
+      musicVolum_28: 8912504458996338898
+      musicVolum_29: 1797975702446268903
+      musicVolum_3: 5893834286861827181
+      musicVolum_30: -7819352462338948648
+      musicVolum_31: 4904028080858040169
+      musicVolum_32: 4355832780667697769
+      musicVolum_4: 2284003581587061933
+      musicVolum_5: -5217823995888040942
+      musicVolum_6: 4692869970260248905
+      musicVolum_7: 5088166322007299601
+      musicVolum_8: 8934653628035873576
+      musicVolum_9: -8639838924575210646
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

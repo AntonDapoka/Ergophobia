@@ -1,10 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MouseToWorldScript : MonoBehaviour
 {
     [SerializeField] private Camera worldCamera;
     [SerializeField] private Transform aimTarget;
+    [SerializeField] private Transform firePoint;
     [SerializeField] private float fixedY = 1f;
+    [SerializeField] private float heightArm = 1.1f;
 
     private Plane aimPlane;
 
@@ -20,6 +23,11 @@ public class MouseToWorldScript : MonoBehaviour
             worldPos.y = fixedY;
 
             aimTarget.position = worldPos;
+
+            if ( firePoint)
+            {
+                firePoint.position = worldPos + Vector3.up * heightArm;
+            }
         }
     }
 }

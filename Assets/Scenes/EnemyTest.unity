@@ -2661,7 +2661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395161030032068223}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 72.64474, y: 0.00003, z: 78.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -2675,7 +2675,7 @@ Transform:
   - {fileID: 929367514}
   - {fileID: 1470391407}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &323087338444116628
 Transform:
   m_ObjectHideFlags: 0
@@ -3588,9 +3588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PalyerController
   walkSpeed: 10
   runSpeed: 20
-  rotationSpeed: 15
   anim: {fileID: 3305661466301135315}
-  aimTarget: {fileID: 3002925775713736748}
 --- !u!114 &5066000583674325085
 MonoBehaviour:
   m_ObjectHideFlags: 0
