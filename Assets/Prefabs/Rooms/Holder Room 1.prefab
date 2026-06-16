@@ -1,51 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &476665976874852266
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7778049998000960370}
-  - component: {fileID: 6691172885699520896}
-  m_Layer: 0
-  m_Name: SpawnerPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7778049998000960370
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 476665976874852266}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 0, z: -3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1947000846754495230}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6691172885699520896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 476665976874852266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 0
-  spawnWave: 1
 --- !u!1 &571245470251576007
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomScript
   roomSize: {x: 16, y: 9}
   doors:
-  - {fileID: 0}
+  - {fileID: 3248403851287938400}
 --- !u!1 &1513048890253248550
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,8 +454,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7778049998000960370}
+  m_Children: []
   m_Father: {fileID: 3710380074907188941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6589239289466032831
@@ -1207,6 +1160,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797914b3a7fd7b64297586b78f772da9, type: 3}
+--- !u!114 &3248403851287938400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2335175803638747491, guid: 797914b3a7fd7b64297586b78f772da9,
+    type: 3}
+  m_PrefabInstance: {fileID: 971810030565118979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524b6ddb1d5930c4e9b4141de879baeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorScript
 --- !u!4 &4793068781243147115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5762627008504657768, guid: 797914b3a7fd7b64297586b78f772da9,

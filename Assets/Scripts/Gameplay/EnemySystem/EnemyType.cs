@@ -5,10 +5,5 @@ public enum EnemyType
     Bomber,
     Shielder,
     Summoner,
-    Puppeteer,
+    Puppeteer
 }
-/*
-You can use it like this:
-[SerializedField] private EnemyType type;
-And select in the inspector
-*/
