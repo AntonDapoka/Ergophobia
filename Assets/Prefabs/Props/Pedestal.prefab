@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5166434951337716160}
   - component: {fileID: 4351057549707997767}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 6688865837485995297}
   - component: {fileID: 145893564121780387}
   - component: {fileID: 3561429583378294375}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4640887360955158966}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pedestal
   m_TagString: Untagged
   m_Icon: {fileID: 0}

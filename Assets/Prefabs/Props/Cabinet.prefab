@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8627877820797707701}
   - component: {fileID: 6646287204804898560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 8997820421527276406}
   - component: {fileID: 4470405503560970298}
   - component: {fileID: 4653601198669652733}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4982104426374462831}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -23014,7 +23014,7 @@ MonoBehaviour:
     m_SourceObjects:
       m_Length: 1
       m_Item0:
-        transform: {fileID: 0}
+        transform: {fileID: 1284769028}
         weight: 1
       m_Item1:
         transform: {fileID: 0}
@@ -23038,8 +23038,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: 0
-    m_MaxLimit: 0
+    m_MinLimit: -60
+    m_MaxLimit: 20
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -32196,7 +32196,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldCamera: {fileID: 2141723807}
   aimTarget: {fileID: 1361845959}
-  fixedY: 1
+  firePoint: {fileID: 1284769028}
+  fixedY: 0.3
+  heightArm: 0.3
 --- !u!1 &1601722185
 GameObject:
   m_ObjectHideFlags: 0
@@ -35032,7 +35034,7 @@ MonoBehaviour:
     m_Root: {fileID: 1808863012}
     m_Mid: {fileID: 319480217}
     m_Tip: {fileID: 115430550}
-    m_Target: {fileID: 0}
+    m_Target: {fileID: 1361845959}
     m_Hint: {fileID: 0}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1

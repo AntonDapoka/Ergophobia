@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 260829461002675797}
   - component: {fileID: 1208073096163254099}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2084218682965089228}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tellurion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 6493567730025295282}
   - component: {fileID: 6563094315622832264}
   - component: {fileID: 7707783638132492784}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Globe_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 4585187151095063784}
   - component: {fileID: 2657408913104651627}
   - component: {fileID: 127414235920174566}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Globe
   m_TagString: Untagged
   m_Icon: {fileID: 0}

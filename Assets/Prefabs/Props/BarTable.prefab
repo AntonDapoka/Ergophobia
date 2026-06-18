@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6235991941881769261}
   - component: {fileID: 5133664382893355776}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3914600386877063350}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BarTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 2128715190471781272}
   - component: {fileID: 1860549995957443325}
   - component: {fileID: 6025294453304579105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

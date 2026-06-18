@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7018262995545175347}
   - component: {fileID: 6678159942813680921}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9148179612203159310}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8491334590205501455}
   - component: {fileID: 70477103443136837}
   - component: {fileID: 1450409976826433891}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

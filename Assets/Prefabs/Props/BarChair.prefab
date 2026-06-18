@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9146326096374339801}
   - component: {fileID: 4968351387589357227}
   - component: {fileID: 8380831525148683870}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2679746718637787829}
   - component: {fileID: 7112859162180839679}
   - component: {fileID: 6472941359678313760}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4777975181330250233}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BarChair
   m_TagString: Untagged
   m_Icon: {fileID: 0}

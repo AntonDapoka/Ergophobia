@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4710585879979525310}
   - component: {fileID: 3951477117184727028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 5421937073597205879}
   - component: {fileID: 7881011832530923369}
   - component: {fileID: 2566696855048908737}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1396220817251613644}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4730360145894208108}
   - component: {fileID: 6090775985818573073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6400939927478881415}
   - component: {fileID: 1283853773584522774}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 980942312756849538}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Closet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1843580795087771644}
   - component: {fileID: 8489633643424801420}
   - component: {fileID: 2385883901747044524}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

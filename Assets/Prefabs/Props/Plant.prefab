@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8915245992454080160}
   - component: {fileID: 1935334327500324620}
   - component: {fileID: 1858056293501384581}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3730285558751532487}
   - component: {fileID: 5150885366210552452}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 8985114243757461209}
   - component: {fileID: 8387912265045660693}
   - component: {fileID: 7331667327628987262}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2912885438125474439}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 6796616704792801099}
   - component: {fileID: 2736232095491913815}
   - component: {fileID: 4015307140358508122}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 7764825981419812690}
   - component: {fileID: 359996074741898905}
   - component: {fileID: 3575411095469974260}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stems
   m_TagString: Untagged
   m_Icon: {fileID: 0}

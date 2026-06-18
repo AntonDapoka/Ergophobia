@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6961849142126703379}
   - component: {fileID: 8756563351451037602}
   - component: {fileID: 6575373585224745568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 2296211958473979694}
   - component: {fileID: 2603147628092087155}
   - component: {fileID: 4016351106251588307}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Book 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 8261335769526438452}
   - component: {fileID: 4327260602225665104}
   - component: {fileID: 403366026121194094}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Book 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1175741167607407085}
   - component: {fileID: 2691154189433430620}
   - component: {fileID: 45265712668822685}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Book 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 1110285362536558850}
   - component: {fileID: 367128263022762696}
   - component: {fileID: 246748956808632080}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Book 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3690877535752854127}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OfficeTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 8587583660381912685}
   - component: {fileID: 797083061813658418}
   - component: {fileID: 5593236647524340880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Page
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 893410390147028465}
   - component: {fileID: 842780762603415589}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5018132168924654041}
   - component: {fileID: 3940763309012291237}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414980844635628882}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Armchair_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 4687437882316842673}
   - component: {fileID: 7542541953161947567}
   - component: {fileID: 1506818793466340983}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2680861017587469022}
   - component: {fileID: 6062554744675437963}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
