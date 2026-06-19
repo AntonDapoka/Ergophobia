@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 503103987570227237}
   - component: {fileID: -8677062886376789915}
   - component: {fileID: 2822993698326639389}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3806762738177593834}
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c27fbfae83add4a48abfa7f30ac780d7, type: 2}
+  - {fileID: 2100000, guid: 0dd541a2f2236e24392a2da0011ac0f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,7 +101,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3755651833078193837}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 10f00ad2b21fc354592c9739b2cf0eff, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -129,6 +129,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   lifeDuration: 5
+  damage: 3
+  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310,
+    type: 3}
 --- !u!54 &2822993698326639389
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,11 +154,11 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!1 &7360572837913323662
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +170,7 @@ GameObject:
   - component: {fileID: 3806762738177593834}
   - component: {fileID: 5132717937005257141}
   - component: {fileID: 6993837154693762972}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +200,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7360572837913323662}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 3
@@ -272,7 +275,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.15
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -325,7 +328,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -443,7 +446,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.72
+      scalar: 0.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2

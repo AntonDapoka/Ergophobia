@@ -38,9 +38,9 @@ namespace MG_BlocksEngine2.Environment
             Vector3 direction = (aimTarget.position - firePoint.position).normalized;
             GameObject bullet = Instantiate(prefabToSpawn, firePoint.position, Quaternion.identity);
 
-            if (bullet.TryGetComponent<BulletBehaivourScript>(out var bulletScript))
+            if (bullet.TryGetComponent<BulletBehaviourScript>(out var bulletScript))
             {
-                bulletScript.SetDirection(direction);
+                bulletScript.SetDirection(gameObject, direction);
             }
             else
             {

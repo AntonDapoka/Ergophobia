@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8056107386980040533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.18, y: 2.01, z: 79.43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -130,7 +130,8 @@ MonoBehaviour:
   speed: 100
   damage: 2
   lifeTime: 3
-  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310, type: 3}
+  explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310,
+    type: 3}
 --- !u!54 &576344140438791372
 Rigidbody:
   m_ObjectHideFlags: 0

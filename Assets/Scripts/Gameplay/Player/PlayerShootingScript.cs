@@ -18,10 +18,10 @@ public class PlayerShootingScript : MonoBehaviour
         Vector3 direction = (aimTarget.position - firePoint.position).normalized;
         GameObject bullet = Instantiate(prefabToSpawn, firePoint.position, Quaternion.identity);
 
-        BulletBehaivourScript bulletScript = bullet.GetComponent<BulletBehaivourScript>();
+        BulletBehaviourScript bulletScript = bullet.GetComponent<BulletBehaviourScript>();
         if (bulletScript != null)
         {
-            bulletScript.SetDirection(direction);
+            bulletScript.SetDirection(gameObject, direction);
         }
         else
         {
