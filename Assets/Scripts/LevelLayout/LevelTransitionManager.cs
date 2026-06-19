@@ -14,6 +14,8 @@ public class LevelTransitionManager : MonoBehaviour
     private RoomScript currentRoom;
     public RoomScript CurrentRoom => currentRoom;
 
+    public event Action<RoomScript> OnRoomEntered;
+
     public void Initialize(List<RoomScript> rooms)
     {
         if (rooms == null || rooms.Count == 0)
@@ -27,6 +29,8 @@ public class LevelTransitionManager : MonoBehaviour
 
         if (deactivateOnStart)
             UpdateActiveRooms();
+
+        OnRoomEntered?.Invoke(currentRoom);
     }
 
     public void TransitionToRoom(RoomScript newRoom)
@@ -36,6 +40,8 @@ public class LevelTransitionManager : MonoBehaviour
 
         currentRoom = newRoom;
         UpdateActiveRooms();
+
+        OnRoomEntered?.Invoke(currentRoom);
     }
 
     public IEnumerator TransitionToRoomWithFade(RoomScript newRoom, Action onMidFade = null)

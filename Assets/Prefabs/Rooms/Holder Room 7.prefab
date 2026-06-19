@@ -462,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7290798169013901407
 Transform:
   m_ObjectHideFlags: 0
@@ -1109,6 +1109,16 @@ MonoBehaviour:
   - {fileID: 8622476299031582153}
   - {fileID: 839761224531365013}
   - {fileID: 5040098466342081864}
+  spawners:
+  - {fileID: 1801311039686401396}
+  - {fileID: 288043003809499865}
+  - {fileID: 2867933743084129923}
+  - {fileID: 4906364088982694175}
+  - {fileID: 1565692879220033036}
+  - {fileID: 1917885865068734976}
+  - {fileID: 6418932669499441583}
+  - {fileID: 3537185665673684074}
+  - {fileID: 4261339379105843948}
 --- !u!114 &-1556165051647512013
 MonoBehaviour:
   m_ObjectHideFlags: 0

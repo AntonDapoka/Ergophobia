@@ -6,7 +6,8 @@ public class RoomScript : MonoBehaviour
 {
     [Header("Config")]
     [SerializeField] private Vector2 roomSize = new(10f, 10f);
-    [SerializeField] private DoorScript[] doors;
+    [SerializeField] private DoorScript[] doors;    
+    [SerializeField] private SpawnerPoint[] spawners;
 
     private Vector2Int gridPosition;
     public RoomSlot CurrentSlot { get; private set; }
@@ -25,6 +26,11 @@ public class RoomScript : MonoBehaviour
 
         doors = doors.Where(d => d != null).ToArray();
 
+        if (spawners == null || spawners.Length == 0)
+            spawners = GetComponentsInChildren<SpawnerPoint>(true);
+
+        spawners = spawners.Where(s => s != null).ToArray();
+
         foreach (var door in doors)
             door.Initialize(this);
     }
@@ -38,6 +44,11 @@ public class RoomScript : MonoBehaviour
             doors = GetComponentsInChildren<DoorScript>(true);
 
         doors = doors.Where(d => d != null).ToArray();
+
+        if (spawners == null || spawners.Length == 0)
+            spawners = GetComponentsInChildren<SpawnerPoint>(true);
+
+        spawners = spawners.Where(s => s != null).ToArray();
 
         foreach (var door in doors)
             door.Initialize(this);
@@ -58,6 +69,12 @@ public class RoomScript : MonoBehaviour
     {
         if (doors == null) return new List<DoorScript>();
         return doors.Where(d => d != null).ToList();
+    }
+
+    public List<SpawnerPoint> GetSpawnerPoints()
+    {
+        if (spawners == null) return new List<SpawnerPoint>();
+        return spawners.Where(d => d != null).ToList();
     }
 
     public List<DoorScript> GetAvailableDoors()

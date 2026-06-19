@@ -189,6 +189,10 @@ MonoBehaviour:
   - {fileID: 806741698702053150}
   - {fileID: 4964769007635106128}
   - {fileID: 1579210941098696584}
+  spawners:
+  - {fileID: 5681388734230682546}
+  - {fileID: 960306182079041985}
+  - {fileID: 3111511398309754501}
 --- !u!114 &2898156697035655262
 MonoBehaviour:
   m_ObjectHideFlags: 0
