@@ -1730,7 +1730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 59024072}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Holder Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2052,7 +2052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 64897511}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-forearm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2411,7 +2411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 86412784}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-thigh.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3432,7 +3432,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 115430550}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-hand.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4732,7 +4732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 166365196}
   - component: {fileID: 166365195}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rig 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4816,7 +4816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167924749}
   - component: {fileID: 167924750}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6451,7 +6451,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 250835382}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-spine.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7399,7 +7399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 319480217}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-forearm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8849,7 +8849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 376805681}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-toe.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8880,7 +8880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 411030475}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-toe.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9698,7 +9698,7 @@ GameObject:
   - component: {fileID: 442682852}
   - component: {fileID: 442682855}
   - component: {fileID: 442682858}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -11682,7 +11682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 509693684}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-upper_arm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14727,7 +14727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 635900522}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: CameraPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14910,7 +14910,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 672714156}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-foot.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17291,7 +17291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 789661437}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: CameraTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18802,7 +18802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 872217894}
   - component: {fileID: 872217895}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22228,7 +22228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1059076195}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23039,7 +23039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1088267378}
   - component: {fileID: 1088267379}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: HeadAim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23741,7 +23741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1143331117}
   - component: {fileID: 1143331118}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: HandOffsetControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24161,7 +24161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1158199738}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24421,7 +24421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181210770}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-shoulder.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24453,7 +24453,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1188132436}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24846,7 +24846,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1225357487}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25880,7 +25880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1284769028}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26683,7 +26683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1316017558}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-hand.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27391,7 +27391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371267001}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-spine.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32034,7 +32034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596737503}
   - component: {fileID: 1596737504}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33384,7 +33384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1645778311}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-shin.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35059,7 +35059,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741959302}
   - component: {fileID: 1741959303}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: ArmAim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36185,7 +36185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1808863012}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-upper_arm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37334,7 +37334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1874529919}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Holder Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37563,7 +37563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1882677178}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-shin.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37771,7 +37771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1886578040}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-thigh.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38402,7 +38402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1920566609}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-foot.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38525,7 +38525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929350109}
   - component: {fileID: 1929350110}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: hair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39075,7 +39075,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1949474762}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Holder Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40346,7 +40346,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1999230125}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-spine.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40378,7 +40378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2001068902}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-spine.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40768,7 +40768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2014098884}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43932,7 +43932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2144588029}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: DEF-shoulder.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
