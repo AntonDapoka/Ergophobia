@@ -4,9 +4,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MovementComponent : MonoBehaviour, IMovable
 {
-    private NavMeshAgent agent;
-
-    [Header("Animation")]
+   private static readonly int SpeedHash = Animator.StringToHash("Speed");
+   private NavMeshAgent agent;
     public Animator animator; 
 
     private void Awake()
@@ -17,9 +16,7 @@ public class MovementComponent : MonoBehaviour, IMovable
     private void Update()
     {
         if (animator != null)
-        {
-            animator.SetFloat("Speed", agent.velocity.magnitude);
-        }
+            animator.SetFloat(SpeedHash, agent.velocity.magnitude);
     }
 
     public void MoveTo(Vector3 destination, float speed)

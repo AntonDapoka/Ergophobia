@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour, IDamageable
 {
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     public event Action OnDeath;
     public event Action OnHit;
 
@@ -44,5 +44,12 @@ public class HealthComponent : MonoBehaviour, IDamageable
         {
             OnDeath?.Invoke();
         }
+    }
+
+    public void Heal(float amount)
+    {
+        if (amount <= 0 || currentHealth <= 0) return;
+        currentHealth += amount;
+        Debug.Log($"{gameObject.name} healed {amount}, current health: {currentHealth}");
     }
 }

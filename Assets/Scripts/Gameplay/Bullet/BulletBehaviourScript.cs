@@ -9,6 +9,33 @@ public class BulletBehaviourScript : MonoBehaviour
     [SerializeField] private float damage = 25f;
     [SerializeField] private GameObject explosionVFX;
 
+    public float Speed
+    {
+        get => speed;
+        set
+        {
+            speed = value;
+            if (rb != null && direction != Vector3.zero)
+                rb.linearVelocity = direction * speed;
+        }
+    }
+
+    public float LifeDuration
+    {
+        get => lifeDuration;
+        set
+        {
+            lifeDuration = value;
+            RestartSelfDestruct();
+        }
+    }
+
+    private void RestartSelfDestruct()
+    {
+        StopAllCoroutines();
+        StartCoroutine(SelfDestruct());
+    }
+
     private GameObject owner;
 
     private Rigidbody rb;

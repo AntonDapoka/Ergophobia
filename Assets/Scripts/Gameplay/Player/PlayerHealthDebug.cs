@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
 using UnityEngine;
 public class PlayerHealthDebug : MonoBehaviour, IDamageable 
 {
-    [Header("Health Settings")]
     [SerializeField] private float maxHealth ;
-    private float currentHealth;
-
+    [SerializeField] private float currentHealth;
 
     public event Action OnDeath;
 
@@ -25,7 +22,7 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
 
         currentHealth -= amount;
         
-        Debug.Log($"<color=#00FF00>Player has been taken a damage of {amount} £¡Health remaining: {currentHealth} / {maxHealth}</color>");
+        Debug.Log($"Player has been taken a damage {amount} Health remaining {currentHealth} / {maxHealth}");
 
         if (currentHealth <= 0)
         {
@@ -33,10 +30,18 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
         }
     }
 
+    public void Heal(float amount)
+    {
+        if (amount <= 0 || currentHealth <= 0) return;
+        currentHealth += amount;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+        Debug.Log($"Player healed {amount}Health {currentHealth} / {maxHealth}");
+    }
 
     private void Die()
     {
-        Debug.Log("<color=red>Player has died£¡</color>");
+        Debug.Log("<color=red>Player has died</color>");
         OnDeath?.Invoke();
     }
 }

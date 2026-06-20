@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovementScript : MonoBehaviour
 {
     [Header("References")]
@@ -9,6 +10,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
     [Header("Dash Settings")]
     [SerializeField] private float dashingPower = 24f;
@@ -24,10 +26,7 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Awake()
     {
-        if (!rb)
-        {
-            rb = GetComponent<Rigidbody>();
-        }
+        rb = GetComponent<Rigidbody>();
         if (!trail)
         {
             trail = GetComponent<TrailRenderer>();
@@ -38,10 +37,7 @@ public class PlayerMovementScript : MonoBehaviour
     {
         HandleInput();
 
-        if (!isDashing)
-        {
-            Move();
-        }
+        if (!isDashing)  Move();
     }
 
     private void HandleInput()
@@ -56,10 +52,7 @@ public class PlayerMovementScript : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0f, -180f, 0f);
             moveDirection = rotation * inputDirection;
         }
-        else
-        {
-            moveDirection = Vector3.zero;
-        }
+        else moveDirection = Vector3.zero;
 
         if (Input.GetKeyDown(dashingKeyCode) && canDash && moveDirection != Vector3.zero)
         {
@@ -69,10 +62,8 @@ public class PlayerMovementScript : MonoBehaviour
 
     private void Move()
     {
-        if (isDashing)
-        {
-            return;
-        }
+        if (isDashing) return;
+        
         rb.linearVelocity = new Vector3(moveDirection.x*moveSpeed,0, moveDirection.z * moveSpeed); 
     }
 

@@ -4,7 +4,9 @@ public class PlayerMoving : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float runSpeed = 8f;      
+    [SerializeField] private float runSpeed = 8f;
+    public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
+    public float RunSpeed { get => runSpeed; set => runSpeed = value; }
     private Vector3 inputDir;
     private bool isRunning;
     private Rigidbody rb;

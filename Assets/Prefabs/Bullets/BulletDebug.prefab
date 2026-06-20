@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3428530109319738862}
   - component: {fileID: 576344140438791372}
   - component: {fileID: 1225022722527862448}
+  - component: {fileID: -933851259592347471}
   m_Layer: 0
   m_Name: BulletDebug
   m_TagString: Untagged
@@ -278,3 +279,15 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-933851259592347471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8056107386980040533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cad1e448471c74dae42b34cc41eff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletMarker

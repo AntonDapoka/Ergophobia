@@ -93,29 +93,40 @@ namespace MG_BlocksEngine2.DragDrop
 
             if (!dropped)
             {
-                I_BE2_Spot spot = _dragDropManager.Raycaster.GetSpotAtPosition(RayPoint);
-
-                // v2.12 - dropping blocks in the ProgrammingEnv now can be done if part of the block is outside
-                // of the Env but the pointer is inside 
-                if (spot == null)
-                    spot = _dragDropManager.Raycaster.GetSpotAtPosition(Core.BE2_InputManager.Instance.CanvasPointerPosition);
-
-                if (spot != null)
+                // v2.x - allow operation blocks to be dropped into holder environments (inventory/storage)
+                BE2_Raycaster raycaster = _dragDropManager.Raycaster as BE2_Raycaster;
+                HolderEnvironment targetHolder = raycaster?.FindHolderEnvironmentAtPoint(RayPoint);
+                if (targetHolder != null && targetHolder.CanPlaceBlock(Block))
                 {
-                    I_BE2_ProgrammingEnv programmingEnv = spot.Transform.GetComponentInParent<I_BE2_ProgrammingEnv>();
-                    if (programmingEnv == null && spot.Transform.GetChild(0) != null)
-                        programmingEnv = spot.Transform.GetChild(0).GetComponentInParent<I_BE2_ProgrammingEnv>();
-
-                    Vector3 dropScale = Transform.localScale;
-                    if (programmingEnv != null)
-                        Transform.SetParent(programmingEnv.Transform);
-                    else
-                        Destroy(Transform.gameObject);
-                    Transform.localScale = dropScale;
+                    Vector2 localPos = targetHolder.contentArea.InverseTransformPoint(RayPoint);
+                    targetHolder.AddBlock(Block, localPos);
                 }
                 else
                 {
-                    Destroy(Transform.gameObject);
+                    I_BE2_Spot spot = _dragDropManager.Raycaster.GetSpotAtPosition(RayPoint);
+
+                    // v2.12 - dropping blocks in the ProgrammingEnv now can be done if part of the block is outside
+                    // of the Env but the pointer is inside 
+                    if (spot == null)
+                        spot = _dragDropManager.Raycaster.GetSpotAtPosition(Core.BE2_InputManager.Instance.CanvasPointerPosition);
+
+                    if (spot != null)
+                    {
+                        I_BE2_ProgrammingEnv programmingEnv = spot.Transform.GetComponentInParent<I_BE2_ProgrammingEnv>();
+                        if (programmingEnv == null && spot.Transform.GetChild(0) != null)
+                            programmingEnv = spot.Transform.GetChild(0).GetComponentInParent<I_BE2_ProgrammingEnv>();
+
+                        Vector3 dropScale = Transform.localScale;
+                        if (programmingEnv != null)
+                            Transform.SetParent(programmingEnv.Transform);
+                        else
+                            Destroy(Transform.gameObject);
+                        Transform.localScale = dropScale;
+                    }
+                    else
+                    {
+                        Destroy(Transform.gameObject);
+                    }
                 }
             }
 
