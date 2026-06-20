@@ -70,11 +70,28 @@ namespace MG_BlocksEngine2.DragDrop
 
         public void OnPointerUp()
         {
+            bool dropped = false;
+
             if (_dragDropManager.ConnectionPoint.spot != null)
             {
-                DropTo(_dragDropManager.ConnectionPoint.spot);
+                I_BE2_Spot spot = _dragDropManager.ConnectionPoint.spot;
+
+                // v2.x - support optional spot filters to restrict which block types can be dropped
+                if (spot is I_BE2_SpotFilter filter && !filter.CanAcceptBlock(Block))
+                {
+                    if (spot is BE2_SpotBlockInput inputSpot)
+                        inputSpot.outline.enabled = false;
+
+                    _dragDropManager.ConnectionPoint = new BE2_Raycaster.ConnectionPoint();
+                }
+                else
+                {
+                    DropTo(spot);
+                    dropped = true;
+                }
             }
-            else
+
+            if (!dropped)
             {
                 I_BE2_Spot spot = _dragDropManager.Raycaster.GetSpotAtPosition(RayPoint);
 

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 namespace MG_BlocksEngine2.Environment
@@ -19,7 +19,6 @@ namespace MG_BlocksEngine2.Environment
                 if (child.name == "Bullet")
                     _bullet = child.gameObject;
             }
-
         }
 
         public void Shoot()
@@ -29,9 +28,15 @@ namespace MG_BlocksEngine2.Environment
 
         public void ShootBullet(GameObject prefabToSpawn)
         {
-
             if (prefabToSpawn == null)
             {
+                return;
+            }
+
+            // Only allow shooting prefabs that carry the expected bullet behaviour
+            if (prefabToSpawn.GetComponent<BulletBehaviourScript>() == null)
+            {
+                Debug.LogWarning($"[SpacecraftShoot] Prefab '{prefabToSpawn.name}' does not have a BulletBehaviourScript. Skipping shot.");
                 return;
             }
 
@@ -44,9 +49,8 @@ namespace MG_BlocksEngine2.Environment
             }
             else
             {
-                Debug.Log("Problemssss");
+                Debug.LogWarning($"[SpacecraftShoot] Spawned bullet '{bullet.name}' is missing BulletBehaviourScript.");
             }
         }
-        
     }
 }
