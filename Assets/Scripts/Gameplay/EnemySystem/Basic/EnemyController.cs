@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(HealthComponent), typeof(MovementComponent), typeof(SensorComponent))]
 public class EnemyController : MonoBehaviour
@@ -13,6 +14,8 @@ public class EnemyController : MonoBehaviour
     private HealthComponent health;
     private SensorComponent sensor;
     private IState currentState;
+
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -37,11 +40,15 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        if (isDead) return;
+
         currentState?.Update();
     }
 
     public void TransitionToState(IState newState)
     {
+        if (isDead) return;
+
         currentState?.Exit();
         currentState = newState;
         currentState?.Enter();
@@ -59,9 +66,43 @@ public class EnemyController : MonoBehaviour
 
     private void HandleDeath()
     {
+        if (isDead) return;
+        isDead = true;
         Debug.Log($"{gameObject.name} has died£¡");
-        // Can be extended to "object pool" ?
-        Destroy(gameObject);
+
+        currentState?.Exit();
+        currentState = null;
+
+        if (AttackStrategy != null)
+        {
+            AttackStrategy.StopAllCoroutines();
+            AttackStrategy.enabled = false;
+        }
+
+        if (TryGetComponent(out NavMeshAgent agent))
+        {
+            agent.isStopped = true;
+            agent.enabled = false;
+        }
+
+        if (TryGetComponent(out RagdollComponent ragdoll))
+        {
+            ragdoll.EnableRagdoll();
+
+        }
+        else
+        {
+            if (TryGetComponent(out Animator anim))
+            {
+                anim.SetTrigger("Die");
+            }
+
+            if (TryGetComponent(out Collider col))
+            {
+                col.enabled = false;
+            }
+        }
+        Destroy(gameObject, 1.8f);
     }
 
     private void OnDestroy()

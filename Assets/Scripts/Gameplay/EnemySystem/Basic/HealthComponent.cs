@@ -43,6 +43,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             OnDeath?.Invoke();
+            
         }
     }
 

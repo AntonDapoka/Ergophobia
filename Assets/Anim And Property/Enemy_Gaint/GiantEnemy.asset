@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
   maxHealth: 5
   patrolSpeed: 8
-  chaseSpeed: 12
+  chaseSpeed: 1
   sensorRadius: 40
   attackRange: 2
   attackDamage: 3
