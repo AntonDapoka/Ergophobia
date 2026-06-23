@@ -9,13 +9,13 @@ using System.IO;
 public class SettingsScript : MonoBehaviour
 {
     private IDataServiceScript dataService = new JsonDataServiceScript();
-    public SettingsSaveData saveData = new SettingsSaveData();
+    public SettingsSaveData saveData = new();
     private bool isEncrypted;
 
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Toggle toggleFullScreen;
     [SerializeField] private TMP_Dropdown dropDownResolution;
-    [SerializeField] private TMP_Dropdown dropDownLanguage;
+    /*[SerializeField] private TMP_Dropdown dropDownLanguage;
     [SerializeField] private TMP_Dropdown dropDownQuality;
     [Header("MasterVolumeSettings")]
     [SerializeField] private TextMeshProUGUI textMasterVolume;
@@ -34,7 +34,7 @@ public class SettingsScript : MonoBehaviour
     [SerializeField] private Button buttonIncreaseSFX;
     [SerializeField] private Button buttonDecreaseSFX;
     [SerializeField] private string volumeParameterSFX = "SFXVolume";
-    private float currentSFXVolume = 100;
+    private float currentSFXVolume = 100;*/
 
     private const int step = 5;
     private const float minValue = 0;
@@ -52,17 +52,14 @@ public class SettingsScript : MonoBehaviour
 
         resolutions = Screen.resolutions;
 
-        if (!File.Exists(path))
-        {
-            SetFirstSaveFile();
-        }
+        if (!File.Exists(path)) SetFirstSaveFile();
     }
 
     private void Start()
     {
         SetResolution();
 
-        buttonIncreaseMaster.onClick.AddListener(() => IncreaseValue(ref currentMasterVolume, volumeParameterMaster, textMasterVolume, false));
+        /*buttonIncreaseMaster.onClick.AddListener(() => IncreaseValue(ref currentMasterVolume, volumeParameterMaster, textMasterVolume, false));
         buttonDecreaseMaster.onClick.AddListener(() => DecreaseValue(ref currentMasterVolume, volumeParameterMaster, textMasterVolume, false));
         UpdateText(currentMasterVolume, volumeParameterMaster, textMasterVolume);
 
@@ -72,7 +69,7 @@ public class SettingsScript : MonoBehaviour
 
         buttonIncreaseSFX.onClick.AddListener(() => IncreaseValue(ref currentSFXVolume, volumeParameterSFX, textSFXVolume, false));
         buttonDecreaseSFX.onClick.AddListener(() => DecreaseValue(ref currentSFXVolume, volumeParameterSFX, textSFXVolume, false));
-        UpdateText(currentSFXVolume, volumeParameterSFX, textSFXVolume);
+        UpdateText(currentSFXVolume, volumeParameterSFX, textSFXVolume);*/
 
         LoadSettings();
 
@@ -105,13 +102,7 @@ public class SettingsScript : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width,
-                  resolution.height, Screen.fullScreen);
-    }
-
-    public void SetQuality(int qualityIndex)
-    {
-        //QualitySettings.SetQualityLevel(qualityIndex);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
     public void SaveSettings()
@@ -123,15 +114,15 @@ public class SettingsScript : MonoBehaviour
 
     private void FillSettingsSaveData()
     {
-        saveData.language = dropDownLanguage.value;
+        //saveData.language = dropDownLanguage.value;
 
-        saveData.volumeMaster = currentMasterVolume;
+        /*saveData.volumeMaster = currentMasterVolume;
         saveData.volumeMusic = currentMusicVolume;
-        saveData.volumeSFX = currentSFXVolume;
+        saveData.volumeSFX = currentSFXVolume;*/
 
         saveData.resolution = dropDownResolution.value;
         saveData.fullscreen = System.Convert.ToInt32(Screen.fullScreen);
-        saveData.quality = dropDownQuality.value;
+        //saveData.quality = dropDownQuality.value;
     }
 
     private void SerializeJson()
@@ -174,17 +165,17 @@ public class SettingsScript : MonoBehaviour
 
     private void ReadSettingsSaveData()
     {
-        dropDownLanguage.value = saveData.language;
+        //dropDownLanguage.value = saveData.language;
 
-        SetVolume(saveData.volumeMaster, volumeParameterMaster, textMasterVolume);
+        /*SetVolume(saveData.volumeMaster, volumeParameterMaster, textMasterVolume);
         SetVolume(saveData.volumeMusic, volumeParameterMusic, textMusicVolume);
-        SetVolume(saveData.volumeSFX, volumeParameterSFX, textSFXVolume);
+        SetVolume(saveData.volumeSFX, volumeParameterSFX, textSFXVolume);*/
 
         dropDownResolution.value = saveData.resolution;
         bool fullscreen = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
         Screen.fullScreen = fullscreen;
         toggleFullScreen.isOn = fullscreen;
-        dropDownQuality.value = saveData.quality;
+        //dropDownQuality.value = saveData.quality;
     }
 
     private void SetVolume(float savedVolume, string volumeParameter, TextMeshProUGUI volumeText)
@@ -236,7 +227,7 @@ public class SettingsScript : MonoBehaviour
 
     private void SetFirstSaveFile()
     {
-        dropDownQuality.value = 1;
+        //dropDownQuality.value = 1;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -247,7 +238,7 @@ public class SettingsScript : MonoBehaviour
         toggleFullScreen.isOn = false;
 
 
-        audioMixer.SetFloat(volumeParameterMaster, DecibelConvert(100));
+        /*audioMixer.SetFloat(volumeParameterMaster, DecibelConvert(100));
         textMasterVolume.text = "100";
         currentMasterVolume = 100;
 
@@ -259,13 +250,13 @@ public class SettingsScript : MonoBehaviour
 
         audioMixer.SetFloat(volumeParameterSFX, DecibelConvert(100));
         textSFXVolume.text = "100";
-        currentSFXVolume = 100;
+        currentSFXVolume = 100;*/
 
         SaveSettings();
     }
 }
 
-[System.Serializable]
+[Serializable]
 public class SettingsSaveData
 {
     public int language;
