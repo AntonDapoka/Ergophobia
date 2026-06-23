@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2565866853391127768}
   - component: {fileID: 2565866853391127769}
   - component: {fileID: 2565866853391127770}
-  - component: {fileID: 2786051764455525776}
+  - component: {fileID: 8232971044852679521}
   m_Layer: 5
-  m_Name: Block Prefab
+  m_Name: Block Variable 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2565866853391127750
 MonoBehaviour:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6bcb8520b7fed7f0b084ed7535ce38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2786051764455525776
+--- !u!114 &8232971044852679521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,11 +128,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2565866853391127773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e6af82223ab18f4db1e52894faf2c5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 39e3cb10c47330c49ab411103f90d281, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MG_BlocksEngine2.Block.Instruction.BE2_Op_Prefab
-  _prefab: {fileID: 3755651833078193837, guid: 1a5c4bcc3c3bda44c86d78a09465b6f8, type: 3}
-  _nameLabelTransform: {fileID: 8655299312849051655}
+  m_EditorClassIdentifier: Assembly-CSharp::MG_BlocksEngine2.Block.Instruction.BE2_Op_Variable
+  _value: 5
+  _valueLabelTransform: {fileID: 8655299312849051655}
 --- !u!1 &2565866853926490627
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2565866853926490624
 MonoBehaviour:
@@ -248,7 +248,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2565866855078309316
 CanvasRenderer:
@@ -365,7 +365,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 142.8633, y: 40}
+  m_SizeDelta: {x: 30, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3760127907138666669
 CanvasRenderer:
@@ -395,10 +395,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bullet.Basic
+  m_text: 5
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 868a69d48b9d96b4383db8a90dbc9f04, type: 2}
+  m_sharedMaterial: {fileID: 2856970926861567430, guid: 868a69d48b9d96b4383db8a90dbc9f04,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -422,14 +423,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

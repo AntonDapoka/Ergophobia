@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2565866853391127768}
   - component: {fileID: 2565866853391127769}
   - component: {fileID: 2565866853391127770}
-  - component: {fileID: 3984920298312095396}
+  - component: {fileID: 8232971044852679521}
   m_Layer: 5
-  m_Name: Block Entity Enemies
+  m_Name: Block Variable 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2565866853391127750
 MonoBehaviour:
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5050cc6d4dc5493f988d59144bb14237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockColor: {r: 0.5372549, g: 0.16862746, b: 0.80392164, a: 1}
+  blockColor: {r: 1, g: 0.68939203, b: 0, a: 1}
 --- !u!114 &2565866853391127751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6bcb8520b7fed7f0b084ed7535ce38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3984920298312095396
+--- !u!114 &8232971044852679521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,10 +128,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2565866853391127773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f145dd0a70805d45973984415b0300b, type: 3}
+  m_Script: {fileID: 11500000, guid: 39e3cb10c47330c49ab411103f90d281, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MG_BlocksEngine2.Block.Instruction.BE2_Op_Enemy
-  _nameLabelTransform: {fileID: 8655299312849051655}
+  m_EditorClassIdentifier: Assembly-CSharp::MG_BlocksEngine2.Block.Instruction.BE2_Op_Variable
+  _value: 4
+  _valueLabelTransform: {fileID: 8655299312849051655}
 --- !u!1 &2565866853926490627
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +169,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2565866853926490624
 MonoBehaviour:
@@ -247,7 +248,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 180, y: 50}
+  m_SizeDelta: {x: 60, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2565866855078309316
 CanvasRenderer:
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5372549, g: 0.16862746, b: 0.80392164, a: 1}
+  m_Color: {r: 1, g: 0.68939203, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -364,7 +365,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 40}
+  m_SizeDelta: {x: 30, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3760127907138666669
 CanvasRenderer:
@@ -394,7 +395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enemy
+  m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 868a69d48b9d96b4383db8a90dbc9f04, type: 2}
   m_sharedMaterial: {fileID: 2856970926861567430, guid: 868a69d48b9d96b4383db8a90dbc9f04,
@@ -404,8 +405,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4279571733
+  m_fontColor: {r: 0.08235294, g: 0.08235294, b: 0.08235294, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -422,17 +423,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: -15
+  m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -461,7 +462,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -75.816895, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
