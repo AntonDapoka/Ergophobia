@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class FadeSwitchSceneButtonScript : SwitchSceneButtonScript
+public class FadeQuitButtonScript : MonoBehaviour
 {
     [SerializeField] private FadeInAndOutScript fadeScript;
 
-    protected override void OnClick()
+    public void OnClick()
     {
         StartCoroutine(HandleClickWithFade());
     }
@@ -17,6 +17,15 @@ public class FadeSwitchSceneButtonScript : SwitchSceneButtonScript
             yield return StartCoroutine(fadeScript.PlayFadeOut());
         }
 
-        base.OnClick();
+        QuitGame();
+    }
+
+    private void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
