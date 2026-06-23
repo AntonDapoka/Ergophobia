@@ -16,31 +16,30 @@ public class SettingsScript : MonoBehaviour
     [SerializeField] private Toggle toggleFullScreen;
     [SerializeField] private TMP_Dropdown dropDownResolution;
     /*[SerializeField] private TMP_Dropdown dropDownLanguage;
-    [SerializeField] private TMP_Dropdown dropDownQuality;
-    [Header("MasterVolumeSettings")]
-    [SerializeField] private TextMeshProUGUI textMasterVolume;
-    [SerializeField] private Button buttonIncreaseMaster;
-    [SerializeField] private Button buttonDecreaseMaster;
-    [SerializeField] private string volumeParameterMaster = "MasterVolume";
-    private float currentMasterVolume = 100;
-    [Header("MusicVolumeSettings")]
-    [SerializeField] private TextMeshProUGUI textMusicVolume;
-    [SerializeField] private Button buttonIncreaseMusic;
-    [SerializeField] private Button buttonDecreaseMusic;
-    [SerializeField] private string volumeParameterMusic = "MusicVolume";
-    private float currentMusicVolume = 100;
-    [Header("SFXVolumeSettings")]
-    [SerializeField] private TextMeshProUGUI textSFXVolume;
-    [SerializeField] private Button buttonIncreaseSFX;
-    [SerializeField] private Button buttonDecreaseSFX;
-    [SerializeField] private string volumeParameterSFX = "SFXVolume";
-    private float currentSFXVolume = 100;*/
+    [SerializeField] private TMP_Dropdown dropDownQuality;*/
 
-    private const int step = 5;
-    private const float minValue = 0;
-    private const int maxValue = 100;
-    private int easterEggCounter = 0;
-    public int parameterVolume;
+    [Header("Master Volume")]
+    [SerializeField] private Slider sliderMasterVolume;
+    [SerializeField] private TextMeshProUGUI textMasterVolume;
+    [SerializeField] private string volumeParameterMaster = "MasterVolume";
+    private float currentMasterVolume = maxValue;
+
+    [Header("Music Volume")]
+    [SerializeField] private Slider sliderMusicVolume;
+    [SerializeField] private TextMeshProUGUI textMusicVolume;
+    [SerializeField] private string volumeParameterMusic = "MusicVolume";
+    private float currentMusicVolume = maxValue;
+
+    [Header("SFX Volume")]
+    [SerializeField] private Slider sliderSFXVolume;
+    [SerializeField] private TextMeshProUGUI textSFXVolume;
+    [SerializeField] private string volumeParameterSFX = "SFXVolume";
+    private float currentSFXVolume = maxValue;
+
+    private const float minValue = 0f;
+    private const float maxValue = 1000f;
+    [SerializeField] private float defaultVolume = 1000f;
+    public int parameterVolume = 20;
     private Resolution[] resolutions;
 
     private string relativePath = "/settings-savefile.json";
@@ -59,20 +58,40 @@ public class SettingsScript : MonoBehaviour
     {
         SetResolution();
 
-        /*buttonIncreaseMaster.onClick.AddListener(() => IncreaseValue(ref currentMasterVolume, volumeParameterMaster, textMasterVolume, false));
-        buttonDecreaseMaster.onClick.AddListener(() => DecreaseValue(ref currentMasterVolume, volumeParameterMaster, textMasterVolume, false));
-        UpdateText(currentMasterVolume, volumeParameterMaster, textMasterVolume);
-
-        buttonIncreaseMusic.onClick.AddListener(() => IncreaseValue(ref currentMusicVolume, volumeParameterMusic, textMusicVolume, true));
-        buttonDecreaseMusic.onClick.AddListener(() => DecreaseValue(ref currentMusicVolume, volumeParameterMusic, textMusicVolume, true));
-        UpdateText(currentMusicVolume, volumeParameterMusic, textMusicVolume);
-
-        buttonIncreaseSFX.onClick.AddListener(() => IncreaseValue(ref currentSFXVolume, volumeParameterSFX, textSFXVolume, false));
-        buttonDecreaseSFX.onClick.AddListener(() => DecreaseValue(ref currentSFXVolume, volumeParameterSFX, textSFXVolume, false));
-        UpdateText(currentSFXVolume, volumeParameterSFX, textSFXVolume);*/
+        SetupVolumeSlider(sliderMasterVolume, volumeParameterMaster, textMasterVolume, value => currentMasterVolume = value);
+        SetupVolumeSlider(sliderMusicVolume, volumeParameterMusic, textMusicVolume, value => currentMusicVolume = value);
+        SetupVolumeSlider(sliderSFXVolume, volumeParameterSFX, textSFXVolume, value => currentSFXVolume = value);
 
         LoadSettings();
 
+        Debug.Log($"[Settings] Current screen resolution after load: {Screen.width}x{Screen.height}, fullscreen: {Screen.fullScreen}");
+    }
+
+    private void SetupVolumeSlider(Slider slider, string volumeParameter, TextMeshProUGUI volumeText, Action<float> onValueChanged)
+    {
+        slider.minValue = minValue;
+        slider.maxValue = maxValue;
+        slider.wholeNumbers = true;
+        slider.onValueChanged.AddListener(value =>
+        {
+            onValueChanged(value);
+            ApplyVolume(value, volumeParameter, volumeText);
+        });
+    }
+
+    private void ApplyVolume(float volumeValue, string volumeParameter, TextMeshProUGUI volumeText)
+    {
+        float actualVolume = volumeValue <= 0f ? 0.00001f : volumeValue;
+        audioMixer.SetFloat(volumeParameter, DecibelConvert(actualVolume));
+        volumeText.text = volumeValue.ToString("0");
+    }
+
+    private float SetVolume(float savedVolume, string volumeParameter, Slider slider, TextMeshProUGUI volumeText)
+    {
+        float clamped = Mathf.Clamp(savedVolume, minValue, maxValue);
+        slider.SetValueWithoutNotify(clamped);
+        ApplyVolume(clamped, volumeParameter, volumeText);
+        return clamped;
     }
 
     private void SetResolution()
@@ -81,7 +100,6 @@ public class SettingsScript : MonoBehaviour
         List<string> options = new List<string>();
         resolutions = Screen.resolutions;
         int currentResolutionIndex = 0;
-        easterEggCounter = 0;
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + "x" + resolutions[i].height; // + " " + resolutions[i].refreshRateRatio + "Hz"
@@ -102,7 +120,46 @@ public class SettingsScript : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
+        Debug.Log($"[Settings] Applying resolution: {resolution.width}x{resolution.height}, fullscreen: {Screen.fullScreen}");
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void ResetToDefaults()
+    {
+        Debug.Log("[Settings] Resetting all settings to default values.");
+
+        currentMasterVolume = SetVolume(defaultVolume, volumeParameterMaster, sliderMasterVolume, textMasterVolume);
+        currentMusicVolume = SetVolume(defaultVolume, volumeParameterMusic, sliderMusicVolume, textMusicVolume);
+        currentSFXVolume = SetVolume(defaultVolume, volumeParameterSFX, sliderSFXVolume, textSFXVolume);
+
+        Screen.fullScreen = false;
+        toggleFullScreen.isOn = false;
+
+        SetResolutionToCurrentMonitor();
+        SaveSettings();
+
+        Debug.Log("[Settings] Reset to defaults complete.");
+    }
+
+    private int GetCurrentMonitorResolutionIndex()
+    {
+        resolutions = Screen.resolutions;
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+                return i;
+        }
+        return 0;
+    }
+
+    private void SetResolutionToCurrentMonitor()
+    {
+        int currentResolutionIndex = GetCurrentMonitorResolutionIndex();
+        Resolution resolution = resolutions[currentResolutionIndex];
+        Debug.Log($"[Settings] Setting resolution to current monitor: {resolution.width}x{resolution.height}, fullscreen: {Screen.fullScreen}");
+
+        dropDownResolution.value = currentResolutionIndex;
+        SetResolution(currentResolutionIndex);
     }
 
     public void SaveSettings()
@@ -116,9 +173,9 @@ public class SettingsScript : MonoBehaviour
     {
         //saveData.language = dropDownLanguage.value;
 
-        /*saveData.volumeMaster = currentMasterVolume;
+        saveData.volumeMaster = currentMasterVolume;
         saveData.volumeMusic = currentMusicVolume;
-        saveData.volumeSFX = currentSFXVolume;*/
+        saveData.volumeSFX = currentSFXVolume;
 
         saveData.resolution = dropDownResolution.value;
         saveData.fullscreen = System.Convert.ToInt32(Screen.fullScreen);
@@ -167,90 +224,37 @@ public class SettingsScript : MonoBehaviour
     {
         //dropDownLanguage.value = saveData.language;
 
-        /*SetVolume(saveData.volumeMaster, volumeParameterMaster, textMasterVolume);
-        SetVolume(saveData.volumeMusic, volumeParameterMusic, textMusicVolume);
-        SetVolume(saveData.volumeSFX, volumeParameterSFX, textSFXVolume);*/
+        currentMasterVolume = SetVolume(saveData.volumeMaster, volumeParameterMaster, sliderMasterVolume, textMasterVolume);
+        currentMusicVolume = SetVolume(saveData.volumeMusic, volumeParameterMusic, sliderMusicVolume, textMusicVolume);
+        currentSFXVolume = SetVolume(saveData.volumeSFX, volumeParameterSFX, sliderSFXVolume, textSFXVolume);
 
-        dropDownResolution.value = saveData.resolution;
         bool fullscreen = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
         Screen.fullScreen = fullscreen;
         toggleFullScreen.isOn = fullscreen;
-        //dropDownQuality.value = saveData.quality;
-    }
 
-    private void SetVolume(float savedVolume, string volumeParameter, TextMeshProUGUI volumeText)
-    {
-        float actualVolume = savedVolume == 0 ? 0.00001f : savedVolume;
-        audioMixer.SetFloat(volumeParameter, DecibelConvert(actualVolume));
-        volumeText.text = savedVolume == 0 ? "0" : savedVolume.ToString();
+        dropDownResolution.value = saveData.resolution;
+        SetResolution(dropDownResolution.value);
+        //dropDownQuality.value = saveData.quality;
     }
 
     private float DecibelConvert(float volumeValue)
     {
-        var value = Mathf.Log10(volumeValue) * parameterVolume - 45;
-        return value;
-    }
+        if (volumeValue <= 0.00001f)
+            return -80f;
 
-    public void IncreaseValue(ref float currentVolume, string volumeParameter, TextMeshProUGUI text, bool isEasterEgg)
-    {
-        currentVolume = Mathf.Clamp(currentVolume + step, minValue, maxValue);
-
-        if (isEasterEgg && currentVolume == 100)
-        {
-            easterEggCounter += 1;
-            if (easterEggCounter >= 15)
-            {
-                currentVolume = 999;
-            }
-        }
-        UpdateText(currentVolume, volumeParameter, text);
-    }
-
-    public void DecreaseValue(ref float currentVolume, string volumeParameter, TextMeshProUGUI text, bool isEasterEgg)
-    {
-        if (isEasterEgg) easterEggCounter = 0;
-        currentVolume = Mathf.Clamp(currentVolume - step, minValue, maxValue);
-        if (currentVolume == 0)
-        {
-            audioMixer.SetFloat(volumeParameter, DecibelConvert(0.00001f));
-            text.text = "0";
-        }
-        else
-            UpdateText(currentVolume, volumeParameter, text);
-    }
-
-    public void UpdateText(float currentVolume, string volumeParameter, TextMeshProUGUI text)
-    {
-        audioMixer.SetFloat(volumeParameter, DecibelConvert(currentVolume));
-        text.text = currentVolume.ToString();
+        return Mathf.Log10(volumeValue / maxValue) * parameterVolume;
     }
 
     private void SetFirstSaveFile()
     {
         //dropDownQuality.value = 1;
 
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-                dropDownResolution.value = i;
-        }
         Screen.fullScreen = false;
         toggleFullScreen.isOn = false;
 
-
-        /*audioMixer.SetFloat(volumeParameterMaster, DecibelConvert(100));
-        textMasterVolume.text = "100";
-        currentMasterVolume = 100;
-
-
-        audioMixer.SetFloat(volumeParameterMusic, DecibelConvert(100));
-        textMusicVolume.text = "100";
-        currentMusicVolume = 100;
-
-
-        audioMixer.SetFloat(volumeParameterSFX, DecibelConvert(100));
-        textSFXVolume.text = "100";
-        currentSFXVolume = 100;*/
+        int monitorIndex = GetCurrentMonitorResolutionIndex();
+        saveData.resolution = monitorIndex;
+        SetResolution(monitorIndex);
 
         SaveSettings();
     }
@@ -275,4 +279,3 @@ public class SettingsSaveData
     public bool comments;
     public bool gamepadRumble;
 }
-
