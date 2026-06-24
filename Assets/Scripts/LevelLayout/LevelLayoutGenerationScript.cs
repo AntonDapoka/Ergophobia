@@ -33,6 +33,7 @@ public class LevelLayoutGenerationScript : MonoBehaviour
     [SerializeField] private LevelTransitionManager transitionManager;
     [SerializeField] private EnemySpawner enemySpawner;
     [SerializeField] private FadeInAndOutScript fadeInAndOut;
+    [SerializeField] private Transform cameraTransform;
 
     [Header("Debug")]
     [SerializeField] private bool generateOnStart = true;
@@ -160,6 +161,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         }
 
         OnLevelGenerated?.Invoke(spawnedRooms);
+
+        DistributeCameraToDoors();
 
         transitionManager.Initialize(spawnedRooms);
 
@@ -443,5 +446,23 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         spawnedRooms.Clear();
         slotMap.Clear();
         pendingBranches.Clear();
+    }
+
+    private void DistributeCameraToDoors()
+    {
+        if (cameraTransform == null)
+        {
+            Debug.LogWarning("No camera transform assigned in LevelLayoutGenerationScript.");
+            return;
+        }
+
+        foreach (var room in spawnedRooms)
+        {
+            if (room == null) continue;
+            foreach (var door in room.GetDoors())
+            {
+                door?.SetCamera(cameraTransform);
+            }
+        }
     }
 }

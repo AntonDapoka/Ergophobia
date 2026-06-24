@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<RoomScript, bool> spawnedRooms = new();
     private Dictionary<RoomScript, List<GameObject>> spawnedEnemies = new();
     private Dictionary<string, AsyncOperationHandle<GameObject>> loadedPrefabs = new();
+
+    public event Action<RoomScript> OnRoomCleared;
 
     private void OnEnable()
     {
@@ -104,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
         if (waveMap.Count == 0) yield break;
 
         List<int> waveKeys = new(waveMap.Keys);
-        int selectedWave = waveKeys[Random.Range(0, waveKeys.Count)];
+        int selectedWave = waveKeys[UnityEngine.Random.Range(0, waveKeys.Count)];
 
         if (!spawnedEnemies.ContainsKey(room))
             spawnedEnemies[room] = new List<GameObject>();
@@ -145,6 +148,11 @@ public class EnemySpawner : MonoBehaviour
         Vector3 positionNew = new(point.transform.position.x, point.transform.position.y + offset, point.transform.position.z);
         GameObject enemy = Instantiate(handle.Result, positionNew, point.transform.rotation, holder);
         spawnedEnemies[room].Add(enemy);
+
+        if (enemy.TryGetComponent<HealthComponent>(out var health))
+        {
+            health.OnDeath += () => HandleEnemyDeath(room, enemy);
+        }
     }
 
     private EnemyPrefabConfig GetConfigFor(EnemyType type)
@@ -168,5 +176,40 @@ public class EnemySpawner : MonoBehaviour
         }
 
         loadedPrefabs.Clear();
+    }
+
+    public bool HasLivingEnemies(RoomScript room)
+    {
+        if (room == null) return false;
+        if (!spawnedEnemies.TryGetValue(room, out List<GameObject> enemies)) return false;
+
+        for (int i = enemies.Count - 1; i >= 0; i--)
+        {
+            if (enemies[i] == null)
+            {
+                enemies.RemoveAt(i);
+                continue;
+            }
+
+            if (enemies[i].activeInHierarchy)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void HandleEnemyDeath(RoomScript room, GameObject enemy)
+    {
+        if (room == null) return;
+
+        if (spawnedEnemies.TryGetValue(room, out List<GameObject> enemies))
+        {
+            enemies.Remove(enemy);
+        }
+
+        if (!HasLivingEnemies(room))
+        {
+            OnRoomCleared?.Invoke(room);
+        }
     }
 }

@@ -31,9 +31,6 @@ public class DoorScript : MonoBehaviour
         IsConnected = false;
         IsOpen = false;
         reference = GetComponent<DoorReference>();
-
-        if (colliderDoor == null)
-            colliderDoor = GetComponent<CapsuleCollider>();
     }
 
     public void SetBlockedByPrefab(bool blocked)
@@ -56,5 +53,21 @@ public class DoorScript : MonoBehaviour
     {
         if (IsConnected || isBlockedByPrefab) return;
         gameObject.SetActive(false);
+    }
+
+    public void SetCamera(Transform camera)
+    {
+        reference?.InitializeHint(camera);
+    }
+
+    public void OnPlayerEntered()
+    {
+        if (!IsConnected) return;
+        reference?.SetHintActive(true);
+    }
+
+    public void OnPlayerExited()
+    {
+        reference?.SetHintActive(false);
     }
 }

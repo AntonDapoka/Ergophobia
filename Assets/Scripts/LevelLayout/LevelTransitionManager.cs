@@ -10,6 +10,9 @@ public class LevelTransitionManager : MonoBehaviour
     [SerializeField] private bool deactivateOnStart = true;
     [SerializeField] private FadeInAndOutScript fade;
 
+    [Header("Combat")]
+    [SerializeField] private EnemySpawner enemySpawner;
+
     private List<RoomScript> allRooms = new();
     private RoomScript currentRoom;
     public RoomScript CurrentRoom => currentRoom;
@@ -42,6 +45,15 @@ public class LevelTransitionManager : MonoBehaviour
         UpdateActiveRooms();
 
         OnRoomEntered?.Invoke(currentRoom);
+    }
+
+    /// <summary>
+    /// Returns true if the player is allowed to leave the current room.
+    /// When an EnemySpawner is assigned, leaving is blocked while enemies remain.
+    /// </summary>
+    public bool CanLeaveCurrentRoom()
+    {
+        return enemySpawner == null || !enemySpawner.HasLivingEnemies(CurrentRoom);
     }
 
     public IEnumerator TransitionToRoomWithFade(RoomScript newRoom, Action onMidFade = null)

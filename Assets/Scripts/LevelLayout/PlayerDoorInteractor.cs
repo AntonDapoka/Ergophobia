@@ -56,6 +56,12 @@ public class PlayerDoorInteractor : MonoBehaviour
         DoorScript targetDoor = currentDoor.OppositeDoor;
         if (targetDoor == null) return;
 
+        if (transitionManager != null && !transitionManager.CanLeaveCurrentRoom())
+        {
+            Debug.Log("Cannot leave -enemies remain.");
+            return;
+        }
+
         Transform entryPoint = targetDoor.PlayerEntryPoint;
         if (entryPoint == null)
         {

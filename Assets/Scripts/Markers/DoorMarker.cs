@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class DoorMarker : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private DoorScript door;
+
+    private void Awake()
     {
-        
+        door = GetComponentInParent<DoorScript>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.TryGetComponent<PlayerMarker>(out _))
+            door?.OnPlayerEntered();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<PlayerMarker>(out _))
+            door?.OnPlayerExited();
     }
 }
