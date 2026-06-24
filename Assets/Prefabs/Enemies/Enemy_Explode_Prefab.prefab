@@ -1041,13 +1041,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuicideAttackStrategy
   fuseTime: 0.5
-  explosionRadius: 10
+  explosionRadius: 5
   explosionVFX: {fileID: 2530143152716916853, guid: bf927d325275f484bb86f1c5ce93cbc0,
     type: 3}
   canDamageAllies: 0
-  pushForce: 200
+  pushForce: 0
   cancelableTime: 0.25
-  cancelDistance: 8
+  cancelDistance: 7
   warningCircle: {fileID: 6969114723522756089}
   circleSegments: 50
 --- !u!136 &2884188003211939713

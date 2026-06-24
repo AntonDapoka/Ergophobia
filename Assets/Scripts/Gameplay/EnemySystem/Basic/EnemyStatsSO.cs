@@ -14,4 +14,7 @@ public class EnemyStatsSO : ScriptableObject
     public float attackRange = 2f;
     public float attackDamage = 10f;
     public float attackCooldown = 1.5f;
+
+    [Tooltip("IsRanged")]
+    public bool isRanged;
 }

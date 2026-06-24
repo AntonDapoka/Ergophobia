@@ -70,6 +70,13 @@ public class EnemyController : MonoBehaviour
         isDead = true;
         Debug.Log($"{gameObject.name} has died£¡");
 
+
+        if (CombatManager.Instance != null)
+        {
+            CombatManager.CombatRole role = Stats.isRanged ? CombatManager.CombatRole.Ranged : CombatManager.CombatRole.Melee;
+            CombatManager.Instance.RemoveEnemyCompletely(gameObject, role);
+        }
+
         currentState?.Exit();
         currentState = null;
 

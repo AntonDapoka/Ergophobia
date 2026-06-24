@@ -19,3 +19,4 @@ MonoBehaviour:
   attackRange: 25
   attackDamage: 10
   attackCooldown: 1.5
+  isRanged: 1
