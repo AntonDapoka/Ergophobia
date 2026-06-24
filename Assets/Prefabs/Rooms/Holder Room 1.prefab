@@ -52,6 +52,7 @@ MonoBehaviour:
   roomSize: {x: 16, y: 9}
   doors:
   - {fileID: 3248403851287938400}
+  spawners: []
 --- !u!114 &1626495930955936760
 MonoBehaviour:
   m_ObjectHideFlags: 0
