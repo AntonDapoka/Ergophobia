@@ -9,9 +9,7 @@ public class FadeInAndOutScript : MonoBehaviour
     [SerializeField] private Image panelFade;
 
     [Header("Curves")]
-    [Tooltip("0 = прозрачно, 1 = непрозрачно")]
     [SerializeField] private AnimationCurve fadeOutCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
-    [Tooltip("0 = прозрачно, 1 = непрозрачно")]
     [SerializeField] private AnimationCurve fadeInCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
 
     [Header("Durations")]
@@ -19,15 +17,6 @@ public class FadeInAndOutScript : MonoBehaviour
     [SerializeField] private float fadeInDuration = 0.5f;
     [SerializeField] private float startFadeInDuration = 5f;
     [SerializeField] private bool playStartFadeIn = true;
-
-    private void Awake()
-    {
-        if (panelFade != null)
-        {
-            SetAlpha(0f);
-            panelFade.gameObject.SetActive(false);
-        }
-    }
 
     private void Start()
     {
@@ -51,6 +40,20 @@ public class FadeInAndOutScript : MonoBehaviour
         yield return PlayFadeOut(fadeOutDuration);
         onMidpoint?.Invoke();
         yield return PlayFadeIn(fadeInDuration);
+    }
+
+    public void StartFadeIn(float? duration = null)
+    {
+        if (panelFade == null)
+        {
+            Debug.LogWarning("Fade image is not assigned");
+            return;
+        }
+
+        StopAllCoroutines();
+        panelFade.gameObject.SetActive(true);
+        SetAlpha(1f);
+        StartCoroutine(PlayFadeIn(duration));
     }
 
     private IEnumerator PlayFade(float duration, AnimationCurve curve)

@@ -31,6 +31,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private LevelTransitionManager transitionManager;
+    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private FadeInAndOutScript fadeInAndOut;
 
     [Header("Debug")]
     [SerializeField] private bool generateOnStart = true;
@@ -69,6 +71,9 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         }
 
         yield return StartCoroutine(roomPool.InitializeAsync(roomConfigs));
+
+        if (enemySpawner != null)
+            yield return StartCoroutine(enemySpawner.InitializeAsync());
 
         RoomPrefabConfig startConfig = PickStartConfig();
         if (startConfig == null)
@@ -157,6 +162,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
         OnLevelGenerated?.Invoke(spawnedRooms);
 
         transitionManager.Initialize(spawnedRooms);
+
+        fadeInAndOut?.StartFadeIn();
     }
 
     private RoomPrefabConfig ValidateFinalRoomConfig()

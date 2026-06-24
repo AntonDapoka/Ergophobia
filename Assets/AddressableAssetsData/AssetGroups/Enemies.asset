@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Enemies
+  m_GUID: 5468f5ec0b150e547a71822382ba5bfb
+  m_SerializeEntries:
+  - m_GUID: 0b39ed024f4b135449fc823578a3950e
+    m_Address: Assets/Prefabs/Enemies/Enemy_Summon_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3c76a2f21a8aad948ae13543845da454
+    m_Address: Assets/Prefabs/Enemies/Enemy_Shield_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b9e068445942874f882ad844fe07796
+    m_Address: Assets/Prefabs/Enemies/Enemy_Explode_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72baea5cdcd649f48a634148d0284dbe
+    m_Address: Assets/Prefabs/Enemies/Enemy_Giant_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 759c1d8659de02240a083d891214648e
+    m_Address: Assets/Prefabs/Enemies/Enemy_Summon_Father_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e497dc8762eb3714ca0cd70549947ef8
+    m_Address: Assets/Prefabs/Enemies/Enemy_Gun_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ee28e902088b09d49b5e7bde212ef1ca
+    m_Address: Assets/Prefabs/Enemies/Enemy_Normal_Prefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 79f471adae72957428c8bb417a311ab0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 22b98f06d13e5164ab876be32dd0956e, type: 2}
+    - {fileID: 11400000, guid: 5ddd686b9937a084e845581a463312a7, type: 2}

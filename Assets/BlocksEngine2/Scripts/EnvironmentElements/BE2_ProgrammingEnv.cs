@@ -16,8 +16,10 @@ namespace MG_BlocksEngine2.Environment
         public BE2_TargetObject targetObject;
         public I_BE2_TargetObject TargetObject => targetObject;
 
-        // --- Line-based system: main lines ---
         [Header("Lines")]
+        [Tooltip("Number of lines available when the programming environment starts.")]
+        public int startMainLines = 4;
+        [Tooltip("Maximum total lines the player can add to the programming environment.")]
         public int maxMainLines = 20;
         public float lineHeight = 60f;
         public float lineIndent = 20f;
@@ -70,6 +72,11 @@ namespace MG_BlocksEngine2.Environment
         {
             _parentCanvasGroup = GetComponentInParent<CanvasGroup>();
             Visible = _visible;
+
+            if (startMainLines > maxMainLines)
+            {
+                Debug.LogWarning($"[BE2_ProgrammingEnv] startMainLines ({startMainLines}) cannot exceed maxMainLines ({maxMainLines}). It will be clamped at runtime.");
+            }
         }
 
         void Awake()
@@ -183,7 +190,8 @@ namespace MG_BlocksEngine2.Environment
         void CreateMainLines()
         {
             MainLines = new List<BE2_Line>();
-            for (int i = 0; i < maxMainLines; i++)
+            int initialLines = Mathf.Min(startMainLines, maxMainLines);
+            for (int i = 0; i < initialLines; i++)
             {
                 GameObject lineGO = new GameObject("Line " + i, typeof(RectTransform), typeof(Image), typeof(BE2_Line));
                 lineGO.transform.SetParent(contentContainer != null ? contentContainer : _transform);
@@ -239,6 +247,48 @@ namespace MG_BlocksEngine2.Environment
             }
 
             UpdateBlocksList();
+        }
+
+        /// <summary>
+        /// Adds a single empty main line at the bottom of the programming environment.
+        /// Does nothing if the configured maximum number of lines has been reached.
+        /// </summary>
+        public void AddLine()
+        {
+            if (MainLines != null && MainLines.Count >= maxMainLines) return;
+
+            if (MainLines == null) MainLines = new List<BE2_Line>();
+
+            if (contentContainer == null) SetupScrolling();
+
+            int index = MainLines.Count;
+            GameObject lineGO = new GameObject("Line " + index, typeof(RectTransform), typeof(Image), typeof(BE2_Line));
+            lineGO.transform.SetParent(contentContainer != null ? contentContainer : _transform);
+            lineGO.transform.SetAsLastSibling();
+            lineGO.transform.localScale = Vector3.one;
+
+            RectTransform rt = lineGO.GetComponent<RectTransform>();
+            rt.anchorMin = new Vector2(0, 1);
+            rt.anchorMax = new Vector2(0, 1);
+            rt.pivot = new Vector2(0, 1);
+            rt.anchoredPosition = new Vector2(lineIndent, -index * lineHeight);
+            rt.sizeDelta = new Vector2(lineWidth, lineHeight);
+
+            Image img = lineGO.GetComponent<Image>();
+            if (lineSprite != null)
+                img.sprite = lineSprite;
+
+            BE2_Line line = lineGO.GetComponent<BE2_Line>();
+            line.LineIndex = index;
+            line.NormalColor = lineNormalColor;
+            line.HoverColor = lineHoverColor;
+            line.OccupiedColor = lineOccupiedColor;
+            line.BackgroundSprite = lineSprite;
+
+            MainLines.Add(line);
+
+            UpdateBlocksList();
+            UpdateLinePositions();
         }
     }
 }
