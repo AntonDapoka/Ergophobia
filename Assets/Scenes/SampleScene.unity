@@ -29673,7 +29673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7628c2f6b0b3aa74ab11ccee41bfcbf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlocksReferenceScript
-  blocks: []
+  blocks:
+  - {fileID: 0}
 --- !u!1 &1837752273
 GameObject:
   m_ObjectHideFlags: 0
@@ -30423,7 +30424,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 02e10b0d5c8a5e34dad47ef90f2cfcb8, type: 2}
   - {fileID: 11400000, guid: 50993eb9146cc134a9f1333fc22f8749, type: 2}
   startRoomConfig: {fileID: 11400000, guid: 1f78084f5646bb24787409739574cb24, type: 2}
-  finalRoomConfig: {fileID: 11400000, guid: c0e9959490f006c47905f5ca5bbc12f6, type: 2}
+  finalRoomConfig: {fileID: 11400000, guid: 4b251d07026e7d24781da05ab350bff1, type: 2}
   allowAlignedBranches: 1
   allowStaggeredBranches: 1
   roomGapX: 4
