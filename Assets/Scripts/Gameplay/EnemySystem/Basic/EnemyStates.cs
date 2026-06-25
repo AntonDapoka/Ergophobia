@@ -30,6 +30,7 @@ public class ChaseState : IState
 {
     private EnemyController enemy;
     private Transform target;
+    private float turnThreshold = 15f; 
 
     public ChaseState(EnemyController enemy, Transform target)
     {
@@ -43,7 +44,24 @@ public class ChaseState : IState
     {
         if (target == null) return;
 
-        enemy.Movement.MoveTo(target.position, enemy.Stats.chaseSpeed);
+        Vector3 direction = (target.position - enemy.transform.position).normalized;
+        direction.y = 0;
+
+        if (direction != Vector3.zero)
+        {
+            float angle = Vector3.Angle(enemy.transform.forward, direction);
+
+            if (angle > turnThreshold)
+            {
+                enemy.Movement.Stop();
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 12f);
+            }
+            else
+            {
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 12f);
+                enemy.Movement.MoveTo(target.position, enemy.Stats.chaseSpeed);
+            }
+        }
 
         float distance = Vector3.Distance(enemy.transform.position, target.position);
 
@@ -52,12 +70,10 @@ public class ChaseState : IState
             CombatManager.CombatRole role = enemy.Stats.isRanged ? CombatManager.CombatRole.Ranged : CombatManager.CombatRole.Melee;
             if (CombatManager.Instance.HasToken(enemy.gameObject, role))
             {
-                // 有令牌，直接开打
                 enemy.TransitionToState(new AttackState(enemy, target));
             }
             else
             {
-                // 没令牌，进入踱步状态去报名排队
                 enemy.TransitionToState(new CombatWaitState(enemy, target, false));
             }
         }
@@ -65,7 +81,6 @@ public class ChaseState : IState
 
     public void Exit() { enemy.Movement.Stop(); }
 }
-
 // ==========================================
 // 3. 攻击状态
 // ==========================================
@@ -203,11 +218,11 @@ public class CombatWaitState : IState
             if (angle > turnThreshold)
             {
                 enemy.Movement.Stop();
-                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(lookPos), Time.deltaTime * 10f);
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(lookPos), Time.deltaTime * 12f);
             }
             else
             {
-                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(lookPos), Time.deltaTime * 10f);
+                enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(lookPos), Time.deltaTime * 12f);
                 strafeTimer += Time.deltaTime * 0.5f * strafeDirection;
                 Vector3 offset = new Vector3(Mathf.Sin(strafeTimer), 0, Mathf.Cos(strafeTimer)) * waitDistance;
                 enemy.Movement.MoveTo(target.position + offset, enemy.Stats.chaseSpeed * 0.5f);

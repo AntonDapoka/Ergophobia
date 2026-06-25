@@ -2028,6 +2028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelTransitionManager
   deactivateOnStart: 1
   fade: {fileID: 1980417810}
+  enemySpawner: {fileID: 0}
 --- !u!1 &140032945
 GameObject:
   m_ObjectHideFlags: 0
@@ -28453,6 +28454,7 @@ MonoBehaviour:
   transitionManager: {fileID: 139102930}
   enemySpawner: {fileID: 0}
   fadeInAndOut: {fileID: 1980417810}
+  cameraTransform: {fileID: 0}
   generateOnStart: 1
 --- !u!1 &1874529918
 GameObject:
