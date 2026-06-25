@@ -2,6 +2,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMoving : MonoBehaviour
 {
+    [SerializeField] private bool isAbleToMove = true;
     [Header("Movement Settings")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float runSpeed = 8f;
@@ -19,6 +20,11 @@ public class PlayerMoving : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    public void SetIsAbleToMove(bool isAbleToMoveNew)
+    {
+        isAbleToMove = isAbleToMoveNew;
+    }
+
     private void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -32,6 +38,8 @@ public class PlayerMoving : MonoBehaviour
 
     private void UpdateAnimation()
     {
+        if (!isAbleToMove) return;
+
         if (inputDir.magnitude > 0.1f)
         {
             float angle = Vector3.SignedAngle(transform.forward, inputDir, Vector3.up);
@@ -52,6 +60,7 @@ public class PlayerMoving : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!isAbleToMove) return;
         float speed = isRunning ? runSpeed : walkSpeed;
 
         /*rb.MovePosition(

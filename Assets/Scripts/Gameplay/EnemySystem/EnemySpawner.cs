@@ -36,10 +36,6 @@ public class EnemySpawner : MonoBehaviour
         ReleaseAll();
     }
 
-    /// <summary>
-    /// Pre-loads all configured enemy prefabs through Addressables.
-    /// Call this during level generation so the first spawn does not hitch.
-    /// </summary>
     public IEnumerator InitializeAsync()
     {
         if (enemyPrefabConfigs == null) yield break;
@@ -62,8 +58,7 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (AsyncOperationHandle<GameObject> handle in loadedPrefabs.Values)
         {
-            if (!handle.IsDone)
-                yield return handle;
+            if (!handle.IsDone) yield return handle;
         }
     }
 
@@ -210,6 +205,7 @@ public class EnemySpawner : MonoBehaviour
         if (!HasLivingEnemies(room))
         {
             OnRoomCleared?.Invoke(room);
+            transitionManager.TurnOffBlocks();
         }
     }
 }

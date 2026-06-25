@@ -117,7 +117,11 @@ namespace MG_BlocksEngine2.Block
             int sectionsLength = SectionsArray.Length;
             for (int i = 0; i < sectionsLength; i++)
             {
-                SectionsArray[i].UpdateLayout();
+                I_BE2_BlockSection section = SectionsArray[i];
+                if (section == null)
+                    continue;
+
+                section.UpdateLayout();
             }
 
             if (OuterArea != null)

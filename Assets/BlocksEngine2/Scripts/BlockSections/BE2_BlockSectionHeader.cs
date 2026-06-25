@@ -134,6 +134,9 @@ namespace MG_BlocksEngine2.Block
             }
 #endif
 
+            if (_section == null)
+                return;
+
             if (_blockLayout != null)
                 _image.color = _blockLayout.Color;
 

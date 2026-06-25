@@ -42,7 +42,7 @@ public class SettingsScript : MonoBehaviour
     public int parameterVolume = 20;
     private Resolution[] resolutions;
 
-    private string relativePath = "/settings-savefile.json";
+    private readonly string relativePath = "/settings-savefile.json";
 
     private void Awake()
     {
@@ -132,8 +132,8 @@ public class SettingsScript : MonoBehaviour
         currentMusicVolume = SetVolume(defaultVolume, volumeParameterMusic, sliderMusicVolume, textMusicVolume);
         currentSFXVolume = SetVolume(defaultVolume, volumeParameterSFX, sliderSFXVolume, textSFXVolume);
 
-        Screen.fullScreen = false;
-        toggleFullScreen.isOn = false;
+        Screen.fullScreen = true;
+        toggleFullScreen.isOn = true;
 
         SetResolutionToCurrentMonitor();
         SaveSettings();

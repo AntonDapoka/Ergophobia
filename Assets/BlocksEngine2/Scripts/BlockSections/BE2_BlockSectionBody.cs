@@ -191,6 +191,10 @@ namespace MG_BlocksEngine2.Block
 
         public void UpdateLayout()
         {
+            // Guard against incomplete initialization / destroyed objects during scene reloads
+            if (_section == null || _section.Block == null)
+                return;
+
             if (_image.sprite != null && _blockLayout != null)
                 _image.color = _blockLayout.Color;
 

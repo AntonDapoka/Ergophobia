@@ -4,18 +4,28 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
 {
     [SerializeField] private float maxHealth ;
     [SerializeField] private float currentHealth;
+    [SerializeField] private LoseScript loseScript;
+    [SerializeField] private PlayerMoving playerMoving;
 
     public event Action OnDeath;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        OnDeath += loseScript.Lose;
+        OnDeath += DisableMovement;
+    }
+
+    private void DisableMovement()
+    {
+        playerMoving.SetIsAbleToMove(false);
     }
 
     public void TakeDamage(float damage)
     {
         TakeDamage(damage, transform.position); 
     }
+    
     public void TakeDamage(float amount,Vector3 damageSourcePosition)
     {
         if (currentHealth <= 0) return; 
@@ -24,10 +34,7 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
         
         Debug.Log($"Player has been taken a damage {amount} Health remaining {currentHealth} / {maxHealth}");
 
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth <= 0)Die();
     }
 
     public void Heal(float amount)
@@ -43,5 +50,12 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
     {
         Debug.Log("<color=red>Player has died</color>");
         OnDeath?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        OnDeath -= DisableMovement;
+        if (loseScript != null)
+            OnDeath -= loseScript.Lose;
     }
 }

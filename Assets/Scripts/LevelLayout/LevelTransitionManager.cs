@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using MG_BlocksEngine2.Core;
 
 public class LevelTransitionManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class LevelTransitionManager : MonoBehaviour
 
     [Header("Combat")]
     [SerializeField] private EnemySpawner enemySpawner;
+
+    [Header("Blocks System")]
+    [SerializeField] private BE2_ExecutionManager executionManager;
 
     private List<RoomScript> allRooms = new();
     private RoomScript currentRoom;
@@ -45,12 +49,17 @@ public class LevelTransitionManager : MonoBehaviour
         UpdateActiveRooms();
 
         OnRoomEntered?.Invoke(currentRoom);
+        TurnOnBlocks();
     }
 
-    /// <summary>
-    /// Returns true if the player is allowed to leave the current room.
-    /// When an EnemySpawner is assigned, leaving is blocked while enemies remain.
-    /// </summary>
+    public void TurnOnBlocks()
+    {
+        executionManager.Play();
+    }
+    public void TurnOffBlocks()
+    {
+        executionManager.Stop();
+    }
     public bool CanLeaveCurrentRoom()
     {
         return enemySpawner == null || !enemySpawner.HasLivingEnemies(CurrentRoom);
