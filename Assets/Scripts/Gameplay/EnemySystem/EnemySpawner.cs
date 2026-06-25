@@ -114,6 +114,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    public void GetRandomSpawnPoint(RoomScript room)
+    {
+         List<SpawnerPoint> points = room.GetSpawnerPoints();
+    }
+
     private IEnumerator SpawnAtCoroutine(RoomScript room, SpawnerPoint point)
     {
         EnemyPrefabConfig config = GetConfigFor(point.Type);
@@ -205,7 +210,7 @@ public class EnemySpawner : MonoBehaviour
         if (!HasLivingEnemies(room))
         {
             OnRoomCleared?.Invoke(room);
-            transitionManager.TurnOffBlocks();
+            transitionManager.OnRoomCleared();
         }
     }
 }

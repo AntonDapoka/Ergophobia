@@ -14,6 +14,9 @@ public class LevelTransitionManager : MonoBehaviour
     [Header("Combat")]
     [SerializeField] private EnemySpawner enemySpawner;
 
+    [Header("Treasure")]
+    [SerializeField] private TreasureSpawnerScript treasureSpawner;
+
     [Header("Blocks System")]
     [SerializeField] private BE2_ExecutionManager executionManager;
 
@@ -52,6 +55,23 @@ public class LevelTransitionManager : MonoBehaviour
         TurnOnBlocks();
     }
 
+    public void OnRoomCleared()
+    {
+        TurnOffBlocks();
+        treasureSpawner.SpawnTreasure(GetRandomSpawnPoint());
+    }
+
+    public SpawnerPoint GetRandomSpawnPoint()
+    {
+        List<SpawnerPoint> points = currentRoom.GetSpawnerPoints();
+
+        if (points == null || points.Count == 0)
+            return null;
+
+        int randomIndex = UnityEngine.Random.Range(0, points.Count);
+        return points[randomIndex];
+    }
+
     public void TurnOnBlocks()
     {
         executionManager.Play();
@@ -60,6 +80,7 @@ public class LevelTransitionManager : MonoBehaviour
     {
         executionManager.Stop();
     }
+
     public bool CanLeaveCurrentRoom()
     {
         return enemySpawner == null || !enemySpawner.HasLivingEnemies(CurrentRoom);
