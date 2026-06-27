@@ -215,8 +215,19 @@ namespace MG_BlocksEngine2.DragDrop
                 }
                 else
                 {
-                    Debug.LogWarning("[BE2_DragBlock] OnPointerUp: NO sourceLine, NO sourceHolder, NO target — DESTROYING block!");
-                    Destroy(Transform.gameObject);
+                    StorageEnvironment nearestStorage = FindNearestStorageEnvironment(RayPoint);
+                    if (nearestStorage != null)
+                    {
+                        Vector2 nearestPoint = GetNearestPointOnRect(nearestStorage.contentArea, RayPoint);
+                        Vector2 localPos = nearestStorage.contentArea.InverseTransformPoint(nearestPoint);
+                        Debug.Log($"[BE2_DragBlock] OnPointerUp: no source, dropping to nearest storage {nearestStorage.name} at localPos={localPos}");
+                        nearestStorage.AddBlock(Block, localPos);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[BE2_DragBlock] OnPointerUp: NO sourceLine, NO sourceHolder, NO target, NO storage — DESTROYING block!");
+                        Destroy(Transform.gameObject);
+                    }
                 }
             }
 
@@ -239,6 +250,52 @@ namespace MG_BlocksEngine2.DragDrop
             Block.Instruction.InstructionBase.UpdateTargetObject();
         }
 
+        /// <summary>
+        /// Finds the nearest StorageEnvironment to the given world point.
+        /// Used as a fallback when an orphan block (no source line or holder) is dropped outside any environment.
+        /// </summary>
+        StorageEnvironment FindNearestStorageEnvironment(Vector2 worldPoint)
+        {
+            StorageEnvironment nearest = null;
+            float nearestDistanceSqr = float.MaxValue;
 
+            foreach (var holder in HolderEnvironment.ActiveHolders)
+            {
+                if (holder is not StorageEnvironment storage)
+                    continue;
+
+                if (storage.contentArea == null)
+                    continue;
+
+                Vector2 nearestPoint = GetNearestPointOnRect(storage.contentArea, worldPoint);
+                float distanceSqr = ((Vector2)nearestPoint - worldPoint).sqrMagnitude;
+                if (distanceSqr < nearestDistanceSqr)
+                {
+                    nearestDistanceSqr = distanceSqr;
+                    nearest = storage;
+                }
+            }
+
+            return nearest;
+        }
+
+        /// <summary>
+        /// Returns the closest point on the RectTransform's world-space rectangle to the given point.
+        /// </summary>
+        Vector2 GetNearestPointOnRect(RectTransform rectTransform, Vector2 worldPoint)
+        {
+            Vector3[] corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+
+            float minX = Mathf.Min(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+            float maxX = Mathf.Max(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+            float minY = Mathf.Min(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+            float maxY = Mathf.Max(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+
+            return new Vector2(
+                Mathf.Clamp(worldPoint.x, minX, maxX),
+                Mathf.Clamp(worldPoint.y, minY, maxY)
+            );
+        }
     }
 }

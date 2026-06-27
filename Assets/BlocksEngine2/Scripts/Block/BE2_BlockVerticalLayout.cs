@@ -124,6 +124,8 @@ namespace MG_BlocksEngine2.Block
                 section.UpdateLayout();
             }
 
+            _rectTransform.sizeDelta = Size;
+
             if (OuterArea != null)
                 OuterArea.UpdateLayout();
         }

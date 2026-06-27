@@ -14,12 +14,10 @@ namespace MG_BlocksEngine2.Block.Instruction
     {
         [Header("Value")]
         [SerializeField]
-        [Tooltip("Positive integer value exposed by this block.")]
         int _value = 1;
 
         [Header("UI Reference")]
         [SerializeField]
-        [Tooltip("Optional child Transform containing a Text or TMP_Text component used to display the value.")]
         Transform _valueLabelTransform;
 
         BE2_Text _valueLabel;
@@ -28,7 +26,6 @@ namespace MG_BlocksEngine2.Block.Instruction
 
         void OnValidate()
         {
-            // Enforce the "positive integer" constraint
             _value = Mathf.Max(0, _value);
             UpdateLabel();
         }

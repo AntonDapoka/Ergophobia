@@ -162,16 +162,44 @@ namespace MG_BlocksEngine2.Block
             ChildBlocksCount = ChildBlocksArray.Length;
         }
 
+        int GetVisibleSubLineCount()
+        {
+            if (SubLines == null || SubLines.Count == 0)
+                return 0;
+
+            int lastOccupiedIndex = -1;
+            for (int i = SubLines.Count - 1; i >= 0; i--)
+            {
+                if (SubLines[i] != null && SubLines[i].CurrentBlock != null)
+                {
+                    lastOccupiedIndex = i;
+                    break;
+                }
+            }
+
+            // Always keep one trailing empty line as a drop target.
+            return Mathf.Min(SubLines.Count, Mathf.Max(1, lastOccupiedIndex + 2));
+        }
+
         public void UpdateSubLinePositions()
         {
             if (SubLines == null || SubLines.Count == 0)
                 return;
 
+            int visibleCount = GetVisibleSubLineCount();
             float currentY = 0;
+
             for (int i = 0; i < SubLines.Count; i++)
             {
                 BE2_Line line = SubLines[i];
                 if (line == null)
+                    continue;
+
+                bool visible = i < visibleCount;
+                if (line.gameObject.activeSelf != visible)
+                    line.gameObject.SetActive(visible);
+
+                if (!visible)
                     continue;
 
                 RectTransform rt = line.GetComponent<RectTransform>();
@@ -204,12 +232,20 @@ namespace MG_BlocksEngine2.Block
             {
                 UpdateSubLinePositions();
 
+                int visibleCount = GetVisibleSubLineCount();
                 float bodyWidth = _rectTransform.rect.width;
 
                 for (int i = 0; i < SubLines.Count; i++)
                 {
                     BE2_Line line = SubLines[i];
                     if (line == null)
+                        continue;
+
+                    bool visible = i < visibleCount;
+                    if (line.gameObject.activeSelf != visible)
+                        line.gameObject.SetActive(visible);
+
+                    if (!visible)
                         continue;
 
                     // Update subline width based on nesting level

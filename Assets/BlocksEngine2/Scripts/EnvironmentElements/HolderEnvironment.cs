@@ -73,14 +73,31 @@ namespace MG_BlocksEngine2.Environment
                 return;
             }
 
+            Vector2 clampedLocalPos = ClampLocalPosition(localPosition, contentArea);
+
             block.Transform.SetParent(contentArea, false);
-            block.Transform.localPosition = new Vector3(localPosition.x, localPosition.y, 0);
+            block.Transform.localPosition = new Vector3(clampedLocalPos.x, clampedLocalPos.y, 0);
             block.Transform.localEulerAngles = Vector3.zero;
 
             if (!Blocks.Contains(block))
                 Blocks.Add(block);
 
-            Debug.Log($"[HolderEnvironment] AddBlock: {name} now has {Blocks.Count} blocks. Added {(block != null ? block.Transform.name : "NULL")} at localPos={localPosition}");
+            Debug.Log($"[HolderEnvironment] AddBlock: {name} now has {Blocks.Count} blocks. Added {(block != null ? block.Transform.name : "NULL")} at localPos={clampedLocalPos}");
+        }
+
+        /// <summary>
+        /// Clamps a local position so blocks cannot be placed outside the content area's bounds.
+        /// </summary>
+        Vector2 ClampLocalPosition(Vector2 localPosition, RectTransform contentArea)
+        {
+            if (contentArea == null)
+                return localPosition;
+
+            Rect rect = contentArea.rect;
+            return new Vector2(
+                Mathf.Clamp(localPosition.x, rect.xMin, rect.xMax),
+                Mathf.Clamp(localPosition.y, rect.yMin, rect.yMax)
+            );
         }
 
         public void RemoveBlock(I_BE2_Block block)
