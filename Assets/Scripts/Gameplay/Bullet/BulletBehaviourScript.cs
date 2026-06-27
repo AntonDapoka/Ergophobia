@@ -9,6 +9,8 @@ public class BulletBehaviourScript : MonoBehaviour
     [SerializeField] private float lifeDuration = 1f;
     [SerializeField] private float damage = 25f;
     [SerializeField] private GameObject explosionVFX;
+    [SerializeField] private AudioSource audiosource;
+    [SerializeField] private AudioClip hitSFX;
 
     public float Speed
     {
@@ -89,7 +91,11 @@ public class BulletBehaviourScript : MonoBehaviour
 
             Debug.Log($"<color=cyan>Bullet hits {hitObject.name} and deals {damage} damage</color>");
         }
-
+        if (hitSFX != null)
+        {
+            audiosource.pitch = Random.Range(1.2f, 1.8f);
+            AudioSource.PlayClipAtPoint(hitSFX, collision.contacts[0].point, 1.0f);
+        }
         if (explosionVFX != null)
         {
             GameObject vfx = Instantiate( explosionVFX, collision.contacts[0].point, Quaternion.identity);

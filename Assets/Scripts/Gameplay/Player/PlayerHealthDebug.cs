@@ -7,6 +7,7 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
     [SerializeField] private float currentHealth;
     [SerializeField] private LoseScript loseScript;
     [SerializeField] private PlayerMoving playerMoving;
+    private PlayerAudio playerAudio;
 
     public event Action OnDeath;
     public event Action<float, float> OnHealthChanged;
@@ -16,6 +17,7 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        playerAudio = GetComponent<PlayerAudio>();
         currentHealth = maxHealth;
         OnDeath += loseScript.Lose;
         OnDeath += DisableMovement;
@@ -38,7 +40,7 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
 
         currentHealth -= amount;
         NotifyHealthChanged();
-        
+        if (playerAudio != null) playerAudio.PlayHurt();
         Debug.Log($"Player has been taken a damage {amount} Health remaining {currentHealth} / {maxHealth}");
 
         if (currentHealth <= 0) Die();

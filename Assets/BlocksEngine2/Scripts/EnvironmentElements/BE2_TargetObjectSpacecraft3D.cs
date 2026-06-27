@@ -11,6 +11,8 @@ namespace MG_BlocksEngine2.Environment
         [SerializeField] private Transform firePoint;
         [SerializeField] private Transform aimTarget;
 
+        private PlayerAudio playerAudio;
+
         public new Transform Transform => transform;
 
         // Centralized bullet tracking so managers (e.g. BulletCodeblockManager) can
@@ -23,6 +25,7 @@ namespace MG_BlocksEngine2.Environment
 
         void Awake()
         {
+            playerAudio = GetComponent<PlayerAudio>();
             // v2.6 - changed way to find "bullet" child of Target Object
             foreach (Transform child in transform)
             {
@@ -51,8 +54,9 @@ namespace MG_BlocksEngine2.Environment
             }
 
             Vector3 direction = (aimTarget.position - firePoint.position).normalized;
+            if (playerAudio != null) playerAudio.PlayAttack();
             GameObject bullet = Instantiate(prefabToSpawn, firePoint.position, Quaternion.identity);
-
+           
             if (bullet.TryGetComponent<BulletBehaviourScript>(out var bulletScript))
             {
                 bulletScript.SetDirection(gameObject, direction);
