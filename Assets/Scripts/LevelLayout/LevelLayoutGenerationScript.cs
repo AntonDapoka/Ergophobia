@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LevelLayoutGenerationScript : MonoBehaviour
+public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
 {
     private const float RoomWidth = 16f;
     private const float RoomHeight = 9f;
@@ -50,12 +50,12 @@ public class LevelLayoutGenerationScript : MonoBehaviour
             GenerateLevel();
     }
 
-    public void GenerateLevel()
+    public void GenerateLevel(bool playFadeIn = true)
     {
-        StartCoroutine(GenerateLevelAsync());
+        StartCoroutine(GenerateLevelAsync(playFadeIn));
     }
 
-    private IEnumerator GenerateLevelAsync()
+    private IEnumerator GenerateLevelAsync(bool playFadeIn)
     {
         ClearLevel();
 
@@ -166,7 +166,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour
 
         transitionManager.Initialize(spawnedRooms);
 
-        fadeInAndOut?.StartFadeIn();
+        if (playFadeIn)
+            fadeInAndOut?.StartFadeIn();
     }
 
     private RoomPrefabConfig ValidateFinalRoomConfig()

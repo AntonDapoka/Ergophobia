@@ -1,19 +1,25 @@
 using System;
 using UnityEngine;
+
 public class PlayerHealthDebug : MonoBehaviour, IDamageable 
 {
-    [SerializeField] private float maxHealth ;
+    [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
     [SerializeField] private LoseScript loseScript;
     [SerializeField] private PlayerMoving playerMoving;
 
     public event Action OnDeath;
+    public event Action<float, float> OnHealthChanged;
+
+    public float CurrentHealth => currentHealth;
+    public float MaxHealth => maxHealth;
 
     private void Start()
     {
         currentHealth = maxHealth;
         OnDeath += loseScript.Lose;
         OnDeath += DisableMovement;
+        NotifyHealthChanged();
     }
 
     private void DisableMovement()
@@ -26,15 +32,16 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
         TakeDamage(damage, transform.position); 
     }
     
-    public void TakeDamage(float amount,Vector3 damageSourcePosition)
+    public void TakeDamage(float amount, Vector3 damageSourcePosition)
     {
         if (currentHealth <= 0) return; 
 
         currentHealth -= amount;
+        NotifyHealthChanged();
         
         Debug.Log($"Player has been taken a damage {amount} Health remaining {currentHealth} / {maxHealth}");
 
-        if (currentHealth <= 0)Die();
+        if (currentHealth <= 0) Die();
     }
 
     public void Heal(float amount)
@@ -43,13 +50,19 @@ public class PlayerHealthDebug : MonoBehaviour, IDamageable
         currentHealth += amount;
         if (currentHealth > maxHealth)
             currentHealth = maxHealth;
-        Debug.Log($"Player healed {amount}Health {currentHealth} / {maxHealth}");
+        NotifyHealthChanged();
+        Debug.Log($"Player healed {amount} Health {currentHealth} / {maxHealth}");
     }
 
     private void Die()
     {
         Debug.Log("<color=red>Player has died</color>");
         OnDeath?.Invoke();
+    }
+
+    private void NotifyHealthChanged()
+    {
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     private void OnDestroy()

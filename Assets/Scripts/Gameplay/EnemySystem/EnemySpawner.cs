@@ -18,6 +18,9 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<string, AsyncOperationHandle<GameObject>> loadedPrefabs = new();
 
     public event Action<RoomScript> OnRoomCleared;
+    public event Action<GameObject> OnEnemySpawned;
+    public event Action<GameObject> OnEnemyDestroyed;
+    public event Action OnAllEnemiesCleared;
 
     private void OnEnable()
     {
@@ -65,11 +68,20 @@ public class EnemySpawner : MonoBehaviour
     private void HandleLevelGenerated(List<RoomScript> rooms)
     {
         foreach (var kvp in spawnedEnemies)
+        {
             foreach (GameObject enemy in kvp.Value)
-                if (enemy != null) Destroy(enemy);
+            {
+                if (enemy != null)
+                {
+                    OnEnemyDestroyed?.Invoke(enemy);
+                    Destroy(enemy);
+                }
+            }
+        }
 
         spawnedEnemies.Clear();
         spawnedRooms.Clear();
+        OnAllEnemiesCleared?.Invoke();
     }
 
     private void HandleRoomEntered(RoomScript room)
@@ -114,10 +126,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void GetRandomSpawnPoint(RoomScript room)
-    {
-         List<SpawnerPoint> points = room.GetSpawnerPoints();
-    }
+
 
     private IEnumerator SpawnAtCoroutine(RoomScript room, SpawnerPoint point)
     {
@@ -148,6 +157,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 positionNew = new(point.transform.position.x, point.transform.position.y + offset, point.transform.position.z);
         GameObject enemy = Instantiate(handle.Result, positionNew, point.transform.rotation, holder);
         spawnedEnemies[room].Add(enemy);
+        OnEnemySpawned?.Invoke(enemy);
 
         if (enemy.TryGetComponent<HealthComponent>(out var health))
         {
@@ -178,6 +188,24 @@ public class EnemySpawner : MonoBehaviour
         loadedPrefabs.Clear();
     }
 
+    /// <summary>
+    /// Returns true if entering this room will spawn enemies that should activate
+    /// the block programming system (i.e. the room has spawn points and is not already cleared).
+    /// </summary>
+    public bool WillSpawnEnemies(RoomScript room)
+    {
+        if (room == null) return false;
+
+        List<SpawnerPoint> points = room.GetSpawnerPoints();
+        if (points == null || points.Count == 0) return false;
+
+        // Already spawned and cleared -> no enemies to fight.
+        if (spawnedRooms.TryGetValue(room, out bool spawned) && spawned && !HasLivingEnemies(room))
+            return false;
+
+        return true;
+    }
+
     public bool HasLivingEnemies(RoomScript room)
     {
         if (room == null) return false;
@@ -198,6 +226,40 @@ public class EnemySpawner : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Returns the total number of active enemies across all rooms.
+    /// </summary>
+    public int GetTotalLivingEnemyCount()
+    {
+        int count = 0;
+
+        foreach (var kvp in spawnedEnemies)
+        {
+            foreach (GameObject enemy in kvp.Value)
+            {
+                if (enemy != null && enemy.activeInHierarchy)
+                    count++;
+            }
+        }
+
+        return count;
+    }
+
+    /// <summary>
+    /// Returns all currently active enemies across every room.
+    /// </summary>
+    public IEnumerable<GameObject> GetAllLivingEnemies()
+    {
+        foreach (var kvp in spawnedEnemies)
+        {
+            foreach (GameObject enemy in kvp.Value)
+            {
+                if (enemy != null && enemy.activeInHierarchy)
+                    yield return enemy;
+            }
+        }
+    }
+
     private void HandleEnemyDeath(RoomScript room, GameObject enemy)
     {
         if (room == null) return;
@@ -206,6 +268,8 @@ public class EnemySpawner : MonoBehaviour
         {
             enemies.Remove(enemy);
         }
+
+        OnEnemyDestroyed?.Invoke(enemy);
 
         if (!HasLivingEnemies(room))
         {

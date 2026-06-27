@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MG_BlocksEngine2.Environment
@@ -10,6 +12,14 @@ namespace MG_BlocksEngine2.Environment
         [SerializeField] private Transform aimTarget;
 
         public new Transform Transform => transform;
+
+        // Centralized bullet tracking so managers (e.g. BulletCodeblockManager) can
+        // react to block-spawned bullets without expensive FindObjectsByType calls.
+        private static readonly List<BulletBehaviourScript> activeBullets = new();
+        public static IReadOnlyList<BulletBehaviourScript> ActiveBullets => activeBullets;
+
+        public static event Action<BulletBehaviourScript> OnBulletSpawned;
+        public static event Action<BulletBehaviourScript> OnBulletDestroyed;
 
         void Awake()
         {
@@ -46,11 +56,36 @@ namespace MG_BlocksEngine2.Environment
             if (bullet.TryGetComponent<BulletBehaviourScript>(out var bulletScript))
             {
                 bulletScript.SetDirection(gameObject, direction);
+                RegisterBullet(bulletScript);
             }
             else
             {
                 Debug.LogWarning($"[SpacecraftShoot] Spawned bullet '{bullet.name}' is missing BulletBehaviourScript.");
             }
+        }
+
+        private static void RegisterBullet(BulletBehaviourScript bullet)
+        {
+            if (bullet == null) return;
+            activeBullets.Add(bullet);
+            OnBulletSpawned?.Invoke(bullet);
+        }
+
+        public static void NotifyBulletDestroyed(BulletBehaviourScript bullet)
+        {
+            if (bullet == null) return;
+            activeBullets.Remove(bullet);
+            OnBulletDestroyed?.Invoke(bullet);
+        }
+
+        public static void ClearActiveBullets()
+        {
+            foreach (var bullet in activeBullets)
+            {
+                if (bullet != null)
+                    UnityEngine.Object.Destroy(bullet.gameObject);
+            }
+            activeBullets.Clear();
         }
     }
 }

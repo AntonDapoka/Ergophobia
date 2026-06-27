@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using MG_BlocksEngine2.Environment;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BulletBehaviourScript : MonoBehaviour
@@ -66,6 +67,11 @@ public class BulletBehaviourScript : MonoBehaviour
         Vector3 pos = rb.position;
         pos.y = 1f;
         rb.position = pos;
+    }
+
+    private void OnDestroy()
+    {
+        BE2_TargetObjectSpacecraft3D.NotifyBulletDestroyed(this);
     }
 
     private void OnCollisionEnter(Collision collision)

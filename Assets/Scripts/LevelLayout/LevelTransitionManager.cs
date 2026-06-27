@@ -51,8 +51,12 @@ public class LevelTransitionManager : MonoBehaviour
         currentRoom = newRoom;
         UpdateActiveRooms();
 
+        bool willSpawnEnemies = enemySpawner != null && enemySpawner.WillSpawnEnemies(currentRoom);
+
         OnRoomEntered?.Invoke(currentRoom);
-        TurnOnBlocks();
+
+        if (willSpawnEnemies)
+            TurnOnBlocks();
     }
 
     public void OnRoomCleared()
