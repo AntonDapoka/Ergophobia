@@ -323,6 +323,8 @@ MonoBehaviour:
   interactionKey: 101
   colliderInteraction: {fileID: 7872226434066944017}
   hint: {fileID: 856187115245487228}
-  chestEnvironment: {fileID: 0}
+  chestEnvironmentTemplate: {fileID: 0}
+  chestSpawnParent: {fileID: 0}
   blocksReference: {fileID: 0}
+  specificBlockPrefabs: []
   rewardBlockCount: 3

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 using MG_BlocksEngine2.Block;
+using MG_BlocksEngine2.Core;
 
 namespace MG_BlocksEngine2.Environment
 {
@@ -9,7 +11,7 @@ namespace MG_BlocksEngine2.Environment
     /// A read-only storage from which blocks can be taken but not placed back.
     /// Inherits scrolling and visuals from StorageEnvironment.
     /// Designed for manual population via the Inspector (prefab list) or
-    /// runtime population from a block reference (e.g., treasure rewards).
+    /// runtime population from a block reference (e.g. treasure rewards).
     /// </summary>
     public class ChestEnvironment : StorageEnvironment
     {
@@ -24,6 +26,34 @@ namespace MG_BlocksEngine2.Environment
         public float spawnSpreadRadius = 30f;
         [Tooltip("How many random blocks should be pulled from a reference when PopulateWithRandomBlocks is called.")]
         public int randomBlockCount = 3;
+
+        /// <summary>
+        /// Invoked when the player has dragged a block out and dropped it somewhere.
+        /// Passes the selected block (may be null if it was destroyed mid-drop).
+        /// </summary>
+        public event Action<I_BE2_Block> OnBlockSelected;
+
+        private I_BE2_Block pendingSelectedBlock;
+        private HashSet<I_BE2_Block> ownedBlocks = new HashSet<I_BE2_Block>();
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            BE2_MainEventsManager.Instance?.StopListening(BE2EventTypesBlock.OnDragOut, HandleDragOut);
+            BE2_MainEventsManager.Instance?.StopListening(BE2EventTypesBlock.OnDrop, HandleBlockDrop);
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            if (spawnAnchor == null && contentArea != null)
+                spawnAnchor = contentArea;
+
+            BE2_MainEventsManager.Instance.StartListening(BE2EventTypesBlock.OnDragOut, HandleDragOut);
+            BE2_MainEventsManager.Instance.StartListening(BE2EventTypesBlock.OnDrop, HandleBlockDrop);
+        }
 
         public override bool CanPlaceBlock(I_BE2_Block block) => false;
         public override bool CanPickupBlock(I_BE2_Block block) => true;
@@ -42,6 +72,23 @@ namespace MG_BlocksEngine2.Environment
             {
                 if (blockPrefabs[i] == null) continue;
                 SpawnBlockAtSlot(blockPrefabs[i], i, blockPrefabs.Count);
+            }
+        }
+
+        /// <summary>
+        /// Populate the chest with exact prefabs. Used by TreasureScript to fill
+        /// a per-treasure chest instance.
+        /// </summary>
+        public void PopulateWithPrefabs(List<GameObject> prefabs)
+        {
+            if (contentArea == null) return;
+
+            Clear();
+
+            for (int i = 0; i < prefabs.Count; i++)
+            {
+                if (prefabs[i] == null) continue;
+                SpawnBlockAtSlot(prefabs[i], i, prefabs.Count);
             }
         }
 
@@ -88,11 +135,56 @@ namespace MG_BlocksEngine2.Environment
                     Destroy(Blocks[i].Transform.gameObject);
             }
             Blocks.Clear();
+            ownedBlocks.Clear();
+        }
+
+        /// <summary>
+        /// Destroys every block still inside the chest except the selected one.
+        /// </summary>
+        public void DestroyRemainingBlocks(I_BE2_Block exceptBlock)
+        {
+            for (int i = Blocks.Count - 1; i >= 0; i--)
+            {
+                I_BE2_Block block = Blocks[i];
+                if (block != exceptBlock && block != null && block.Transform != null)
+                    Destroy(block.Transform.gameObject);
+            }
+
+            Blocks.Clear();
+            if (exceptBlock != null)
+                Blocks.Add(exceptBlock);
+        }
+
+        private void HandleDragOut(I_BE2_Block draggedBlock)
+        {
+            if (pendingSelectedBlock != null) return;
+            if (draggedBlock == null) return;
+            if (!ownedBlocks.Contains(draggedBlock)) return;
+
+            pendingSelectedBlock = draggedBlock;
+        }
+
+        private void HandleBlockDrop(I_BE2_Block droppedBlock)
+        {
+            if (pendingSelectedBlock == null) return;
+
+            // Finalize when the pending block is dropped or destroyed mid-drop.
+            if (droppedBlock == null || droppedBlock == pendingSelectedBlock)
+                FinalizeSelection();
+        }
+
+        private void FinalizeSelection()
+        {
+            if (pendingSelectedBlock == null) return;
+
+            I_BE2_Block selected = pendingSelectedBlock;
+            pendingSelectedBlock = null;
+            OnBlockSelected?.Invoke(selected);
         }
 
         private GameObject PickRandomBlock(GameObject[] availableBlocks)
         {
-            int index = Random.Range(0, availableBlocks.Length);
+            int index = UnityEngine.Random.Range(0, availableBlocks.Length);
             return availableBlocks[index];
         }
 
@@ -122,7 +214,10 @@ namespace MG_BlocksEngine2.Environment
 
             I_BE2_Block block = blockGO.GetComponent<I_BE2_Block>();
             if (block != null)
+            {
                 Blocks.Add(block);
+                ownedBlocks.Add(block);
+            }
         }
     }
 }

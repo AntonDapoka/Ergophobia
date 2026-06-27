@@ -148,10 +148,6 @@ namespace MG_BlocksEngine2.DragDrop
             Block.Instruction.InstructionBase.UpdateTargetObject();
         }
 
-        /// <summary>
-        /// Finds the nearest StorageEnvironment to the given world point.
-        /// Used as a fallback when an operation block is dropped outside any environment.
-        /// </summary>
         StorageEnvironment FindNearestStorageEnvironment(Vector2 worldPoint)
         {
             StorageEnvironment nearest = null;
@@ -176,10 +172,6 @@ namespace MG_BlocksEngine2.DragDrop
 
             return nearest;
         }
-
-        /// <summary>
-        /// Returns the closest point on the RectTransform's world-space rectangle to the given point.
-        /// </summary>
         Vector2 GetNearestPointOnRect(RectTransform rectTransform, Vector2 worldPoint)
         {
             Vector3[] corners = new Vector3[4];
@@ -201,12 +193,22 @@ namespace MG_BlocksEngine2.DragDrop
         {
             if (_usedSpotTransform != null)
             {
-                // v2.3 - bigfix: fixed intermittent error "cannot change sibling OnDisable"
-                _usedSpotTransform.gameObject.SetActive(true);
+                // v2.3 - bugfix: fixed intermittent error "cannot change sibling OnDisable"
+                if (_usedSpotTransform.gameObject != null)
+                    _usedSpotTransform.gameObject.SetActive(true);
                 _usedSpotTransform = null;
             }
 
-            if (Transform.parent != _dragDropManager.DraggedObjectsTransform)
+            // Guard against shutdown / scene unload ordering where the drag manager or transform
+            // may already be destroyed when block prefabs are disabled.
+            var manager = _dragDropManager;
+            if (manager == null || manager.DraggedObjectsTransform == null)
+                return;
+
+            if (Transform == null || Transform.gameObject == null)
+                return;
+
+            if (Transform.parent != manager.DraggedObjectsTransform)
                 Transform.gameObject.SetActive(false);
         }
 

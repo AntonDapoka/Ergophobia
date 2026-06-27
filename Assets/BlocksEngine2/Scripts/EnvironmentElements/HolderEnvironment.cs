@@ -100,7 +100,7 @@ namespace MG_BlocksEngine2.Environment
             );
         }
 
-        public void RemoveBlock(I_BE2_Block block)
+        public virtual void RemoveBlock(I_BE2_Block block)
         {
             if (block == null) return;
             bool removed = Blocks.Remove(block);

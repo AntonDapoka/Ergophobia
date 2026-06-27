@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
+using MG_BlocksEngine2.Block;
 using MG_BlocksEngine2.Environment;
 
 public class TreasureScript : MonoBehaviour
@@ -10,16 +13,52 @@ public class TreasureScript : MonoBehaviour
     [Header("References")]
     [SerializeField] private SphereCollider colliderInteraction;
     [SerializeField] private GameObject hint;
-    [SerializeField] private ChestEnvironment chestEnvironment;
+    [SerializeField] private ChestEnvironment chestEnvironmentTemplate;
+    [SerializeField] private Transform chestSpawnParent;
     [SerializeField] private BlocksReferenceScript blocksReference;
+
+    [Header("Specific Blocks")]
+    [Tooltip("If assigned, these exact prefabs are used instead of random blocks from BlocksReference." +
+             " Use this for developer-placed chests in the start room.")]
+    [SerializeField] private List<GameObject> specificBlockPrefabs = new();
 
     [Header("Settings")]
     [SerializeField] private int rewardBlockCount = 3;
 
     private bool isPlayerInRange;
     private bool isOpened;
+    private ChestEnvironment activeChestEnvironment;
+    private List<GameObject> currentRewardPrefabs = new();
+
+    private static readonly List<TreasureScript> activeTreasures = new();
+    public static IReadOnlyList<TreasureScript> ActiveTreasures => activeTreasures;
 
     public bool IsOpened => isOpened;
+    public ChestEnvironment ActiveChestEnvironment => activeChestEnvironment;
+    public IReadOnlyList<GameObject> CurrentRewardPrefabs => currentRewardPrefabs;
+
+    private void Awake()
+    {
+        // Fallback for developer-placed chests that were not wired through TreasureSpawnerScript.
+        if (chestEnvironmentTemplate == null && TreasureSpawnerScript.Instance != null)
+        {
+            chestEnvironmentTemplate = TreasureSpawnerScript.Instance.ChestEnvironmentTemplate;
+            chestSpawnParent = TreasureSpawnerScript.Instance.ChestSpawnParent;
+            if (blocksReference == null)
+                blocksReference = TreasureSpawnerScript.Instance.BlocksReference;
+        }
+    }
+
+    private void OnEnable()
+    {
+        activeTreasures.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        if (activeTreasures.Contains(this))
+            activeTreasures.Remove(this);
+    }
 
     public void OnPlayerEntered()
     {
@@ -45,7 +84,7 @@ public class TreasureScript : MonoBehaviour
 
     /// <summary>
     /// Opens the treasure: hides the interaction hint, disables repeated opening,
-    /// activates the chest environment and fills it with random reward blocks.
+    /// creates a private chest instance and fills it with this treasure's reward blocks.
     /// </summary>
     public void Open()
     {
@@ -58,30 +97,107 @@ public class TreasureScript : MonoBehaviour
         if (colliderInteraction != null)
             colliderInteraction.enabled = false;
 
-        if (chestEnvironment == null)
+        if (chestEnvironmentTemplate == null)
         {
-            Debug.LogWarning($"[TreasureScript] '{name}' has no ChestEnvironment assigned.", this);
+            Debug.LogWarning($"[TreasureScript] '{name}' has no ChestEnvironment template assigned.", this);
             return;
         }
 
-        if (blocksReference == null)
-        {
-            Debug.LogWarning($"[TreasureScript] '{name}' has no BlocksReferenceScript assigned.", this);
-            return;
-        }
+        // Hide the shared scene template so only this treasure's private copy is visible.
+        if (chestEnvironmentTemplate.gameObject.activeInHierarchy)
+            chestEnvironmentTemplate.gameObject.SetActive(false);
 
-        chestEnvironment.gameObject.SetActive(true);
-        chestEnvironment.PopulateWithRandomBlocks(blocksReference.GetBlocks(), rewardBlockCount);
+        Transform parent = chestSpawnParent != null ? chestSpawnParent : chestEnvironmentTemplate.transform.parent;
+        activeChestEnvironment = Instantiate(chestEnvironmentTemplate, parent);
+        activeChestEnvironment.gameObject.SetActive(true);
 
-        Debug.Log($"[TreasureScript] '{name}' opened and granted {rewardBlockCount} blocks.");
+        currentRewardPrefabs = BuildRewardPrefabs();
+        activeChestEnvironment.PopulateWithPrefabs(currentRewardPrefabs);
+        activeChestEnvironment.OnBlockSelected += HandleBlockSelected;
+
+        Debug.Log($"[TreasureScript] '{name}' opened with {currentRewardPrefabs.Count} blocks.");
     }
 
     /// <summary>
     /// Used by spawners to wire up the scene references after instantiation.
     /// </summary>
-    public void Setup(ChestEnvironment chest, BlocksReferenceScript blocks)
+    public void Setup(ChestEnvironment chestTemplate, Transform spawnParent, BlocksReferenceScript blocks)
     {
-        chestEnvironment = chest;
+        chestEnvironmentTemplate = chestTemplate;
+        chestSpawnParent = spawnParent;
         blocksReference = blocks;
+    }
+
+    /// <summary>
+    /// Forces immediate cleanup of this treasure and its chest instance.
+    /// Called by StageSwitchScript when switching levels.
+    /// </summary>
+    public void ForceDestroy()
+    {
+        if (activeChestEnvironment != null)
+        {
+            activeChestEnvironment.Clear();
+            Destroy(activeChestEnvironment.gameObject);
+            activeChestEnvironment = null;
+        }
+
+        Destroy(gameObject);
+    }
+
+    private List<GameObject> BuildRewardPrefabs()
+    {
+        if (specificBlockPrefabs != null && specificBlockPrefabs.Count > 0)
+            return new List<GameObject>(specificBlockPrefabs);
+
+        if (blocksReference == null)
+        {
+            Debug.LogWarning($"[TreasureScript] '{name}' has no BlocksReferenceScript and no specific blocks.", this);
+            return new List<GameObject>();
+        }
+
+        GameObject[] available = blocksReference.GetBlocks();
+        if (available == null || available.Length == 0)
+        {
+            Debug.LogWarning($"[TreasureScript] '{name}' has no available blocks.", this);
+            return new List<GameObject>();
+        }
+
+        var result = new List<GameObject>();
+        var pool = new List<GameObject>(available);
+        int count = Mathf.Min(rewardBlockCount, pool.Count);
+
+        for (int i = 0; i < count; i++)
+        {
+            int index = Random.Range(0, pool.Count);
+            result.Add(pool[index]);
+            pool.RemoveAt(index);
+        }
+
+        return result;
+    }
+
+    private void HandleBlockSelected(I_BE2_Block selectedBlock)
+    {
+        if (activeChestEnvironment == null) return;
+
+        activeChestEnvironment.OnBlockSelected -= HandleBlockSelected;
+        activeChestEnvironment.DestroyRemainingBlocks(selectedBlock);
+
+        StartCoroutine(DestroyChestAfterSelection());
+    }
+
+    private IEnumerator DestroyChestAfterSelection()
+    {
+        // Give the drag system one frame to finish placing the selected block.
+        yield return null;
+
+        if (activeChestEnvironment != null)
+        {
+            activeChestEnvironment.gameObject.SetActive(false);
+            Destroy(activeChestEnvironment.gameObject);
+            activeChestEnvironment = null;
+        }
+
+        Destroy(gameObject);
     }
 }

@@ -42,6 +42,16 @@ public class StageSwitchScript : MonoBehaviour
         StartCoroutine(SwitchStageRoutine());
     }
 
+    private void DestroyAllTreasures()
+    {
+        var treasures = new List<TreasureScript>(TreasureScript.ActiveTreasures);
+        foreach (var treasure in treasures)
+        {
+            if (treasure != null)
+                treasure.ForceDestroy();
+        }
+    }
+
     private IEnumerator SwitchStageRoutine()
     {
         isSwitching = true;
@@ -50,6 +60,8 @@ public class StageSwitchScript : MonoBehaviour
 
         if (fade != null)
             yield return fade.PlayFadeOut();
+
+        DestroyAllTreasures();
         transitionManager?.TurnOffBlocks();
 
         bool generationComplete = false;
