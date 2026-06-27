@@ -1,8 +1,10 @@
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMoving : MonoBehaviour
 {
     [SerializeField] private bool isAbleToMove = true;
+
     [Header("Movement Settings")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float runSpeed = 8f;
@@ -11,13 +13,20 @@ public class PlayerMoving : MonoBehaviour
     private Vector3 inputDir;
     private bool isRunning;
     private Rigidbody rb;
- 
+
     [Header("References")]
     [SerializeField] private Animator anim;
+    private PlayerAudio playerAudio; 
+
+    [Header("Footstep Settings")]
+    [SerializeField] private float walkStepInterval = 0.5f;
+    [SerializeField] private float runStepInterval = 0.3f;
+    private float footstepTimer = 0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<PlayerAudio>();
     }
 
     public void SetIsAbleToMove(bool isAbleToMoveNew)
@@ -34,6 +43,7 @@ public class PlayerMoving : MonoBehaviour
         isRunning = Input.GetKey(KeyCode.LeftShift);
 
         UpdateAnimation();
+        HandleFootsteps();
     }
 
     private void UpdateAnimation()
@@ -58,15 +68,31 @@ public class PlayerMoving : MonoBehaviour
         }
     }
 
+    private void HandleFootsteps()
+    {
+        if (!isAbleToMove) return;
+
+        if (inputDir.magnitude > 0.1f)
+        {
+            footstepTimer -= Time.deltaTime;
+
+            if (footstepTimer <= 0f)
+            {
+                if (playerAudio != null) playerAudio.PlayFootstep();
+
+                footstepTimer = isRunning ? runStepInterval : walkStepInterval;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!isAbleToMove) return;
         float speed = isRunning ? runSpeed : walkSpeed;
-
-        /*rb.MovePosition(
-            rb.position + inputDir * speed * Time.fixedDeltaTime
-        );*/
-
         rb.linearVelocity = inputDir * speed;
     }
 }

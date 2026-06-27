@@ -12,7 +12,7 @@ public class MeleeAttackStrategy : AttackStrategyBase
     [SerializeField] private float attackDuration = 1.5f; 
 
     [Header("Hitbox Settings")]
-    [SerializeField] private float hitboxRadius = 1.0f;
+    [SerializeField] private float hitboxRadius = 2.0f;
     [SerializeField] private LayerMask targetLayer;
     [Header("VFX Settings")]
     [SerializeField] private GameObject explosionVFX;
@@ -51,6 +51,11 @@ public class MeleeAttackStrategy : AttackStrategyBase
             IDamageable damageable = hit.GetComponentInParent<IDamageable>();
             if (damageable != null)
             {
+                EnemyAudio audio = GetComponentInParent<EnemyAudio>();
+                if (audio != null)
+                {
+                    audio.PlayAttackHit(); 
+                }
                 damageable.TakeDamage(damage);
                 GameObject vfx = Instantiate(explosionVFX, transform.position, Quaternion.identity);
                 Destroy(vfx, 2f);
