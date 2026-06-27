@@ -72,8 +72,7 @@ public class HUDManager : MonoBehaviour
 
     private void RefreshAll()
     {
-        UpdateHealth(playerHealth != null ? playerHealth.CurrentHealth : 0f,
-                     playerHealth != null ? playerHealth.MaxHealth : 0f);
+        UpdateHealth(playerHealth != null ? playerHealth.CurrentHealth : 0f, playerHealth != null ? playerHealth.MaxHealth : 0f);
         UpdateEnemies();
         UpdateStage(stageSwitch != null ? stageSwitch.CurrentStage : 1);
         UpdateBullets();

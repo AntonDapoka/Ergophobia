@@ -6,6 +6,7 @@ public class TreasureSpawnerScript : MonoBehaviour
 {
     [SerializeField] private GameObject prefabTreasure;
     [SerializeField] private Canvas canvasTreasure;
+    [SerializeField] private Transform holderLevel;
 
     [Header("References")]
     [SerializeField] private BlocksReferenceScript blocksReference;
@@ -13,7 +14,7 @@ public class TreasureSpawnerScript : MonoBehaviour
 
     public void SpawnTreasure(SpawnerPoint spawnerPoint)
     {
-        GameObject treasureGO = Instantiate(prefabTreasure, spawnerPoint.transform.position, Quaternion.identity);
+        GameObject treasureGO = Instantiate(prefabTreasure, spawnerPoint.transform.position, Quaternion.identity, holderLevel);
 
         if (treasureGO.TryGetComponent<TreasureScript>(out var treasure))
         {

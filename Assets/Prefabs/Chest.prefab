@@ -320,5 +320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391e9cda45d8f044495aabf3a5870c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TreasureScript
+  interactionKey: 101
   colliderInteraction: {fileID: 7872226434066944017}
   hint: {fileID: 856187115245487228}
+  chestEnvironment: {fileID: 0}
+  blocksReference: {fileID: 0}
+  rewardBlockCount: 3
