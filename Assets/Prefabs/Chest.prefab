@@ -81,13 +81,13 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2224474878120320963, guid: fbda4f36cf78b2847891b297af0c9bec,
+  m_Sprite: {fileID: -3687348052613884379, guid: 4b475ed4f91d97941b820c7088a9db66,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10.19, y: 9.87}
+  m_Size: {x: 1.019, y: 0.987}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 391e9cda45d8f044495aabf3a5870c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TreasureScript
-  interactionKey: 101
+  interactionKey: 102
   colliderInteraction: {fileID: 7872226434066944017}
   hint: {fileID: 856187115245487228}
   chestEnvironmentTemplate: {fileID: 0}

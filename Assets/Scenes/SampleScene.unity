@@ -3808,7 +3808,7 @@ PrefabInstance:
     - target: {fileID: 8864767710376681103, guid: a3572238258a60a4c95f7316cbe60cde,
         type: 3}
       propertyPath: interactionKey
-      value: 101
+      value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 8864767710376681103, guid: a3572238258a60a4c95f7316cbe60cde,
         type: 3}
@@ -33285,7 +33285,7 @@ PrefabInstance:
     - target: {fileID: 8864767710376681103, guid: a3572238258a60a4c95f7316cbe60cde,
         type: 3}
       propertyPath: interactionKey
-      value: 101
+      value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 8864767710376681103, guid: a3572238258a60a4c95f7316cbe60cde,
         type: 3}

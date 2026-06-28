@@ -34,21 +34,15 @@ public class ConsoleManagerScript : MonoBehaviour
     public void OnConsoleInteracted()
     {
         InteractionCount++;
-
-        // Final interaction: show win screen, do NOT switch stage / teleport.
         if (InteractionCount >= interactionsToWin)
         {
-            if (winScript != null)
-                winScript.Win();
-            else
-                Debug.LogWarning("[ConsoleManagerScript] WinScript is not assigned.", this);
+            if (winScript != null) winScript.Win();
+            else Debug.LogWarning("[ConsoleManagerScript] WinScript is not assigned.", this);
 
             return;
         }
 
-        if (stageSwitch != null)
-            stageSwitch.SwitchStage();
-        else
-            Debug.LogWarning("[ConsoleManagerScript] StageSwitchScript is not assigned.", this);
+        if (stageSwitch != null) stageSwitch.SwitchStage();
+        else Debug.LogWarning("[ConsoleManagerScript] StageSwitchScript is not assigned.", this);
     }
 }
