@@ -10,31 +10,33 @@ public class RoomPool : MonoBehaviour
 
     private Dictionary<string, Queue<GameObject>> pools = new();
     private Dictionary<string, AsyncOperationHandle<GameObject>> loadedPrefabs = new Dictionary<string, AsyncOperationHandle<GameObject>>();
+    private HashSet<string> ownedKeys = new HashSet<string>();
+
+    private void OnDestroy()
+    {
+        ReleaseAll();
+    }
 
     public IEnumerator InitializeAsync(List<RoomPrefabConfig> configs)
     {
         foreach (var config in configs)
         {
-            if (config.roomPrefabReference == null || !config.roomPrefabReference.RuntimeKeyIsValid())
+            if (config == null || config.roomPrefabReference == null || !config.roomPrefabReference.RuntimeKeyIsValid())
             {
-                Debug.LogError($"RoomPrefabConfig '{config.name}' has invalid AssetReference.");
+                Debug.LogError($"RoomPrefabConfig '{config?.name}' has invalid AssetReference.");
                 continue;
             }
 
-            string key = config.roomPrefabReference.RuntimeKey.ToString();
-            if (loadedPrefabs.ContainsKey(key)) continue;
-
-            var handle = config.roomPrefabReference.LoadAssetAsync<GameObject>();
-            loadedPrefabs[key] = handle;
+            var handle = GetOrCreateHandle(config);
             yield return handle;
         }
     }
 
     public IEnumerator GetAsync(RoomPrefabConfig config, Transform parent, System.Action<GameObject> onComplete)
     {
-        if (config.roomPrefabReference == null || !config.roomPrefabReference.RuntimeKeyIsValid())
+        if (config == null || config.roomPrefabReference == null || !config.roomPrefabReference.RuntimeKeyIsValid())
         {
-            Debug.LogError($"RoomPrefabConfig '{config.name}' has invalid AssetReference.");
+            Debug.LogError($"RoomPrefabConfig '{config?.name}' has invalid AssetReference.");
             onComplete?.Invoke(null);
             yield break;
         }
@@ -52,12 +54,9 @@ public class RoomPool : MonoBehaviour
             yield break;
         }
 
-        if (!loadedPrefabs.TryGetValue(key, out var handle))
-        {
-            handle = config.roomPrefabReference.LoadAssetAsync<GameObject>();
-            loadedPrefabs[key] = handle;
+        var handle = GetOrCreateHandle(config);
+        if (!handle.IsDone)
             yield return handle;
-        }
 
         if (handle.Result == null)
         {
@@ -70,6 +69,31 @@ public class RoomPool : MonoBehaviour
         instance.transform.localPosition = Vector3.zero;
         instance.transform.localRotation = Quaternion.identity;
         onComplete?.Invoke(instance);
+    }
+
+    private AsyncOperationHandle<GameObject> GetOrCreateHandle(RoomPrefabConfig config)
+    {
+        string key = config.roomPrefabReference.RuntimeKey.ToString();
+
+        if (loadedPrefabs.TryGetValue(key, out var existingHandle))
+            return existingHandle;
+
+        // AssetReference keeps an internal OperationHandle. Calling LoadAssetAsync again while it
+        // is valid throws "Attempting to load AssetReference that has already been loaded.".
+        // Reuse the existing handle or load once and track that we own the load so we can release it.
+        AsyncOperationHandle<GameObject> handle;
+        if (config.roomPrefabReference.OperationHandle.IsValid())
+        {
+            handle = config.roomPrefabReference.OperationHandle.Convert<GameObject>();
+        }
+        else
+        {
+            handle = config.roomPrefabReference.LoadAssetAsync<GameObject>();
+            ownedKeys.Add(key);
+        }
+
+        loadedPrefabs[key] = handle;
+        return handle;
     }
 
     public void Return(string key, GameObject go)
@@ -93,10 +117,16 @@ public class RoomPool : MonoBehaviour
 
     public void ReleaseAll()
     {
-        foreach (var kvp in loadedPrefabs)
-            Addressables.Release(kvp.Value);
+        foreach (string key in ownedKeys)
+        {
+            if (loadedPrefabs.TryGetValue(key, out var handle) && handle.IsValid())
+            {
+                Addressables.Release(handle);
+            }
+        }
 
         loadedPrefabs.Clear();
+        ownedKeys.Clear();
         pools.Clear();
     }
 }

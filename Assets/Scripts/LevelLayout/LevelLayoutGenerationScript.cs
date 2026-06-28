@@ -43,6 +43,7 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
     private List<RoomScript> spawnedRooms = new();
     private Dictionary<RoomSlot, RoomScript> slotMap = new();
     private List<System.Tuple<RoomScript, DoorDirection>> pendingBranches = new();
+    private bool isGenerating;
 
     private void Start()
     {
@@ -50,124 +51,145 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
             GenerateLevel();
     }
 
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        ClearLevel();
+    }
+
     public void GenerateLevel(bool playFadeIn = true)
     {
+        if (isGenerating)
+        {
+            Debug.LogWarning("[LevelLayoutGenerationScript] Level generation is already in progress. Ignoring duplicate request.");
+            return;
+        }
+
         StartCoroutine(GenerateLevelAsync(playFadeIn));
     }
 
     private IEnumerator GenerateLevelAsync(bool playFadeIn)
     {
-        ClearLevel();
+        isGenerating = true;
 
-        if (roomPool == null)
+        try
         {
-            Debug.LogError("RoomPool is not assigned!");
-            yield break;
-        }
+            ClearLevel();
 
-        if (roomConfigs == null || roomConfigs.Count == 0)
-        {
-            Debug.LogError("No room configs assigned");
-            yield break;
-        }
-
-        yield return StartCoroutine(roomPool.InitializeAsync(roomConfigs));
-
-        if (enemySpawner != null)
-            yield return StartCoroutine(enemySpawner.InitializeAsync());
-
-        RoomPrefabConfig startConfig = PickStartConfig();
-        if (startConfig == null)
-        {
-            Debug.LogError("NO room config");
-            yield break;
-        }
-
-        RoomScript startRoom = null;
-        yield return StartCoroutine(SpawnRoomInSlot(startConfig, new RoomSlot(0, 0), r => startRoom = r));
-
-        if (startRoom == null)
-        {
-            Debug.LogError("Failed to spawn start room");
-            yield break;
-        }
-
-        spawnedRooms.Add(startRoom);
-        slotMap[startRoom.CurrentSlot] = startRoom;
-
-        RoomScript previousMainRoom = startRoom;
-
-        for (int i = 1; i < roomCount; i++)
-        {
-            bool isLast = i == roomCount - 1;
-            RoomSlot mainSlot = new(i, 0);
-
-            RoomPrefabConfig config = isLast && finalRoomConfig != null
-                ? ValidateFinalRoomConfig()
-                : PickMainRoomConfig(previousMainRoom, isLast);
-
-            if (config == null)
+            if (roomPool == null)
             {
-                Debug.LogError($"No suitable room config at index {i}");
-                break;
+                Debug.LogError("RoomPool is not assigned!");
+                yield break;
             }
 
-            RoomScript newRoom = null;
-            yield return StartCoroutine(SpawnRoomInSlot(config, mainSlot, r => newRoom = r));
-            if (newRoom == null) break;
-
-            spawnedRooms.Add(newRoom);
-            slotMap[mainSlot] = newRoom;
-
-            ConnectSlots(previousMainRoom.CurrentSlot, mainSlot, DoorDirection.East);
-
-            if (!isLast)
+            if (roomConfigs == null || roomConfigs.Count == 0)
             {
-                pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.North));
-                pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.South));
+                Debug.LogError("No room configs assigned");
+                yield break;
             }
 
-            if (i % roomsPerFrame == 0)
-                yield return null;
+            yield return StartCoroutine(roomPool.InitializeAsync(roomConfigs));
 
-            previousMainRoom = newRoom;
+            if (enemySpawner != null)
+                yield return StartCoroutine(enemySpawner.InitializeAsync());
+
+            RoomPrefabConfig startConfig = PickStartConfig();
+            if (startConfig == null)
+            {
+                Debug.LogError("NO room config");
+                yield break;
+            }
+
+            RoomScript startRoom = null;
+            yield return StartCoroutine(SpawnRoomInSlot(startConfig, new RoomSlot(0, 0), r => startRoom = r));
+
+            if (startRoom == null)
+            {
+                Debug.LogError("Failed to spawn start room");
+                yield break;
+            }
+
+            spawnedRooms.Add(startRoom);
+            slotMap[startRoom.CurrentSlot] = startRoom;
+
+            RoomScript previousMainRoom = startRoom;
+
+            for (int i = 1; i < roomCount; i++)
+            {
+                bool isLast = i == roomCount - 1;
+                RoomSlot mainSlot = new(i, 0);
+
+                RoomPrefabConfig config = isLast && finalRoomConfig != null
+                    ? ValidateFinalRoomConfig()
+                    : PickMainRoomConfig(previousMainRoom, isLast);
+
+                if (config == null)
+                {
+                    Debug.LogError($"No suitable room config at index {i}");
+                    break;
+                }
+
+                RoomScript newRoom = null;
+                yield return StartCoroutine(SpawnRoomInSlot(config, mainSlot, r => newRoom = r));
+                if (newRoom == null) break;
+
+                spawnedRooms.Add(newRoom);
+                slotMap[mainSlot] = newRoom;
+
+                ConnectSlots(previousMainRoom.CurrentSlot, mainSlot, DoorDirection.East);
+
+                if (!isLast)
+                {
+                    pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.North));
+                    pendingBranches.Add(new System.Tuple<RoomScript, DoorDirection>(newRoom, DoorDirection.South));
+                }
+
+                if (i % roomsPerFrame == 0)
+                    yield return null;
+
+                previousMainRoom = newRoom;
+            }
+
+            for (int i = 0; i < pendingBranches.Count; i++)
+            {
+                var branch = pendingBranches[i];
+
+                if (allowAlignedBranches)
+                    yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, false));
+
+                if (allowStaggeredBranches)
+                    yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, true));
+
+                if (i % roomsPerFrame == 0)
+                    yield return null;
+            }
+
+            foreach (var room in spawnedRooms)
+            {
+                if (room != null)
+                    room.SealUnusedDoors();
+            }
+
+            foreach (var room in spawnedRooms)
+            {
+                PropsActivator activator = room.GetComponent<PropsActivator>();
+                if (activator != null)
+                    yield return StartCoroutine(activator.ActivateAsync());
+            }
+
+            OnLevelGenerated?.Invoke(spawnedRooms);
+
+            DistributeCameraToDoors();
+
+            transitionManager.Initialize(spawnedRooms);
+
+            if (playFadeIn)
+                fadeInAndOut?.StartFadeIn();
         }
-
-        for (int i = 0; i < pendingBranches.Count; i++)
+        finally
         {
-            var branch = pendingBranches[i];
-
-            if (allowAlignedBranches)
-                yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, false));
-
-            if (allowStaggeredBranches)
-                yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, true));
-
-            if (i % roomsPerFrame == 0)
-                yield return null;
+            isGenerating = false;
         }
-
-        foreach (var room in spawnedRooms)
-        {
-            if (room != null)
-                room.SealUnusedDoors();
-        }
-
-        foreach (var room in spawnedRooms)
-        {
-            PropsActivator activator = room.GetComponent<PropsActivator>();
-            if (activator != null)
-                yield return StartCoroutine(activator.ActivateAsync());
-        }
-
-        OnLevelGenerated?.Invoke(spawnedRooms);
-
-        DistributeCameraToDoors();
-
-        transitionManager.Initialize(spawnedRooms);
-
-        if (playFadeIn)
-            fadeInAndOut?.StartFadeIn();
     }
 
     private RoomPrefabConfig ValidateFinalRoomConfig()

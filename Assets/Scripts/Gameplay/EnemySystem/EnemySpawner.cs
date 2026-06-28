@@ -16,6 +16,8 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<RoomScript, bool> spawnedRooms = new();
     private Dictionary<RoomScript, List<GameObject>> spawnedEnemies = new();
     private Dictionary<string, AsyncOperationHandle<GameObject>> loadedPrefabs = new();
+    private HashSet<string> ownedKeys = new HashSet<string>();
+    private Dictionary<GameObject, Action> enemyDeathHandlers = new();
 
     public event Action<RoomScript> OnRoomCleared;
     public event Action<GameObject> OnEnemySpawned;
@@ -36,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnDestroy()
     {
+        CleanupEnemySubscriptions();
         ReleaseAll();
     }
 
@@ -45,24 +48,43 @@ public class EnemySpawner : MonoBehaviour
 
         foreach (EnemyPrefabConfig config in enemyPrefabConfigs)
         {
-            if (config == null || config.prefabReference == null || !config.prefabReference.RuntimeKeyIsValid())
-            {
-                Debug.LogWarning($"Enemy prefab config '{(config != null ? config.name : "null")}' is invalid.");
-                continue;
-            }
+            if (config == null) continue;
 
-            string key = config.prefabReference.RuntimeKey.ToString();
-            if (!loadedPrefabs.ContainsKey(key))
-            {
-                AsyncOperationHandle<GameObject> handle = config.prefabReference.LoadAssetAsync<GameObject>();
-                loadedPrefabs[key] = handle;
-            }
+            var handle = GetOrCreateHandle(config);
+            if (handle.IsValid() && !handle.IsDone)
+                yield return handle;
         }
+    }
 
-        foreach (AsyncOperationHandle<GameObject> handle in loadedPrefabs.Values)
+    private AsyncOperationHandle<GameObject> GetOrCreateHandle(EnemyPrefabConfig config)
+    {
+        if (config.prefabReference == null || !config.prefabReference.RuntimeKeyIsValid())
         {
-            if (!handle.IsDone) yield return handle;
+            Debug.LogWarning($"Enemy prefab config '{config.name}' has invalid AssetReference.");
+            return default;
         }
+
+        string key = config.prefabReference.RuntimeKey.ToString();
+
+        if (loadedPrefabs.TryGetValue(key, out var existingHandle))
+            return existingHandle;
+
+        // AssetReference keeps an internal OperationHandle. Calling LoadAssetAsync again while it
+        // is valid throws "Attempting to load AssetReference that has already been loaded.".
+        // Reuse the existing handle or load once and track that we own the load so we can release it.
+        AsyncOperationHandle<GameObject> handle;
+        if (config.prefabReference.OperationHandle.IsValid())
+        {
+            handle = config.prefabReference.OperationHandle.Convert<GameObject>();
+        }
+        else
+        {
+            handle = config.prefabReference.LoadAssetAsync<GameObject>();
+            ownedKeys.Add(key);
+        }
+
+        loadedPrefabs[key] = handle;
+        return handle;
     }
 
     private void HandleLevelGenerated(List<RoomScript> rooms)
@@ -73,12 +95,19 @@ public class EnemySpawner : MonoBehaviour
             {
                 if (enemy != null)
                 {
+                    if (enemy.TryGetComponent<HealthComponent>(out var health) &&
+                        enemyDeathHandlers.TryGetValue(enemy, out var handler))
+                    {
+                        health.OnDeath -= handler;
+                    }
+
                     OnEnemyDestroyed?.Invoke(enemy);
                     Destroy(enemy);
                 }
             }
         }
 
+        enemyDeathHandlers.Clear();
         spawnedEnemies.Clear();
         spawnedRooms.Clear();
         OnAllEnemiesCleared?.Invoke();
@@ -139,10 +168,11 @@ public class EnemySpawner : MonoBehaviour
 
         string key = config.prefabReference.RuntimeKey.ToString();
 
-        if (!loadedPrefabs.TryGetValue(key, out AsyncOperationHandle<GameObject> handle))
+        var handle = GetOrCreateHandle(config);
+        if (!handle.IsValid())
         {
-            handle = config.prefabReference.LoadAssetAsync<GameObject>();
-            loadedPrefabs[key] = handle;
+            Debug.LogError($"Failed to create load handle for enemy prefab with key '{key}'.", config);
+            yield break;
         }
 
         if (!handle.IsDone)
@@ -161,7 +191,9 @@ public class EnemySpawner : MonoBehaviour
 
         if (enemy.TryGetComponent<HealthComponent>(out var health))
         {
-            health.OnDeath += () => HandleEnemyDeath(room, enemy);
+            Action deathHandler = () => HandleEnemyDeath(room, enemy);
+            enemyDeathHandlers[enemy] = deathHandler;
+            health.OnDeath += deathHandler;
         }
     }
 
@@ -177,15 +209,32 @@ public class EnemySpawner : MonoBehaviour
         return null;
     }
 
+    private void CleanupEnemySubscriptions()
+    {
+        foreach (var kvp in enemyDeathHandlers)
+        {
+            GameObject enemy = kvp.Key;
+            Action handler = kvp.Value;
+            if (enemy != null && enemy.TryGetComponent<HealthComponent>(out var health))
+            {
+                health.OnDeath -= handler;
+            }
+        }
+        enemyDeathHandlers.Clear();
+    }
+
     private void ReleaseAll()
     {
-        foreach (AsyncOperationHandle<GameObject> handle in loadedPrefabs.Values)
+        foreach (string key in ownedKeys)
         {
-            if (handle.IsValid())
+            if (loadedPrefabs.TryGetValue(key, out var handle) && handle.IsValid())
+            {
                 Addressables.Release(handle);
+            }
         }
 
         loadedPrefabs.Clear();
+        ownedKeys.Clear();
     }
 
     /// <summary>
@@ -262,6 +311,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void HandleEnemyDeath(RoomScript room, GameObject enemy)
     {
+        if (enemy != null && enemy.TryGetComponent<HealthComponent>(out var health) &&
+            enemyDeathHandlers.TryGetValue(enemy, out var handler))
+        {
+            health.OnDeath -= handler;
+            enemyDeathHandlers.Remove(enemy);
+        }
+
         if (room == null) return;
 
         if (spawnedEnemies.TryGetValue(room, out List<GameObject> enemies))
