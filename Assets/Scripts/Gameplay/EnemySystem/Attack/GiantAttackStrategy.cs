@@ -94,7 +94,7 @@ public class GiantAttackStrategy : AttackStrategyBase
         }
 
         animator.SetTrigger("ChargeDash");
-
+        GetComponent<EnemyAudio>().PlayDash();
         Vector3 dashDirection = transform.forward;
         float dashTimer = 0f;
         bool hasHit = false;

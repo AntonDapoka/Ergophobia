@@ -59,6 +59,7 @@ public class ChaseState : IState
             else
             {
                 enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 12f);
+                
                 enemy.Movement.MoveTo(target.position, enemy.Stats.chaseSpeed);
             }
         }
@@ -106,7 +107,7 @@ public class AttackState : IState
         EnemyAudio audio = enemy.GetComponent<EnemyAudio>();
         if (audio != null)
         {
-            audio.PlayAttackSwing(0.3f);
+            audio.PlayAttack(0.3f);
         }
     }
 

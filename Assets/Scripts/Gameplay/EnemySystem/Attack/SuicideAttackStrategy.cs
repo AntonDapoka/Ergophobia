@@ -47,7 +47,7 @@ public class SuicideAttackStrategy : AttackStrategyBase
         IsAttacking = true;
 
         if (ani != null) ani.SetTrigger("Attack");
-
+        GetComponent<EnemyAudio>().PlayAttack();
         if (warningCircle != null) warningCircle.enabled = true;
 
         float timer = 0f;
@@ -95,10 +95,9 @@ public class SuicideAttackStrategy : AttackStrategyBase
 
             if (damageable != null)
             {
-                // 1. 造成伤害
                 damageable.TakeDamage(damage, transform.position);
 
-                // 2. 施加纯水平击退力
+                GetComponent<EnemyAudio>().PlayExplosion();
                 Rigidbody rb = hit.GetComponentInParent<Rigidbody>();
 
                 if (rb != null && !rb.isKinematic)

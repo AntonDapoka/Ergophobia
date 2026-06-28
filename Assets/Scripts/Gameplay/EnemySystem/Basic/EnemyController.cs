@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
         isDead = true;
         Debug.Log($"{gameObject.name} has died£¡");
 
-
+        GetComponent<EnemyAudio>().PlayDeath();
         if (CombatManager.Instance != null)
         {
             CombatManager.CombatRole role = Stats.isRanged ? CombatManager.CombatRole.Ranged : CombatManager.CombatRole.Melee;

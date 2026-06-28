@@ -2004,10 +2004,10 @@ MonoBehaviour:
   hitboxCenter: {fileID: 8439133566311467355}
   windUpTime: 0.25
   attackDuration: 0.5
-  hitboxRadius: 0.8
+  hitboxRadius: 1
   targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310,
     type: 3}
 --- !u!114 &6768271797209461991
@@ -2141,12 +2141,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAudio
   footstepSounds:
-  - {fileID: 8300000, guid: 87623adc9f4423a4d9613b04a984fdc2, type: 3}
+  - {fileID: 8300000, guid: 92def0c003879cc4a975537bfc54a68b, type: 3}
   footstepVolume: 1
-  stepDistance: 1.5
-  attackSwingSound: {fileID: 8300000, guid: a356431518a24f14c956efaa48483e3f, type: 3}
-  attackHitSound: {fileID: 8300000, guid: a356431518a24f14c956efaa48483e3f, type: 3}
+  stepDistance: 2
+  attackSound: {fileID: 8300000, guid: a356431518a24f14c956efaa48483e3f, type: 3}
+  deathSounds:
+  - {fileID: 8300000, guid: b7d9ba7ee1a0bc64b966797164214858, type: 3}
   attackVolume: 1
+  deathVolume: 1
+  explosionSound: {fileID: 0}
+  blockSound: {fileID: 0}
+  dashSound: {fileID: 0}
+  specialVolume: 1
 --- !u!114 &3252443749922154449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,7 +2190,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

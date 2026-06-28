@@ -28,5 +28,6 @@ public class ShieldComponent : MonoBehaviour
     private void PlayBlockFeedback(Vector3 hitPos)
     {
        GetComponent<Animator>().SetTrigger("Block");
+        GetComponent<EnemyAudio>().PlayBlock();
     }
 }

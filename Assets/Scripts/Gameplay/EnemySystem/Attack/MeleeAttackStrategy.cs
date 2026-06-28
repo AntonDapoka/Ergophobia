@@ -54,7 +54,7 @@ public class MeleeAttackStrategy : AttackStrategyBase
                 EnemyAudio audio = GetComponentInParent<EnemyAudio>();
                 if (audio != null)
                 {
-                    audio.PlayAttackHit(); 
+                    audio.PlayAttack(); 
                 }
                 damageable.TakeDamage(damage);
                 GameObject vfx = Instantiate(explosionVFX, transform.position, Quaternion.identity);
