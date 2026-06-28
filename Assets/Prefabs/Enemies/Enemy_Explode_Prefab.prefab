@@ -1153,10 +1153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAudio
   footstepSounds:
-  - {fileID: 8300000, guid: 92def0c003879cc4a975537bfc54a68b, type: 3}
+  - {fileID: 8300000, guid: f36cbee4c4738424aba025adbc433f39, type: 3}
   footstepVolume: 1
   stepDistance: 2
-  attackSound: {fileID: 8300000, guid: bc41fe7d4d66d804db1d67a123ca8a0b, type: 3}
+  attackSound: {fileID: 8300000, guid: 7e14c92585e70104f9e672f70f0a48f0, type: 3}
   deathSounds:
   - {fileID: 8300000, guid: b7d9ba7ee1a0bc64b966797164214858, type: 3}
   attackVolume: 1
