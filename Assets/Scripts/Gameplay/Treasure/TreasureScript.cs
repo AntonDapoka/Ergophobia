@@ -16,7 +16,9 @@ public class TreasureScript : MonoBehaviour
     [SerializeField] private ChestEnvironment chestEnvironmentTemplate;
     [SerializeField] private Transform chestSpawnParent;
     [SerializeField] private BlocksReferenceScript blocksReference;
-
+    private Animator animator;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip openSFX;
     [Header("Specific Blocks")]
     [Tooltip("If assigned, these exact prefabs are used instead of random blocks from BlocksReference." +
              " Use this for developer-placed chests in the start room.")]
@@ -39,6 +41,8 @@ public class TreasureScript : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         if (chestEnvironmentTemplate == null && TreasureSpawnerScript.Instance != null)
         {
             chestEnvironmentTemplate = TreasureSpawnerScript.Instance.ChestEnvironmentTemplate;
@@ -83,6 +87,9 @@ public class TreasureScript : MonoBehaviour
 
     public void Open()
     {
+        animator.SetTrigger("Open");
+        audioSource.PlayOneShot(openSFX);
+
         if (isOpened) return;
         isOpened = true;
 

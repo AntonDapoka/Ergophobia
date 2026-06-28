@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a571d8587dfe7f4e90182400f49fe49
+    m_Address: Assets/Anim And Property/Chest.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 426c328b258f04b459fedfa78c790ea7
     m_Address: Assets/Prefabs/Rooms/Holder Room 6.prefab
     m_ReadOnly: 0
