@@ -223,6 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldComponent
   blockAngle: 180
+  maxBlockCount: 3
+  stunDuration: 2
 --- !u!114 &8001035644150288866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +349,7 @@ MonoBehaviour:
   explosionSound: {fileID: 0}
   blockSound: {fileID: 8300000, guid: c025d23d016892a469c32498b808738f, type: 3}
   dashSound: {fileID: 0}
+  specialSound: {fileID: 8300000, guid: b7d9ba7ee1a0bc64b966797164214858, type: 3}
   specialVolume: 1
 --- !u!82 &2958416431370619348
 AudioSource:

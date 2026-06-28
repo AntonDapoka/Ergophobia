@@ -26,6 +26,7 @@ public class EnemyAudio : MonoBehaviour
     [Tooltip("盾牌敌人的格挡弹刀声")]
     public AudioClip blockSound;
     public AudioClip dashSound;
+    public AudioClip specialSound;
     [Range(0f, 1f)] public float specialVolume = 1.0f;
 
     private void Awake()
@@ -61,7 +62,6 @@ public class EnemyAudio : MonoBehaviour
         if (footstepSounds != null && footstepSounds.Length > 0)
         {
             AudioClip clip = footstepSounds[Random.Range(0, footstepSounds.Length)];
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.PlayOneShot(clip, footstepVolume);
         }
     }
@@ -122,6 +122,10 @@ public class EnemyAudio : MonoBehaviour
         PlaySoundAtLocation(dashSound, specialVolume);
     }
 
+    public void PlaySpecial()
+    {
+        audioSource.PlayOneShot(specialSound, specialVolume);
+    }
     // ==========================================
     // 内部辅助方法
     // ==========================================

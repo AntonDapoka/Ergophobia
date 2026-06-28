@@ -64,12 +64,6 @@ public class BulletBehaviourScript : MonoBehaviour
         StartCoroutine(SelfDestruct());
     }
 
-    private void FixedUpdate()
-    {
-        Vector3 pos = rb.position;
-        pos.y = 1f;
-        rb.position = pos;
-    }
 
     private void OnDestroy()
     {

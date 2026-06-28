@@ -7413,6 +7413,7 @@ GameObject:
   - component: {fileID: 442682862}
   - component: {fileID: 442682864}
   - component: {fileID: 442682866}
+  - component: {fileID: 442682867}
   - component: {fileID: 442682863}
   - component: {fileID: 442682865}
   m_Layer: 8
@@ -7517,8 +7518,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PalyerController
   isAbleToMove: 1
-  walkSpeed: 6
-  runSpeed: 9
+  walkSpeed: 4
+  runSpeed: 6
   anim: {fileID: 442682858}
   walkStepInterval: 0.5
   runStepInterval: 0.3
@@ -7554,7 +7555,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.25, z: 0}
-  m_LocalScale: {x: 0.19999999, y: 0.19999999, z: 0.19999999}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1874529919}
@@ -7750,6 +7751,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageFlash
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
+--- !u!114 &442682867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442682851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42e93145a2ea2f34781c489cde34fa77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRigController
+  upperBodyRig: {fileID: 166365195}
+  blendDuration: 0.15
 --- !u!1 &447470049
 GameObject:
   m_ObjectHideFlags: 0
@@ -19606,7 +19621,7 @@ Transform:
   m_GameObject: {fileID: 1284769027}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.71000004, y: 5.93, z: 3.1500003}
+  m_LocalPosition: {x: -0.71000004, y: 7, z: 3.1500003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31640,7 +31655,7 @@ Transform:
   m_GameObject: {fileID: 1973527982}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.71000004, y: 5.93, z: 3.1500003}
+  m_LocalPosition: {x: -0.71000004, y: 7, z: 3.1500003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

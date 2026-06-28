@@ -77,6 +77,7 @@ public class RangedAttackStrategy : AttackStrategyBase
         }
 
         if (animator != null) animator.SetTrigger("Attack");
+        
 
         yield return new WaitForSeconds(aniFireFrame); 
         if (target != null && bulletPrefab != null)
@@ -85,6 +86,7 @@ public class RangedAttackStrategy : AttackStrategyBase
             Vector3 shootDirection = (targetChestPos - firePoint.position).normalized;
 
             GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, Quaternion.LookRotation(shootDirection));
+
             GetComponent<EnemyAudio>().PlayAttack();
             BulletBasicDebug bullet = bulletObj.GetComponent<BulletBasicDebug>();
             if (bullet != null)

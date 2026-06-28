@@ -265,3 +265,42 @@ public class CombatWaitState : IState
         }
     }
 }
+public class StunState : IState
+{
+    private EnemyController enemy;
+    private UnityEngine.AI.NavMeshAgent agent;
+
+    public StunState(EnemyController enemy)
+    {
+        this.enemy = enemy;
+        this.agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+    }
+
+    public void Enter()
+    {
+        enemy.Movement.Stop();
+
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.ResetPath(); 
+            agent.velocity = Vector3.zero; 
+            agent.updateRotation = false; 
+        }
+        if (enemy.AttackStrategy != null)
+        {
+            enemy.AttackStrategy.StopAllCoroutines();
+        }
+    }
+
+    public void Update()
+    {
+    }
+
+    public void Exit()
+    {
+        if (agent != null)
+        {
+            agent.updateRotation = true;
+        }
+    }
+}

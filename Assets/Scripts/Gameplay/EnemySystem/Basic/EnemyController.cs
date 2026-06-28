@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,9 +14,12 @@ public class EnemyController : MonoBehaviour
 
     private HealthComponent health;
     private SensorComponent sensor;
+    private ShieldComponent shield; 
     private IState currentState;
 
     private bool isDead = false;
+
+    public Transform CurrentTarget { get; private set; }
 
     private void Awake()
     {
@@ -24,10 +28,29 @@ public class EnemyController : MonoBehaviour
 
         health = GetComponent<HealthComponent>();
         sensor = GetComponent<SensorComponent>();
+        shield = GetComponent<ShieldComponent>(); 
 
         health.OnDeath += HandleDeath;
         sensor.OnPlayerSpotted += HandlePlayerSpotted;
         sensor.OnPlayerLost += HandlePlayerLost;
+    }
+
+    private void OnEnable()
+    {
+        if (shield != null)
+        {
+            shield.OnStunStart += HandleStunStart;
+            shield.OnStunEnd += HandleStunEnd;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (shield != null)
+        {
+            shield.OnStunStart -= HandleStunStart;
+            shield.OnStunEnd -= HandleStunEnd;
+        }
     }
 
     private void Start()
@@ -41,7 +64,6 @@ public class EnemyController : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
-
         currentState?.Update();
     }
 
@@ -56,12 +78,43 @@ public class EnemyController : MonoBehaviour
 
     private void HandlePlayerSpotted(Transform player)
     {
-        TransitionToState(new ChaseState(this, player));
+        CurrentTarget = player; // 【新增】记录目标
+        // 如果当前不是晕眩状态，才切换到追击
+        if (!(currentState is StunState))
+        {
+            TransitionToState(new ChaseState(this, player));
+        }
     }
 
     private void HandlePlayerLost()
     {
-        TransitionToState(new PatrolState(this));
+        CurrentTarget = null; // 【新增】清空目标
+        if (!(currentState is StunState))
+        {
+            TransitionToState(new PatrolState(this));
+        }
+    }
+
+    // ==========================================
+    // 【新增】晕眩事件处理
+    // ==========================================
+    private void HandleStunStart()
+    {
+        if (isDead) return;
+        TransitionToState(new StunState(this));
+    }
+
+    private void HandleStunEnd()
+    {
+        if (isDead) return;
+        if (CurrentTarget != null)
+        {
+            TransitionToState(new ChaseState(this, CurrentTarget));
+        }
+        else
+        {
+            TransitionToState(new PatrolState(this));
+        }
     }
 
     private void HandleDeath()
@@ -95,19 +148,11 @@ public class EnemyController : MonoBehaviour
         if (TryGetComponent(out RagdollComponent ragdoll))
         {
             ragdoll.EnableRagdoll();
-
         }
         else
         {
-            if (TryGetComponent(out Animator anim))
-            {
-                anim.SetTrigger("Die");
-            }
-
-            if (TryGetComponent(out Collider col))
-            {
-                col.enabled = false;
-            }
+            if (TryGetComponent(out Animator anim)) anim.SetTrigger("Die");
+            if (TryGetComponent(out Collider col)) col.enabled = false;
         }
         Destroy(gameObject, 1.8f);
     }
