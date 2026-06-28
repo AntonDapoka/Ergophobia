@@ -25958,6 +25958,12 @@ MonoBehaviour:
   transitionManager: {fileID: 139102930}
   fade: {fileID: 1980417810}
   generationTimeout: 10
+  mainBGMSource: {fileID: 2043966660}
+  maxStage: 3
+  storySceneNames:
+  - Story_Opening
+  - Story_1
+  - Story_2
 --- !u!1 &1640200805
 GameObject:
   m_ObjectHideFlags: 0
