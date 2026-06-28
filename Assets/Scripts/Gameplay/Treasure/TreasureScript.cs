@@ -39,7 +39,6 @@ public class TreasureScript : MonoBehaviour
 
     private void Awake()
     {
-        // Fallback for developer-placed chests that were not wired through TreasureSpawnerScript.
         if (chestEnvironmentTemplate == null && TreasureSpawnerScript.Instance != null)
         {
             chestEnvironmentTemplate = TreasureSpawnerScript.Instance.ChestEnvironmentTemplate;
@@ -82,10 +81,6 @@ public class TreasureScript : MonoBehaviour
         Open();
     }
 
-    /// <summary>
-    /// Opens the treasure: hides the interaction hint, disables repeated opening,
-    /// creates a private chest instance and fills it with this treasure's reward blocks.
-    /// </summary>
     public void Open()
     {
         if (isOpened) return;
@@ -103,7 +98,6 @@ public class TreasureScript : MonoBehaviour
             return;
         }
 
-        // Hide the shared scene template so only this treasure's private copy is visible.
         if (chestEnvironmentTemplate.gameObject.activeInHierarchy)
             chestEnvironmentTemplate.gameObject.SetActive(false);
 
@@ -118,9 +112,6 @@ public class TreasureScript : MonoBehaviour
         Debug.Log($"[TreasureScript] '{name}' opened with {currentRewardPrefabs.Count} blocks.");
     }
 
-    /// <summary>
-    /// Used by spawners to wire up the scene references after instantiation.
-    /// </summary>
     public void Setup(ChestEnvironment chestTemplate, Transform spawnParent, BlocksReferenceScript blocks)
     {
         chestEnvironmentTemplate = chestTemplate;
@@ -128,10 +119,6 @@ public class TreasureScript : MonoBehaviour
         blocksReference = blocks;
     }
 
-    /// <summary>
-    /// Forces immediate cleanup of this treasure and its chest instance.
-    /// Called by StageSwitchScript when switching levels.
-    /// </summary>
     public void ForceDestroy()
     {
         if (activeChestEnvironment != null)
@@ -188,7 +175,6 @@ public class TreasureScript : MonoBehaviour
 
     private IEnumerator DestroyChestAfterSelection()
     {
-        // Give the drag system one frame to finish placing the selected block.
         yield return null;
 
         if (activeChestEnvironment != null)
