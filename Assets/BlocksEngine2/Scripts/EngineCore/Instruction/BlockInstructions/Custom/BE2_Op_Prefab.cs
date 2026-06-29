@@ -4,11 +4,6 @@ using MG_BlocksEngine2.Utils;
 
 namespace MG_BlocksEngine2.Block.Instruction
 {
-    /// <summary>
-    /// Operation block that exposes a fixed prefab reference.
-    /// The prefab is set in the prefab inspector and cannot be changed by the player at runtime.
-    /// It is meant to be plugged into blocks that consume a prefab, such as SpacecraftShoot.
-    /// </summary>
     public class BE2_Op_Prefab : BE2_InstructionBase, I_BE2_Instruction
     {
         [Header("Prefab")]
@@ -18,7 +13,6 @@ namespace MG_BlocksEngine2.Block.Instruction
 
         [Header("UI Reference")]
         [SerializeField]
-        [Tooltip("Optional child Transform containing a Text or TMP_Text component used to display the prefab name.")]
         Transform _nameLabelTransform;
 
         BE2_Text _nameLabel;

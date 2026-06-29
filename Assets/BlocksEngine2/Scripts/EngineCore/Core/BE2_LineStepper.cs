@@ -90,6 +90,28 @@ namespace MG_BlocksEngine2.Core
                 instruction.TargetObject = env.TargetObject;
             StepResult result = instruction.ExecuteStep();
 
+            // Container blocks (If, Repeat, RepeatUntil) may want to enter their body
+            // multiple times in a row. Keep executing the body and re-querying the
+            // instruction until it no longer asks to enter the body.
+            // RepeatForever is handled once per main cycle to avoid hanging the stepper.
+            bool isRepeatForever = instruction is BE2_Ins_RepeatForever;
+            int loopGuard = 0;
+            const int maxLoops = 10000;
+
+            while (_isRunning && result.Type == StepResultType.EnterBody && !isRepeatForever)
+            {
+                yield return C_ExecuteBody(env, block, result.BodySectionIndex);
+
+                loopGuard++;
+                if (loopGuard > maxLoops)
+                {
+                    Debug.LogWarning($"[BE2_LineStepper] Block '{block.Transform.name}' exceeded max loop iterations. Breaking to avoid hanging.");
+                    break;
+                }
+
+                result = instruction.ExecuteStep();
+            }
+
             switch (result.Type)
             {
                 case StepResultType.Completed:
@@ -97,6 +119,8 @@ namespace MG_BlocksEngine2.Core
                     break;
 
                 case StepResultType.EnterBody:
+                    // RepeatForever (or any instruction that intentionally loops forever)
+                    // executes its body once per full cycle.
                     yield return C_ExecuteBody(env, block, result.BodySectionIndex);
                     yield return new WaitForSeconds(_stepDelay);
                     break;

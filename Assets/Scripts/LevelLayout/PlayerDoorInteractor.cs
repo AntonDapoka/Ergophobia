@@ -10,30 +10,20 @@ public class PlayerDoorInteractor : MonoBehaviour
     [SerializeField] private LevelTransitionManager transitionManager;
 
     private DoorScript currentDoor;
+    private Collider currentCollider;
     private bool isTransitioning;
 
     private void OnTriggerEnter(Collider other)
     {
-        DoorMarker marker = other.GetComponent<DoorMarker>();
-        if (marker == null) return;
-
-        DoorScript door = marker.GetComponentInParent<DoorScript>();
-        if (door == null) return;
-
-        currentDoor = door;
+        TrySetCurrentDoor(other);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (currentDoor != null) return;
-
-        DoorMarker marker = other.GetComponent<DoorMarker>();
-        if (marker == null) return;
-
-        DoorScript door = marker.GetComponentInParent<DoorScript>();
-        if (door == null) return;
-
-        currentDoor = door;
+        // Always refresh the current door while overlapping a marker.
+        // This prevents stale references if the player teleports or a
+        // collider is disabled/enabled.
+        TrySetCurrentDoor(other);
     }
 
     private void OnTriggerExit(Collider other)
@@ -42,13 +32,18 @@ public class PlayerDoorInteractor : MonoBehaviour
         if (marker == null) return;
 
         DoorScript door = marker.GetComponentInParent<DoorScript>();
+        if (door == null) return;
+
         if (door == currentDoor)
-            currentDoor = null;
+            ClearCurrentDoor();
     }
 
     private void Update()
     {
         if (isTransitioning) return;
+
+        ValidateCurrentDoor();
+
         if (currentDoor == null) return;
         if (!currentDoor.IsConnected) return;
         if (!Input.GetKeyDown(interactionKey)) return;
@@ -72,6 +67,41 @@ public class PlayerDoorInteractor : MonoBehaviour
         StartCoroutine(HandleTransition(targetDoor, entryPoint.position));
     }
 
+    private void TrySetCurrentDoor(Collider other)
+    {
+        DoorMarker marker = other.GetComponent<DoorMarker>();
+        if (marker == null) return;
+
+        DoorScript door = marker.GetComponentInParent<DoorScript>();
+        if (door == null) return;
+
+        currentDoor = door;
+        currentCollider = other;
+    }
+
+    private void ValidateCurrentDoor()
+    {
+        if (currentDoor == null) return;
+
+        if (currentCollider == null || !currentCollider.gameObject.activeInHierarchy)
+        {
+            ClearCurrentDoor();
+            return;
+        }
+
+        Vector3 closestPoint = currentCollider.ClosestPoint(transform.position);
+        if (Vector3.Distance(closestPoint, transform.position) > 0.1f)
+        {
+            ClearCurrentDoor();
+        }
+    }
+
+    private void ClearCurrentDoor()
+    {
+        currentDoor = null;
+        currentCollider = null;
+    }
+
     private IEnumerator HandleTransition(DoorScript targetDoor, Vector3 entryPosition)
     {
         isTransitioning = true;
@@ -88,7 +118,7 @@ public class PlayerDoorInteractor : MonoBehaviour
             TeleportTo(entryPosition);
         }
 
-        currentDoor = targetDoor;
+        ClearCurrentDoor();
         isTransitioning = false;
     }
 

@@ -161,6 +161,9 @@ namespace MG_BlocksEngine2.DragDrop
                 if (storage.contentArea == null)
                     continue;
 
+                if (!storage.CanPlaceBlock(Block))
+                    continue;
+
                 Vector2 nearestPoint = GetNearestPointOnRect(storage.contentArea, worldPoint);
                 float distanceSqr = ((Vector2)nearestPoint - worldPoint).sqrMagnitude;
                 if (distanceSqr < nearestDistanceSqr)

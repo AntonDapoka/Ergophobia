@@ -33,10 +33,6 @@ namespace MG_BlocksEngine2.Block
         public BE2_BlockSectionBody ParentBody { get; set; }
         public bool IsOccupied => CurrentBlock != null;
 
-        /// <summary>
-        /// Returns the nesting level of this line.
-        /// Main lines = 0, sublines inside a block in a main line = 1, and so on recursively.
-        /// </summary>
         public int NestingLevel
         {
             get
@@ -55,10 +51,10 @@ namespace MG_BlocksEngine2.Block
             }
         }
 
-        public Color NormalColor = new Color(0.15f, 0.15f, 0.15f, 0.3f);
-        public Color HoverColor = new Color(0.3f, 0.5f, 0.8f, 0.5f);
-        public Color OccupiedColor = new Color(0.1f, 0.1f, 0.1f, 0.1f);
-        public Color ActiveColor = new Color(0.2f, 0.8f, 0.2f, 0.6f);
+        public Color NormalColor = new(0.15f, 0.15f, 0.15f, 0.3f);
+        public Color HoverColor = new(0.3f, 0.5f, 0.8f, 0.5f);
+        public Color OccupiedColor = new(0.1f, 0.1f, 0.1f, 0.1f);
+        public Color ActiveColor = new(0.6f, 0.0f, 0.08f, 0.6f);
         public Sprite BackgroundSprite;
 
         bool _isHighlighted;

@@ -65,7 +65,7 @@ namespace MG_BlocksEngine2.Environment
             return result;
         }
 
-        public void AddBlock(I_BE2_Block block, Vector2 localPosition)
+        public virtual void AddBlock(I_BE2_Block block, Vector2 localPosition)
         {
             if (block == null)
             {

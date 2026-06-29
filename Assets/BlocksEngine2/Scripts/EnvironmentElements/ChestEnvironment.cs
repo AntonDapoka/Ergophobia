@@ -35,6 +35,8 @@ namespace MG_BlocksEngine2.Environment
 
         private I_BE2_Block pendingSelectedBlock;
         private HashSet<I_BE2_Block> ownedBlocks = new HashSet<I_BE2_Block>();
+        private bool isClosed;
+        private CanvasGroup canvasGroup;
 
         protected override void OnDisable()
         {
@@ -51,12 +53,93 @@ namespace MG_BlocksEngine2.Environment
             if (spawnAnchor == null && contentArea != null)
                 spawnAnchor = contentArea;
 
+            canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+                canvasGroup = gameObject.AddComponent<CanvasGroup>();
+
+            isClosed = false;
+
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypesBlock.OnDragOut, HandleDragOut);
             BE2_MainEventsManager.Instance.StartListening(BE2EventTypesBlock.OnDrop, HandleBlockDrop);
         }
 
         public override bool CanPlaceBlock(I_BE2_Block block) => false;
-        public override bool CanPickupBlock(I_BE2_Block block) => true;
+        public override bool CanPickupBlock(I_BE2_Block block) => !isClosed;
+
+        /// <summary>
+        /// Once a block has been picked, redirect any block that would be placed back
+        /// into this chest to the nearest other StorageEnvironment instead.
+        /// </summary>
+        public override void AddBlock(I_BE2_Block block, Vector2 localPosition)
+        {
+            if (!isClosed)
+            {
+                base.AddBlock(block, localPosition);
+                return;
+            }
+
+            StorageEnvironment target = FindNearestOtherStorage(block.Transform.position);
+            if (target != null)
+            {
+                Vector2 targetLocalPos = target.contentArea.InverseTransformPoint(block.Transform.position);
+                target.AddBlock(block, targetLocalPos);
+            }
+            else
+            {
+                base.AddBlock(block, localPosition);
+            }
+        }
+
+        private void CloseInteraction()
+        {
+            if (isClosed) return;
+            isClosed = true;
+
+            if (canvasGroup != null)
+            {
+                canvasGroup.blocksRaycasts = false;
+                canvasGroup.interactable = false;
+            }
+        }
+
+        private StorageEnvironment FindNearestOtherStorage(Vector3 worldPoint)
+        {
+            StorageEnvironment nearest = null;
+            float nearestDistanceSqr = float.MaxValue;
+
+            foreach (var holder in ActiveHolders)
+            {
+                if (holder == this) continue;
+                if (holder is not StorageEnvironment storage) continue;
+                if (storage.contentArea == null) continue;
+                if (!storage.CanPlaceBlock(null)) continue;
+
+                Vector2 nearestPoint = GetNearestPointOnRect(storage.contentArea, worldPoint);
+                float distanceSqr = ((Vector2)nearestPoint - (Vector2)worldPoint).sqrMagnitude;
+                if (distanceSqr < nearestDistanceSqr)
+                {
+                    nearestDistanceSqr = distanceSqr;
+                    nearest = storage;
+                }
+            }
+
+            return nearest;
+        }
+
+        private Vector2 GetNearestPointOnRect(RectTransform rectTransform, Vector3 worldPoint)
+        {
+            Vector3[] corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+
+            float minX = Mathf.Min(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+            float maxX = Mathf.Max(corners[0].x, corners[1].x, corners[2].x, corners[3].x);
+            float minY = Mathf.Min(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+            float maxY = Mathf.Max(corners[0].y, corners[1].y, corners[2].y, corners[3].y);
+
+            return new Vector2(
+                Mathf.Clamp(worldPoint.x, minX, maxX),
+                Mathf.Clamp(worldPoint.y, minY, maxY));
+        }
 
         /// <summary>
         /// Manually populate the chest with the configured block prefabs.
@@ -162,6 +245,7 @@ namespace MG_BlocksEngine2.Environment
             if (!ownedBlocks.Contains(draggedBlock)) return;
 
             pendingSelectedBlock = draggedBlock;
+            CloseInteraction();
         }
 
         private void HandleBlockDrop(I_BE2_Block droppedBlock)
