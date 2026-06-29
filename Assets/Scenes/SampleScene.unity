@@ -30674,7 +30674,7 @@ MonoBehaviour:
   allowStaggeredBranches: 1
   roomGapX: 4
   roomGapZ: 3
-  roomCount: 3
+  roomCount: 8
   branchChance: 0.4
   roomsPerFrame: 1
   transitionManager: {fileID: 139102930}
