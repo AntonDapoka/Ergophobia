@@ -516,7 +516,7 @@ Transform:
   m_GameObject: {fileID: 4818542504683415726}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 0, z: -3.5}
+  m_LocalPosition: {x: -6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 1
+  type: 3
   spawnWave: 1
 --- !u!1 &5234451836571189167
 GameObject:
@@ -569,7 +569,6 @@ Transform:
   - {fileID: 1842699605760422623}
   - {fileID: 2073099945726835201}
   - {fileID: 9120527916754330557}
-  - {fileID: 4662161349575562978}
   m_Father: {fileID: 671637997495139752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5436231768346885614
@@ -673,7 +672,7 @@ MonoBehaviour:
   - {fileID: 986818398674598106}
   - {fileID: 0}
   - {fileID: 6627450918166266055}
-  - {fileID: 1818869471459233153}
+  - {fileID: 0}
 --- !u!114 &-4019683855554580931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,52 +860,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &7288366768146439399
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4662161349575562978}
-  - component: {fileID: 1818869471459233153}
-  m_Layer: 0
-  m_Name: SpawnerPoint5
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4662161349575562978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7288366768146439399}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1353829826585458146}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1818869471459233153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7288366768146439399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 3
-  spawnWave: 1
 --- !u!1 &7377218569984078208
 GameObject:
   m_ObjectHideFlags: 0
