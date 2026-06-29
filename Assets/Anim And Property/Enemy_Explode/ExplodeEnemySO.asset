@@ -16,7 +16,7 @@ MonoBehaviour:
   patrolSpeed: 8
   chaseSpeed: 2.5
   sensorRadius: 40
-  attackRange: 3
+  attackRange: 2
   attackDamage: 10
   attackCooldown: 1.5
   isRanged: 0

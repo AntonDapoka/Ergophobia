@@ -194,52 +194,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &2278389648817532754
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5128204932900014845}
-  - component: {fileID: 4332906250734269230}
-  m_Layer: 0
-  m_Name: SpawnerPoint4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5128204932900014845
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278389648817532754}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: 0, z: 3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5166750615000071893}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4332906250734269230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278389648817532754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 1
-  spawnWave: 2
 --- !u!1 &3762923011516950439
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +302,7 @@ MonoBehaviour:
   - {fileID: 2490499155590300370}
   - {fileID: 340263821949022795}
   - {fileID: 46534395337905187}
-  - {fileID: 4332906250734269230}
+  - {fileID: 0}
 --- !u!114 &-4954340608480025564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,7 +631,6 @@ Transform:
   - {fileID: 4734393107019371783}
   - {fileID: 7498668693506005232}
   - {fileID: 6052688000523019764}
-  - {fileID: 5128204932900014845}
   m_Father: {fileID: 273653648954264304}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6025796154308058479
@@ -908,7 +861,7 @@ Transform:
   m_GameObject: {fileID: 8090467850524436382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: -3}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -926,8 +879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 1
-  spawnWave: 2
+  type: 3
+  spawnWave: 1
 --- !u!1001 &76331242653288390
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -218,52 +218,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
   type: 0
   spawnWave: 1
---- !u!1 &1774846838041723224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7385653219280558710}
-  - component: {fileID: 5578644159570141882}
-  m_Layer: 0
-  m_Name: SpawnerPoint3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7385653219280558710
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774846838041723224}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5539816518590466712}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5578644159570141882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774846838041723224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 1
-  spawnWave: 2
 --- !u!1 &3519111860959138970
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,9 +286,7 @@ Transform:
   m_Children:
   - {fileID: 4158130710169894250}
   - {fileID: 3738831014844900235}
-  - {fileID: 7385653219280558710}
   - {fileID: 7837012740658714458}
-  - {fileID: 6386452845693730751}
   m_Father: {fileID: 329758575441083217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4872059005423391457
@@ -695,9 +647,9 @@ MonoBehaviour:
   spawners:
   - {fileID: 9031241137417319147}
   - {fileID: 4542476422476457334}
-  - {fileID: 5578644159570141882}
+  - {fileID: 0}
   - {fileID: 1462639747893460707}
-  - {fileID: 1222228124413972266}
+  - {fileID: 0}
 --- !u!114 &2847832760094693129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +693,7 @@ GameObject:
   - component: {fileID: 7837012740658714458}
   - component: {fileID: 1462639747893460707}
   m_Layer: 0
-  m_Name: SpawnerPoint4
+  m_Name: SpawnerPoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
   type: 3
-  spawnWave: 2
+  spawnWave: 1
 --- !u!1 &8550093128330920249
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,52 +825,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &8712879378191137004
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6386452845693730751}
-  - component: {fileID: 1222228124413972266}
-  m_Layer: 0
-  m_Name: SpawnerPoint5
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6386452845693730751
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8712879378191137004}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5539816518590466712}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1222228124413972266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8712879378191137004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8f48008d0a8b0d48b907caabc662668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnerPoint
-  type: 0
-  spawnWave: 2
 --- !u!1 &8774141560152919281
 GameObject:
   m_ObjectHideFlags: 0

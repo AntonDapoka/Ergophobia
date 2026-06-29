@@ -224,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShieldComponent
   blockAngle: 180
   maxBlockCount: 3
-  stunDuration: 2
+  stunDuration: 3
 --- !u!114 &8001035644150288866
 MonoBehaviour:
   m_ObjectHideFlags: 0

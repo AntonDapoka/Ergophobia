@@ -26,6 +26,9 @@ public class StageSwitchScript : MonoBehaviour
     [Tooltip("主场景中负责播放游戏BGM的 AudioSource")]
     [SerializeField] private AudioSource mainBGMSource;
 
+    [Header("UI")]
+    [SerializeField] private GameObject stageHUD;
+
     // ==========================================
     // 【新增】剧情与关卡进度配置
     // ==========================================
@@ -95,55 +98,42 @@ public class StageSwitchScript : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // 【新增】通用的剧情播放协程 (让代码更整洁)
-    // ==========================================
     private IEnumerator PlayStoryRoutine(string storySceneName)
     {
         if (string.IsNullOrEmpty(storySceneName)) yield break;
 
         IsStoryPlaying = true;
 
-        // 1. 叠加加载剧情场景
+        stageHUD?.SetActive(false); 
         yield return SceneManager.LoadSceneAsync(storySceneName, LoadSceneMode.Additive);
 
-        // 2. 屏幕亮起，玩家观看剧情
         if (fade != null) yield return fade.PlayFadeIn();
 
-        // 3. 死循环等待，直到剧情场景里的 StoryController 把 IsStoryPlaying 设为 false
         yield return new WaitUntil(() => !IsStoryPlaying);
 
-        // 4. 剧情看完了，屏幕再次变黑
         if (fade != null) yield return fade.PlayFadeOut();
 
-        // 5. 卸载剧情场景
         yield return SceneManager.UnloadSceneAsync(storySceneName);
-
+        stageHUD?.SetActive(true);
         if (mainBGMSource != null)
         {
-            mainBGMSource.Stop(); // 先停止当前的进度
-            mainBGMSource.Play(); // 从头开始播放
+            mainBGMSource.Stop(); 
+            mainBGMSource.Play(); 
         }
     }
 
-    // ==========================================
-    // 幕间切换逻辑 (第1关->第2关，第2关->第3关)
-    // ==========================================
     private IEnumerator SwitchStageRoutine()
     {
         isSwitching = true;
 
-        // 1. 屏幕变黑
         if (fade != null) yield return fade.PlayFadeOut();
 
         currentStage++;
         OnStageChanged?.Invoke(currentStage);
 
-        // 2. 播放下一幕的剧情 (例如 currentStage = 2，对应 Element 1)
         string storySceneToLoad = GetStorySceneName(currentStage);
         yield return PlayStoryRoutine(storySceneToLoad);
 
-        // 3. 后台打扫卫生
         DestroyAllTreasures();
         transitionManager?.TurnOffBlocks();
 
@@ -169,31 +159,21 @@ public class StageSwitchScript : MonoBehaviour
             finally { levelGenerator.OnLevelGenerated -= onGenerated; }
         }
 
-        // 5. 传送玩家到新起点
         TeleportPlayerToStart(generatedRooms);
 
-        // 6. 屏幕亮起，玩家出现在新关卡！
         if (fade != null) yield return fade.PlayFadeIn();
 
         isSwitching = false;
     }
 
-    // ==========================================
-    // 【新增】结局逻辑 (打完最后一关后触发)
-    // ==========================================
     private IEnumerator GameEndRoutine()
     {
         isSwitching = true;
-
-        // 1. 屏幕变黑
         if (fade != null) yield return fade.PlayFadeOut();
 
-        // 2. 播放结局剧情 (对应 Element 3，即 maxStage + 1)
         string endingStory = GetStorySceneName(maxStage + 1);
         yield return PlayStoryRoutine(endingStory);
 
-        // 3. 结局播放完毕后的处理
-        Debug.Log("<color=yellow>游戏通关！所有剧情播放完毕。</color>");
 
         // TODO: 在这里添加返回主菜单的代码，例如：
         // SceneManager.LoadScene("MainMenuScene");
@@ -201,16 +181,8 @@ public class StageSwitchScript : MonoBehaviour
         isSwitching = false;
     }
 
-    // ==========================================
-    // 辅助方法：根据阶段获取对应的剧情场景名
-    // ==========================================
     private string GetStorySceneName(int stage)
     {
-        // 数组索引映射：
-        // stage 1 -> index 0 (开场)
-        // stage 2 -> index 1 (第二幕前)
-        // stage 3 -> index 2 (第三幕前)
-        // stage 4 -> index 3 (结局)
         int index = stage - 1;
         if (storySceneNames != null && index >= 0 && index < storySceneNames.Length)
         {

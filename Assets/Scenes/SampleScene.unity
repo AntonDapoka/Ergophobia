@@ -25959,6 +25959,7 @@ MonoBehaviour:
   fade: {fileID: 1980417810}
   generationTimeout: 10
   mainBGMSource: {fileID: 2043966660}
+  stageHUD: {fileID: 631919292}
   maxStage: 3
   storySceneNames:
   - Story_Opening
@@ -30659,8 +30660,8 @@ MonoBehaviour:
   allowStaggeredBranches: 1
   roomGapX: 4
   roomGapZ: 3
-  roomCount: 3
-  branchChance: 0.294
+  roomCount: 5
+  branchChance: 0.4
   roomsPerFrame: 1
   transitionManager: {fileID: 139102930}
   enemySpawner: {fileID: 921226434}
@@ -32632,7 +32633,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 3455294738414626162, guid: 178c8a9018a3dd24fb5c2b3690b5e343,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: f762d783cc6d60d41bf3facd3f6dcaab, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1cd34020196901447ba76086aa0a2d55, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
