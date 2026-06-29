@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuicideAttackStrategy
   fuseTime: 0.5
-  explosionRadius: 5
+  explosionRadius: 4
   explosionVFX: {fileID: 2530143152716916853, guid: bf927d325275f484bb86f1c5ce93cbc0,
     type: 3}
   canDamageAllies: 0
@@ -1164,6 +1164,7 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: 7e14c92585e70104f9e672f70f0a48f0, type: 3}
   blockSound: {fileID: 0}
   dashSound: {fileID: 0}
+  specialSound: {fileID: 0}
   specialVolume: 1
 --- !u!82 &4384602413717507901
 AudioSource:

@@ -1,18 +1,20 @@
 using System.Collections;
+using System.Collections.Generic; 
 using UnityEngine;
 
 public class SuicideAttackStrategy : AttackStrategyBase
 {
     [Header("Explosion Settings")]
-    [SerializeField] private float fuseTime = 1.5f;         
-    [SerializeField] private float explosionRadius;         
-    [SerializeField] private GameObject explosionVFX;      
+    [SerializeField] private float fuseTime = 1.5f;
+    [SerializeField] private float explosionRadius;
+    [SerializeField] private GameObject explosionVFX;
     [SerializeField] private bool canDamageAllies = true;
     [SerializeField] private float pushForce;
 
     [Header("Cancel Settings")]
-    [SerializeField] private float cancelableTime;   
-    [SerializeField] private float cancelDistance;  
+    [SerializeField] private float cancelableTime;
+    [SerializeField] private float cancelDistance;
+
     [Header("Warning Circle ")]
     [SerializeField] private LineRenderer warningCircle;
     [SerializeField] private int circleSegments = 50;
@@ -56,18 +58,19 @@ public class SuicideAttackStrategy : AttackStrategyBase
         {
             if (timer < cancelableTime && target != null)
             {
-   
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                Vector3 myPos2D = new Vector3(transform.position.x, 0, transform.position.z);
+                Vector3 targetPos2D = new Vector3(target.position.x, 0, target.position.z);
+                float distanceToTarget = Vector3.Distance(myPos2D, targetPos2D);
 
                 if (distanceToTarget > cancelDistance)
                 {
                     CancelDetonation();
-                    yield break; 
+                    yield break;
                 }
             }
 
             timer += Time.deltaTime;
-            float percent = timer / fuseTime; 
+            float percent = timer / fuseTime;
 
             if (warningCircle != null)
             {
@@ -77,39 +80,49 @@ public class SuicideAttackStrategy : AttackStrategyBase
                 warningCircle.endColor = circleColor;
             }
 
-            yield return null; 
+            yield return null;
         }
-        //Range of the explosion
-        Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius + 2f);
+
+        HashSet<IDamageable> damagedTargets = new HashSet<IDamageable>();
+
+        Vector3 explosionCenter2D = new Vector3(transform.position.x, 0, transform.position.z);
+
         foreach (var hit in hits)
         {
             if (hit.gameObject == gameObject || hit.transform.IsChildOf(transform)) continue;
+            IDamageable damageable = hit.GetComponentInParent<IDamageable>();
+            if (damageable == null) continue;
+
+            if (damagedTargets.Contains(damageable)) continue;
+            Transform targetRoot = (damageable as MonoBehaviour).transform;
+
+            Vector3 targetCenter2D = new Vector3(targetRoot.position.x, 0, targetRoot.position.z);
+
+            float distance2D = Vector3.Distance(explosionCenter2D, targetCenter2D);
+            if (distance2D > explosionRadius) continue;
 
             if (!canDamageAllies)
             {
-                bool isTargetEnemy = hit.GetComponentInParent<EnemyMarker>() != null;
+                bool isTargetEnemy = targetRoot.GetComponent<EnemyMarker>() != null;
                 if (isTargetEnemy) continue;
             }
 
-            IDamageable damageable = hit.GetComponentInParent<IDamageable>();
+            damageable.TakeDamage(damage, transform.position);
+            damagedTargets.Add(damageable); 
 
-            if (damageable != null)
+            // »÷ÍËÂß¼­
+            Rigidbody rb = targetRoot.GetComponent<Rigidbody>();
+            if (rb != null && !rb.isKinematic)
             {
-                damageable.TakeDamage(damage, transform.position);
-
-                GetComponent<EnemyAudio>().PlayExplosion();
-                Rigidbody rb = hit.GetComponentInParent<Rigidbody>();
-
-                if (rb != null && !rb.isKinematic)
-                {
-                    Vector3 pushDir = hit.transform.position - transform.position;
-                    pushDir.y = 0;
-                    pushDir.Normalize();
-                    rb.AddForce(pushDir * pushForce, ForceMode.Impulse);
-                }               
-
-                Debug.Log($"<color=red>The explosion hit {hit.name}£¬taking a damage of {damage} </color>");
+                Vector3 pushDir = targetRoot.position - transform.position;
+                pushDir.y = 0;
+                pushDir.Normalize();
+                rb.AddForce(pushDir * pushForce, ForceMode.Impulse);
             }
+
+            Debug.Log($"<color=red>The explosion hit {targetRoot.name}, taking a damage of {damage} </color>");
         }
 
         if (explosionVFX != null)
@@ -117,6 +130,7 @@ public class SuicideAttackStrategy : AttackStrategyBase
             GameObject vfx = Instantiate(explosionVFX, transform.position, Quaternion.identity);
             Destroy(vfx, 2f);
         }
+        GetComponent<EnemyAudio>().PlayExplosion();
 
         if (self != null) self.TakeDamage(float.MaxValue, transform.position);
     }
@@ -125,7 +139,6 @@ public class SuicideAttackStrategy : AttackStrategyBase
     {
         Debug.Log("<color=yellow>The player has escaped the range, self-detonation canceled, resuming chase!</color>");
 
-      
         if (warningCircle != null) warningCircle.enabled = false;
         if (ani != null) ani.ResetTrigger("Attack");
 
