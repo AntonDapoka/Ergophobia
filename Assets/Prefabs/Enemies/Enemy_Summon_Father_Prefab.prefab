@@ -538,7 +538,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 84d396f266dd843419c8a41283358b61, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -584,9 +584,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.5529412, g: 0, b: 1, a: 1}
-      key1: {r: 0.50980395, g: 0, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.7, g: 0.7, b: 0.7, a: 0.78431374}
+      key1: {r: 0.5764706, g: 0.4392157, b: 0.8588236, a: 0.5019608}
+      key2: {r: 0, g: 0, b: 0, a: 0.27450982}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -602,7 +602,7 @@ LineRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -831,6 +831,7 @@ MonoBehaviour:
   explosionSound: {fileID: 0}
   blockSound: {fileID: 0}
   dashSound: {fileID: 0}
+  specialSound: {fileID: 0}
   specialVolume: 1
 --- !u!1 &1167730242442670333
 GameObject:
