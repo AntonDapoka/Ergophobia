@@ -54,6 +54,20 @@ public class RoomScript : MonoBehaviour
             door.Initialize(this);
     }
 
+    public void ResetForReuse()
+    {
+        if (doors == null || doors.Length == 0)
+            doors = GetComponentsInChildren<DoorScript>(true);
+
+        doors = doors.Where(d => d != null).ToArray();
+
+        foreach (var door in doors)
+        {
+            door.gameObject.SetActive(true);
+            door.SetBlockedByPrefab(false);
+        }
+    }
+
     public bool HasDoor(DoorType type)
     {
         return doors != null && doors.Any(d => d != null && d.DoorType == type);
@@ -119,10 +133,8 @@ public class RoomScript : MonoBehaviour
         foreach (var door in doors)
         {
             if (door == null) continue;
-            if (config.blockedDoors.Contains(door.DoorType))
-            {
-                door.SetBlockedByPrefab(true);
-            }
+            bool shouldBlock = config.blockedDoors.Contains(door.DoorType);
+            door.SetBlockedByPrefab(shouldBlock);
         }
     }
 }

@@ -268,6 +268,7 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
         }
 
         room.transform.SetPositionAndRotation(GetSlotPosition(slot), Quaternion.identity);
+        room.ResetForReuse();
         room.Initialize(slot);
         room.SetDoorsFromConfig(config);
         room.SourceConfig = config;

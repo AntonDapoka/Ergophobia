@@ -30,7 +30,10 @@ public class DoorScript : MonoBehaviour
         ParentRoom = parent;
         IsConnected = false;
         IsOpen = false;
+        ConnectedDoor = null;
         reference = GetComponent<DoorReference>();
+        reference?.SetConnectedDoor(null);
+        reference?.SetHintActive(false);
     }
 
     public void SetBlockedByPrefab(bool blocked)
