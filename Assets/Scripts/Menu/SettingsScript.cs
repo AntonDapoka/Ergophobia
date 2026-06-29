@@ -64,7 +64,28 @@ public class SettingsScript : MonoBehaviour
 
         LoadSettings();
 
+        toggleFullScreen.onValueChanged.AddListener(OnFullscreenToggleChanged);
+        dropDownResolution.onValueChanged.AddListener(OnResolutionDropdownChanged);
+
         Debug.Log($"[Settings] Current screen resolution after load: {Screen.width}x{Screen.height}, fullscreen: {Screen.fullScreen}");
+    }
+
+    private void OnDestroy()
+    {
+        if (toggleFullScreen != null)
+            toggleFullScreen.onValueChanged.RemoveListener(OnFullscreenToggleChanged);
+        if (dropDownResolution != null)
+            dropDownResolution.onValueChanged.RemoveListener(OnResolutionDropdownChanged);
+    }
+
+    private void OnFullscreenToggleChanged(bool isOn)
+    {
+        SetFullscreen(isOn);
+    }
+
+    private void OnResolutionDropdownChanged(int index)
+    {
+        SetResolution(index);
     }
 
     private void SetupVolumeSlider(Slider slider, string volumeParameter, TextMeshProUGUI volumeText, Action<float> onValueChanged)
@@ -115,13 +136,21 @@ public class SettingsScript : MonoBehaviour
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+        SaveSettings();
     }
 
     public void SetResolution(int resolutionIndex)
     {
+        if (resolutions == null || resolutionIndex < 0 || resolutionIndex >= resolutions.Length)
+        {
+            Debug.LogWarning($"[Settings] Invalid resolution index: {resolutionIndex}");
+            return;
+        }
+
         Resolution resolution = resolutions[resolutionIndex];
         Debug.Log($"[Settings] Applying resolution: {resolution.width}x{resolution.height}, fullscreen: {Screen.fullScreen}");
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        SaveSettings();
     }
 
     public void ResetToDefaults()
@@ -133,7 +162,7 @@ public class SettingsScript : MonoBehaviour
         currentSFXVolume = SetVolume(defaultVolume, volumeParameterSFX, sliderSFXVolume, textSFXVolume);
 
         Screen.fullScreen = true;
-        toggleFullScreen.isOn = true;
+        toggleFullScreen.SetIsOnWithoutNotify(true);
 
         SetResolutionToCurrentMonitor();
         SaveSettings();
@@ -158,7 +187,7 @@ public class SettingsScript : MonoBehaviour
         Resolution resolution = resolutions[currentResolutionIndex];
         Debug.Log($"[Settings] Setting resolution to current monitor: {resolution.width}x{resolution.height}, fullscreen: {Screen.fullScreen}");
 
-        dropDownResolution.value = currentResolutionIndex;
+        dropDownResolution.SetValueWithoutNotify(currentResolutionIndex);
         SetResolution(currentResolutionIndex);
     }
 
@@ -228,12 +257,12 @@ public class SettingsScript : MonoBehaviour
         currentMusicVolume = SetVolume(saveData.volumeMusic, volumeParameterMusic, sliderMusicVolume, textMusicVolume);
         currentSFXVolume = SetVolume(saveData.volumeSFX, volumeParameterSFX, sliderSFXVolume, textSFXVolume);
 
-        bool fullscreen = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullscreenPreference"));
+        bool fullscreen = System.Convert.ToBoolean(saveData.fullscreen);
         Screen.fullScreen = fullscreen;
-        toggleFullScreen.isOn = fullscreen;
+        toggleFullScreen.SetIsOnWithoutNotify(fullscreen);
 
-        dropDownResolution.value = saveData.resolution;
-        SetResolution(dropDownResolution.value);
+        dropDownResolution.SetValueWithoutNotify(saveData.resolution);
+        SetResolution(saveData.resolution);
         //dropDownQuality.value = saveData.quality;
     }
 
@@ -250,10 +279,11 @@ public class SettingsScript : MonoBehaviour
         //dropDownQuality.value = 1;
 
         Screen.fullScreen = false;
-        toggleFullScreen.isOn = false;
+        toggleFullScreen.SetIsOnWithoutNotify(false);
 
         int monitorIndex = GetCurrentMonitorResolutionIndex();
         saveData.resolution = monitorIndex;
+        dropDownResolution.SetValueWithoutNotify(monitorIndex);
         SetResolution(monitorIndex);
 
         SaveSettings();
