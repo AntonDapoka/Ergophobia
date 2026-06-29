@@ -34615,7 +34615,7 @@ MonoBehaviour:
   lineSpacing: 10
   lineWidth: 600
   lineNormalColor: {r: 0.15, g: 0.15, b: 0.15, a: 0.52156866}
-  lineHoverColor: {r: 0.3, g: 0.5, b: 0.8, a: 0.5}
+  lineHoverColor: {r: 0.6980392, g: 0.1333333, b: 0.1333333, a: 0.49019608}
   lineOccupiedColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.1}
   lineSprite: {fileID: 0}
   scrollRect: {fileID: 0}
