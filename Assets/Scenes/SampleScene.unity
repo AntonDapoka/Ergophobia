@@ -7485,8 +7485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929eda2cc092dfd4e9d7cbcb95f59150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDebugHealth
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 200
+  currentHealth: 200
   loseScript: {fileID: 782652392}
   playerMoving: {fileID: 442682857}
 --- !u!114 &442682855
