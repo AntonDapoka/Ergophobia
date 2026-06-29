@@ -335,6 +335,7 @@ MonoBehaviour:
   chestEnvironmentTemplate: {fileID: 0}
   chestSpawnParent: {fileID: 0}
   blocksReference: {fileID: 0}
+  VFX: {fileID: 3829437673108456099, guid: 98cc72dec46c5b146b60a2f326df7560, type: 3}
   openSFX: {fileID: 8300000, guid: ba7fbb4587cdc47408d62d3f92181dcc, type: 3}
   specificBlockPrefabs: []
   rewardBlockCount: 3

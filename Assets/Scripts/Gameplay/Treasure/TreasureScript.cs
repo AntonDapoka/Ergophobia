@@ -16,6 +16,8 @@ public class TreasureScript : MonoBehaviour
     [SerializeField] private ChestEnvironment chestEnvironmentTemplate;
     [SerializeField] private Transform chestSpawnParent;
     [SerializeField] private BlocksReferenceScript blocksReference;
+    [SerializeField] private GameObject VFX;
+    private GameObject activeVFXInstance;
     private Animator animator;
     private AudioSource audioSource;
     [SerializeField] private AudioClip openSFX;
@@ -89,7 +91,9 @@ public class TreasureScript : MonoBehaviour
     {
         animator.SetTrigger("Open");
         audioSource.PlayOneShot(openSFX);
-
+        if (VFX != null)
+        activeVFXInstance = Instantiate(VFX, transform.position, Quaternion.identity, transform);
+        activeVFXInstance.SetActive(true);
         if (isOpened) return;
         isOpened = true;
 
@@ -189,6 +193,12 @@ public class TreasureScript : MonoBehaviour
             activeChestEnvironment.gameObject.SetActive(false);
             Destroy(activeChestEnvironment.gameObject);
             activeChestEnvironment = null;
+        }
+
+        if (activeVFXInstance != null)
+        {
+            Destroy(activeVFXInstance, 0.5f);
+            activeVFXInstance = null;
         }
 
         Destroy(gameObject);

@@ -103,12 +103,6 @@ public class AttackState : IState
         enemy.Movement.Stop();
         hasAttacked = false;
         attackCommandSent = false;
-
-        EnemyAudio audio = enemy.GetComponent<EnemyAudio>();
-        if (audio != null)
-        {
-            audio.PlayAttack(0.3f);
-        }
     }
 
     public void Update()

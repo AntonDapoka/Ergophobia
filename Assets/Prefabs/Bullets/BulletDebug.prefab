@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4abd0672e3109241ad7326132019670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletBasicDebug
-  speed: 100
-  damage: 2
+  speed: 25
+  damage: 5
   lifeTime: 3
   explosionVFX: {fileID: 4789001238304388876, guid: 4f7b7359f7b340b4abf29b530b43b310,
     type: 3}

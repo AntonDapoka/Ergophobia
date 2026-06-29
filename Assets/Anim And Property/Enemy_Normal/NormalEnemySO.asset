@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da429f571257ea74eb4cbdfbd7a1c6a9, type: 3}
   m_Name: NormalEnemySO
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStatsSO
-  maxHealth: 5
+  maxHealth: 9
   patrolSpeed: 8
   chaseSpeed: 2.5
   sensorRadius: 20

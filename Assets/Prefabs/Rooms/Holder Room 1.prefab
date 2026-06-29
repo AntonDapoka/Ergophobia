@@ -817,7 +817,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4EC5\u6709\u5BF9\u9F50\u540E\u663E\u793A\u7EFF\u8272\u7684\u4EE3\u7801\u624D\u53EF\u4EE5\u586B\u5165\u5BF9\u5E94\u7A7A\u7F3A"
+  m_text: "\u4EC5\u6709\u4E0E\u7A7A\u7F3A\u989C\u8272\u76F8\u540C\u7684\u4EE3\u7801\u624D\u53EF\u4EE5\u586B\u5165\u5BF9\u5E94\u7A7A\u7F3A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fc1dd9b74d194be4dadb2886c6efc256, type: 2}
   m_sharedMaterial: {fileID: -8707439869061857529, guid: fc1dd9b74d194be4dadb2886c6efc256,
@@ -1868,7 +1868,7 @@ PrefabInstance:
     - target: {fileID: 7053084291020580451, guid: 14cd33c3fd98c124ab47b993574c8b20,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.03
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7053084291020580451, guid: 14cd33c3fd98c124ab47b993574c8b20,
         type: 3}

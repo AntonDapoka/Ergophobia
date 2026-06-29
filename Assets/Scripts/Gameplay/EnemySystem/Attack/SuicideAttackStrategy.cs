@@ -102,16 +102,9 @@ public class SuicideAttackStrategy : AttackStrategyBase
 
                 if (rb != null && !rb.isKinematic)
                 {
-                    // 计算从爆炸中心到受击者的方向
                     Vector3 pushDir = hit.transform.position - transform.position;
-
-                    // 【核心修改】：将 Y 轴强制设为 0，确保力完全在水平面上
                     pushDir.y = 0;
-
-                    // 归一化向量，保证无论距离多远，方向向量的长度都是 1
                     pushDir.Normalize();
-
-                    // 使用 AddForce 施加瞬间冲力 (Impulse)
                     rb.AddForce(pushDir * pushForce, ForceMode.Impulse);
                 }               
 
@@ -152,14 +145,5 @@ public class SuicideAttackStrategy : AttackStrategyBase
             warningCircle.SetPosition(i, new Vector3(x, 0.1f, z));
             angle += (360f / circleSegments);
         }
-    }
-
-    //Debug
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, explosionRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, cancelDistance);
     }
 }
