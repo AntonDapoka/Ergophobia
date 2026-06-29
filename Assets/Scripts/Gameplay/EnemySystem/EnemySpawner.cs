@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     private Dictionary<RoomScript, bool> spawnedRooms = new();
     private Dictionary<RoomScript, List<GameObject>> spawnedEnemies = new();
     private Dictionary<string, AsyncOperationHandle<GameObject>> loadedPrefabs = new();
-    private HashSet<string> ownedKeys = new HashSet<string>();
+    private HashSet<string> ownedKeys = new();
     private Dictionary<GameObject, Action> enemyDeathHandlers = new();
 
     public event Action<RoomScript> OnRoomCleared;
@@ -69,9 +69,6 @@ public class EnemySpawner : MonoBehaviour
         if (loadedPrefabs.TryGetValue(key, out var existingHandle))
             return existingHandle;
 
-        // AssetReference keeps an internal OperationHandle. Calling LoadAssetAsync again while it
-        // is valid throws "Attempting to load AssetReference that has already been loaded.".
-        // Reuse the existing handle or load once and track that we own the load so we can release it.
         AsyncOperationHandle<GameObject> handle;
         if (config.prefabReference.OperationHandle.IsValid())
         {
@@ -118,7 +115,8 @@ public class EnemySpawner : MonoBehaviour
         if (room == null) return;
         if (spawnedRooms.TryGetValue(room, out bool spawned) && spawned) return;
 
-        StartCoroutine(SpawnWaveCoroutine(room));
+        if (!room.TryGetComponent<FinalRoomTreasureCrutchScript>(out _))
+            StartCoroutine(SpawnWaveCoroutine(room));
     }
 
     private IEnumerator SpawnWaveCoroutine(RoomScript room)

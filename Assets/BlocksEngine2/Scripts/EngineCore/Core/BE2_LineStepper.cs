@@ -100,6 +100,14 @@ namespace MG_BlocksEngine2.Core
 
             while (_isRunning && result.Type == StepResultType.EnterBody && !isRepeatForever)
             {
+                // Avoid looping on an empty body: if there are no blocks inside the
+                // section, treat the container as completed and move on.
+                if (!BodyHasBlocks(block, result.BodySectionIndex))
+                {
+                    result = StepResult.Completed;
+                    break;
+                }
+
                 yield return C_ExecuteBody(env, block, result.BodySectionIndex);
 
                 loopGuard++;
@@ -172,6 +180,21 @@ namespace MG_BlocksEngine2.Core
 
             I_BE2_BlockSection section = block.Layout.SectionsArray[sectionIndex];
             return section?.Body as BE2_BlockSectionBody;
+        }
+
+        bool BodyHasBlocks(I_BE2_Block block, int sectionIndex)
+        {
+            BE2_BlockSectionBody body = GetBodyFromBlock(block, sectionIndex);
+            if (body == null || body.SubLines == null)
+                return false;
+
+            foreach (BE2_Line subLine in body.SubLines)
+            {
+                if (subLine != null && subLine.CurrentBlock != null)
+                    return true;
+            }
+
+            return false;
         }
 
         IEnumerator C_WaitOnLine(BE2_Line line)

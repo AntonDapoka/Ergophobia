@@ -319,14 +319,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
         spawnedRooms.Add(branchRoom);
         slotMap[branchSlot] = branchRoom;
 
-        if (staggered)
-        {
-            ConnectStaggeredBranch(branchRoom, parentRoom, direction);
-        }
-        else
-        {
-            ConnectAlignedBranch(branchRoom, parentRoom, direction);
-        }
+        if (staggered) ConnectStaggeredBranch(branchRoom, parentRoom, direction);
+        else ConnectAlignedBranch(branchRoom, parentRoom, direction);
     }
 
     private void ConnectAlignedBranch(RoomScript branchRoom, RoomScript parentRoom, DoorDirection direction)

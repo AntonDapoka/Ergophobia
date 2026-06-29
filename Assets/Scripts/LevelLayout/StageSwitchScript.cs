@@ -23,54 +23,48 @@ public class StageSwitchScript : MonoBehaviour
     [SerializeField] private float generationTimeout = 10f;
 
     [Header("Audio")]
-    [Tooltip("Ö÷³¡¾°ÖÐ¸ºÔð²¥·ÅÓÎÏ·BGMµÄ AudioSource")]
     [SerializeField] private AudioSource mainBGMSource;
 
     [Header("UI")]
     [SerializeField] private GameObject stageHUD;
 
-    // ==========================================
-    // ¡¾ÐÂÔö¡¿¾çÇéÓë¹Ø¿¨½ø¶ÈÅäÖÃ
-    // ==========================================
     [Header("Story & Progression")]
-    [Tooltip("×Ü¹²ÓÐ¼¸¹Ø£¿(ÀýÈç3¹Ø£¬´òÍêµÚ3¹Øºó²¥·Å½á¾Ö)")]
     [SerializeField] private int maxStage = 3;
 
-    [Tooltip("ÅäÖÃ¾çÇé³¡¾°Ãû¡£\nElement 0: ¿ª³¡¾çÇé(µÚ1Ä»Ç°)\nElement 1: µÚ2Ä»Ç°\nElement 2: µÚ3Ä»Ç°\nElement 3: ½á¾Ö¾çÇé(Í¨¹Øºó)")]
     [SerializeField] private string[] storySceneNames;
 
     public static bool IsStoryPlaying = false;
 
     private ILevelGenerator levelGenerator;
     private bool isSwitching;
-    private int currentStage = 1;
+    public int currentStage = 1;
 
     public int CurrentStage => currentStage;
     public event Action<int> OnStageChanged;
 
+    public static StageSwitchScript Instance { get; private set; }
+
     private void Awake()
     {
+        Instance = this;
         levelGenerator = levelGeneratorSource as ILevelGenerator;
         if (levelGenerator == null && levelGeneratorSource != null)
             Debug.LogError($"[StageSwitchScript] '{levelGeneratorSource.name}' does not implement {nameof(ILevelGenerator)}.", this);
     }
 
-    // ==========================================
-    // ¡¾ÐÂÔö¡¿ÓÎÏ·Æô¶¯Ê±£º²¥·Å¿ª³¡¾çÇé
-    // ==========================================
     private IEnumerator Start()
     {
-        // ÓÎÏ·¸Õ¿ªÊ¼Ê±£¬ÏÈÈ·±£ÆÁÄ»ÊÇºÚµÄ
+        // ï¿½ï¿½Ï·ï¿½Õ¿ï¿½Ê¼Ê±ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ÇºÚµï¿½
         if (fade != null) yield return fade.PlayFadeOut();
 
-        // ²¥·Å¿ª³¡¾çÇé (¶ÔÓ¦ Element 0)
+        // ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½Ó¦ Element 0)
         string openingStory = GetStorySceneName(1);
         if (!string.IsNullOrEmpty(openingStory))
         {
             yield return PlayStoryRoutine(openingStory);
         }
 
-        // ¾çÇé½áÊøºó£¬ÆÁÄ»ÊÇºÚµÄ£¬´ËÊ±µ­ÈëÏÔÊ¾µÚÒ»¹Ø£¬ÈÃÍæ¼Ò¿ªÊ¼ÓÎÍæ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ÇºÚµÄ£ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ò»ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½Ò¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
         if (fade != null) yield return fade.PlayFadeIn();
     }
 
@@ -78,14 +72,14 @@ public class StageSwitchScript : MonoBehaviour
     {
         if (isSwitching) return;
 
-        // ÅÐ¶ÏÊÇ·ñÒÑ¾­´òÍêÁË×îºóÒ»¹Ø
+        // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
         if (currentStage >= maxStage)
         {
-            StartCoroutine(GameEndRoutine()); // ²¥·Å½á¾Ö
+            StartCoroutine(GameEndRoutine()); // ï¿½ï¿½ï¿½Å½ï¿½ï¿½
         }
         else
         {
-            StartCoroutine(SwitchStageRoutine()); // Õý³£½øÈëÏÂÒ»¹Ø
+            StartCoroutine(SwitchStageRoutine()); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
         }
     }
 
@@ -137,7 +131,7 @@ public class StageSwitchScript : MonoBehaviour
         DestroyAllTreasures();
         transitionManager?.TurnOffBlocks();
 
-        // 4. ºóÌ¨Éú³ÉÐÂ¹Ø¿¨
+        // 4. ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½Â¹Ø¿ï¿½
         bool generationComplete = false;
         List<RoomScript> generatedRooms = null;
         Action<List<RoomScript>> onGenerated = rooms => { generatedRooms = rooms; generationComplete = true; };
@@ -175,7 +169,7 @@ public class StageSwitchScript : MonoBehaviour
         yield return PlayStoryRoutine(endingStory);
 
 
-        // TODO: ÔÚÕâÀïÌí¼Ó·µ»ØÖ÷²Ëµ¥µÄ´úÂë£¬ÀýÈç£º
+        // TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ä´ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ç£º
         // SceneManager.LoadScene("MainMenuScene");
 
         isSwitching = false;

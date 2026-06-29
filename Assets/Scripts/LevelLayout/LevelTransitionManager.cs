@@ -55,8 +55,18 @@ public class LevelTransitionManager : MonoBehaviour
 
         OnRoomEntered?.Invoke(currentRoom);
 
-        if (willSpawnEnemies)
-            TurnOnBlocks();
+
+        if (currentRoom.TryGetComponent(out FinalRoomTreasureCrutchScript crutch))
+        {
+            crutch.OnEnterSpawnTreasures();
+        }
+        else
+        {
+            if (willSpawnEnemies)
+                TurnOnBlocks();
+        }
+
+        
     }
 
     public void OnRoomCleared()

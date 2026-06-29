@@ -44,10 +44,6 @@ public class TreasureSpawnerScript : MonoBehaviour
             Instance = null;
     }
 
-    /// <summary>
-    /// Spawns a treasure at the given spawner point. Each treasure creates its own
-    /// private ChestEnvironment instance when opened.
-    /// </summary>
     public void SpawnTreasure(SpawnerPoint spawnerPoint)
     {
         if (prefabTreasure == null)

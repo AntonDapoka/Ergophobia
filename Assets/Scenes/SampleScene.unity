@@ -25965,6 +25965,7 @@ MonoBehaviour:
   - Story_Opening
   - Story_1
   - Story_2
+  currentStage: 1
 --- !u!1 &1640200805
 GameObject:
   m_ObjectHideFlags: 0
@@ -29900,7 +29901,6 @@ MonoBehaviour:
   - {fileID: 2622556755245386539, guid: 827e88a53d1385b8aaf5736836737515, type: 3}
   - {fileID: 2622556755245386539, guid: 827e88a53d1385b8aaf5736836737515, type: 3}
   - {fileID: 2622556755245386539, guid: 827e88a53d1385b8aaf5736836737515, type: 3}
-  - {fileID: 3007205543144607370, guid: 571ee64907e09f435b94798dbbba9994, type: 3}
   - {fileID: 8043367159958692669, guid: 5e27c165e1681d664943b4ea6757df52, type: 3}
   - {fileID: 4203164433500402243, guid: 4fd12b986a1326187ad7d7a91c163738, type: 3}
   - {fileID: 5112088884823901260, guid: d3e303f71004c9d37bf1092de1e422d2, type: 3}
@@ -30674,7 +30674,7 @@ MonoBehaviour:
   allowStaggeredBranches: 1
   roomGapX: 4
   roomGapZ: 3
-  roomCount: 5
+  roomCount: 3
   branchChance: 0.4
   roomsPerFrame: 1
   transitionManager: {fileID: 139102930}

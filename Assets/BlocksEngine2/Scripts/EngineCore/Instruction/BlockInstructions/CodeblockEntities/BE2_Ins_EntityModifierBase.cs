@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 using CodeblockEntities;
@@ -30,7 +31,11 @@ namespace MG_BlocksEngine2.Block.Instruction
                 return;
 
             float value = GetValue();
-            foreach (ICodeblockEntity entity in manager.GetEntities())
+            // Snapshot the entities so that killing an entity during modification
+            // (which removes it from the manager's live list) does not invalidate
+            // the enumeration.
+            List<ICodeblockEntity> entitiesSnapshot = new List<ICodeblockEntity>(manager.GetEntities());
+            foreach (ICodeblockEntity entity in entitiesSnapshot)
             {
                 if (entity == null) continue;
                 ApplyToEntity(entity, value);
