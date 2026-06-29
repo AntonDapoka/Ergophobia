@@ -123,6 +123,7 @@ namespace MG_BlocksEngine2.Environment
 
             float currentY = 0;
             float totalHeight = 0;
+            float maxContentWidth = lineWidth;
 
             for (int i = 0; i < MainLines.Count; i++)
             {
@@ -138,6 +139,8 @@ namespace MG_BlocksEngine2.Environment
                 if (line.CurrentBlock != null && line.CurrentBlock.Layout != null)
                 {
                     lineSize = Mathf.Max(lineHeight, line.CurrentBlock.Layout.Size.y);
+                    float blockRightEdge = lineIndent + line.CurrentBlock.Layout.Size.x + lineIndent;
+                    maxContentWidth = Mathf.Max(maxContentWidth, blockRightEdge);
                 }
 
                 currentY -= lineSize + lineSpacing;
@@ -146,7 +149,7 @@ namespace MG_BlocksEngine2.Environment
 
             if (contentContainer != null)
             {
-                contentContainer.sizeDelta = new Vector2(lineWidth, totalHeight);
+                contentContainer.sizeDelta = new Vector2(maxContentWidth, totalHeight);
             }
         }
 
@@ -184,7 +187,57 @@ namespace MG_BlocksEngine2.Environment
             scrollRect.viewport = GetComponent<RectTransform>();
             scrollRect.horizontal = true;
             scrollRect.vertical = true;
+            scrollRect.horizontalScrollbar = EnsureHorizontalScrollbar();
+            scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.Permanent;
             scrollRect.movementType = ScrollRect.MovementType.Clamped;
+        }
+
+        Scrollbar EnsureHorizontalScrollbar()
+        {
+            Transform existing = transform.Find("HorizontalScrollbar");
+            if (existing != null && existing.TryGetComponent<Scrollbar>(out var existingBar))
+                return existingBar;
+
+            GameObject barGO = new GameObject("HorizontalScrollbar", typeof(RectTransform), typeof(Image), typeof(Scrollbar));
+            barGO.transform.SetParent(transform, false);
+
+            RectTransform barRT = barGO.GetComponent<RectTransform>();
+            barRT.anchorMin = new Vector2(0, 0);
+            barRT.anchorMax = new Vector2(1, 0);
+            barRT.pivot = new Vector2(0, 0);
+            barRT.anchoredPosition = Vector2.zero;
+            barRT.sizeDelta = new Vector2(0, 20);
+
+            Image bg = barGO.GetComponent<Image>();
+            bg.color = new Color(0.2f, 0.2f, 0.2f, 0.8f);
+
+            Scrollbar scrollbar = barGO.GetComponent<Scrollbar>();
+            scrollbar.direction = Scrollbar.Direction.LeftToRight;
+
+            GameObject slidingArea = new GameObject("Sliding Area", typeof(RectTransform));
+            slidingArea.transform.SetParent(barGO.transform, false);
+            RectTransform slidingRT = slidingArea.GetComponent<RectTransform>();
+            slidingRT.anchorMin = Vector2.zero;
+            slidingRT.anchorMax = Vector2.one;
+            slidingRT.pivot = new Vector2(0.5f, 0.5f);
+            slidingRT.sizeDelta = Vector2.zero;
+
+            GameObject handle = new GameObject("Handle", typeof(RectTransform), typeof(Image));
+            handle.transform.SetParent(slidingArea.transform, false);
+            RectTransform handleRT = handle.GetComponent<RectTransform>();
+            handleRT.anchorMin = Vector2.zero;
+            handleRT.anchorMax = Vector2.one;
+            handleRT.pivot = new Vector2(0.5f, 0.5f);
+            handleRT.sizeDelta = new Vector2(-20, -20);
+
+            Image handleImg = handle.GetComponent<Image>();
+            handleImg.color = new Color(0.4f, 0.4f, 0.4f, 0.9f);
+
+            scrollbar.handleRect = handleRT;
+            scrollbar.targetGraphic = handleImg;
+            scrollbar.size = 0.1f;
+
+            return scrollbar;
         }
 
         void CreateMainLines()
