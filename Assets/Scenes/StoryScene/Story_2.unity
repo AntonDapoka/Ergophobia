@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[ESC]  skip'
+  m_text: '[shift]  skip'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e67958955604af4e819d07844958045, type: 2}
   m_sharedMaterial: {fileID: -9114147990601083055, guid: 6e67958955604af4e819d07844958045,

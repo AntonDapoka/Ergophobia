@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StoryScene/Story_2.unity
     guid: 57620569e0ca71d43bf0eb1e78669ce4
+  - enabled: 1
+    path: Assets/Scenes/StoryScene/Story_3.unity
+    guid: 5450813a8602f23418c4d06ae1f92e3e
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: b3f7c25015d1a9749bf33c90840dad31,
       type: 2}

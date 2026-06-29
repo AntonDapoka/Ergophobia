@@ -9,7 +9,7 @@ public class ConsoleManagerScript : MonoBehaviour
     [SerializeField] private WinScript winScript;
 
     [Header("Settings")]
-    [SerializeField] private int interactionsToWin = 3;
+    [SerializeField] private int interactionsToWin = 4;
 
     public int InteractionCount { get; private set; }
 
@@ -36,7 +36,9 @@ public class ConsoleManagerScript : MonoBehaviour
         InteractionCount++;
         if (InteractionCount >= interactionsToWin)
         {
-            if (winScript != null) winScript.Win();
+            if (winScript != null)
+            { 
+                winScript.Win(); }
             else Debug.LogWarning("[ConsoleManagerScript] WinScript is not assigned.", this);
 
             return;

@@ -11,22 +11,19 @@ public class WinScript : MonoBehaviour
     [SerializeField] private float fadeOutDuration = 5f;
     [SerializeField] private AnimationCurve fadeOutCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
+
+    public GameObject[] UIs;
+
     private void Start()
     {
         canvas.gameObject.SetActive(false);
     }
-
-   private void Update()
-   {
-      /*if (Input.GetKeyDown(KeyCode.E))
-        {
-            Win();
-            buttonExit.gameObject.SetActive(false);
-        }*/
-   }
-
    public void Win()
     {
+        for (int i = 0; i < UIs.Length; i++)
+        {
+            UIs[i].SetActive(false);
+        }
         canvas.gameObject.SetActive(true);
         buttonExit.gameObject.SetActive(false);
         StartCoroutine(PlayFadeOut());

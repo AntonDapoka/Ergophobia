@@ -79,14 +79,12 @@ public class StoryController : MonoBehaviour
     {
         if (isFinished) return;
 
-        // 1. 监听鼠标左键点击 (或者空格键/回车键)
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
         {
             NextPage();
         }
 
-        // 2. 监听 ESC 键跳过剧情
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.LeftShift)|| Input.GetKeyDown(KeyCode.RightShift))
         {
             FinishStory();
         }

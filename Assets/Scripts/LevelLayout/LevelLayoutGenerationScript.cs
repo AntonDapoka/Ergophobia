@@ -16,6 +16,8 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
     [SerializeField] private RoomPrefabConfig startRoomConfig;
     [SerializeField] private RoomPrefabConfig finalRoomConfig;
 
+    [SerializeField] private RoomPrefabConfig bossRoomConfig;
+
     [Header("Branch Types")]
     [SerializeField] private bool allowAlignedBranches = true;
     [SerializeField] private bool allowStaggeredBranches = true;
@@ -88,10 +90,29 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
                 yield break;
             }
 
-            yield return StartCoroutine(roomPool.InitializeAsync(roomConfigs));
+            List<RoomPrefabConfig> allConfigsToPool = new List<RoomPrefabConfig>(roomConfigs);
+            if (startRoomConfig != null && !allConfigsToPool.Contains(startRoomConfig)) allConfigsToPool.Add(startRoomConfig);
+            if (finalRoomConfig != null && !allConfigsToPool.Contains(finalRoomConfig)) allConfigsToPool.Add(finalRoomConfig);
+            if (bossRoomConfig != null && !allConfigsToPool.Contains(bossRoomConfig)) allConfigsToPool.Add(bossRoomConfig);
+
+            yield return StartCoroutine(roomPool.InitializeAsync(allConfigsToPool));
 
             if (enemySpawner != null)
                 yield return StartCoroutine(enemySpawner.InitializeAsync());
+
+            bool isStage4 = StageSwitchScript.Instance != null && StageSwitchScript.Instance.CurrentStage == 4;
+
+            int actualRoomCount = roomCount;
+            bool actualAllowAligned = allowAlignedBranches;
+            bool actualAllowStaggered = allowStaggeredBranches;
+
+            if (isStage4)
+            {
+                actualRoomCount = 2;
+                actualAllowAligned = false;
+                actualAllowStaggered = false;
+                Debug.Log("<color=cyan>[Level Generator] Stage 4 detected! Generating Boss Level (2 rooms only).</color>");
+            }
 
             RoomPrefabConfig startConfig = PickStartConfig();
             if (startConfig == null)
@@ -114,14 +135,32 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
 
             RoomScript previousMainRoom = startRoom;
 
-            for (int i = 1; i < roomCount; i++)
+            for (int i = 1; i < actualRoomCount; i++)
             {
-                bool isLast = i == roomCount - 1;
+                bool isLast = i == actualRoomCount - 1;
                 RoomSlot mainSlot = new(i, 0);
 
-                RoomPrefabConfig config = isLast && finalRoomConfig != null
-                    ? ValidateFinalRoomConfig()
-                    : PickMainRoomConfig(previousMainRoom, isLast);
+                RoomPrefabConfig config = null;
+
+                // 【核心修改】根据阶段选择最后一个房间的配置
+                if (isLast)
+                {
+                    if (isStage4)
+                    {
+                        // 第4阶段：强制使用决战房
+                        config = ValidateBossRoomConfig();
+                    }
+                    else
+                    {
+                        // 1~3阶段：使用普通的最终房
+                        config = ValidateFinalRoomConfig();
+                    }
+                }
+                else
+                {
+                    // 普通中间房间
+                    config = PickMainRoomConfig(previousMainRoom, isLast);
+                }
 
                 if (config == null)
                 {
@@ -154,10 +193,10 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
             {
                 var branch = pendingBranches[i];
 
-                if (allowAlignedBranches)
+                if (actualAllowAligned)
                     yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, false));
 
-                if (allowStaggeredBranches)
+                if (actualAllowStaggered)
                     yield return StartCoroutine(TrySpawnBranchAsync(branch.Item1, branch.Item2, true));
 
                 if (i % roomsPerFrame == 0)
@@ -190,6 +229,24 @@ public class LevelLayoutGenerationScript : MonoBehaviour, ILevelGenerator
         {
             isGenerating = false;
         }
+    }
+
+    // 【新增】验证决战房配置
+    private RoomPrefabConfig ValidateBossRoomConfig()
+    {
+        if (bossRoomConfig == null)
+        {
+            Debug.LogWarning("Boss Room Config is missing! Falling back to regular Final Room.");
+            return ValidateFinalRoomConfig();
+        }
+
+        if (!bossRoomConfig.HasDoor(DoorType.West) || bossRoomConfig.HasDoor(DoorType.East))
+        {
+            Debug.LogWarning("Boss Room Config must have a West door and NO East door. Falling back to random final room.");
+            return GetRandomConfig(new List<DoorType> { DoorType.West }, new List<DoorType> { DoorType.East });
+        }
+
+        return bossRoomConfig;
     }
 
     private RoomPrefabConfig ValidateFinalRoomConfig()
